@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#x#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "x": {
+      "item": "minecraft:cobblestone"
+    }
+  },
+  "result": {
+    "item": "rpgcraft:firstblock"
+  }
+}
