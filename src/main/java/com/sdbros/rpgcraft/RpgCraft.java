@@ -1,5 +1,7 @@
 package com.sdbros.rpgcraft;
 
+import com.sdbros.rpgcraft.blocks.BackPack;
+import com.sdbros.rpgcraft.blocks.BackPackTile;
 import com.sdbros.rpgcraft.blocks.FirstBlock;
 import com.sdbros.rpgcraft.blocks.ModBlocks;
 import com.sdbros.rpgcraft.items.FirstItem;
@@ -11,6 +13,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -55,6 +58,7 @@ public class RpgCraft {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new FirstBlock());
+           event.getRegistry().register(new BackPack());
         }
 
         @SubscribeEvent
@@ -62,7 +66,13 @@ public class RpgCraft {
             Item.Properties properties = new Item.Properties()
                     .group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.FIRSTBLOCK, properties).setRegistryName("firstblock"));
+            event.getRegistry().register(new BlockItem(ModBlocks.BACKPACK, properties).setRegistryName("backpack"));
             event.getRegistry().register(new FirstItem());
+        }
+
+        @SubscribeEvent
+        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event){
+            event.getRegistry().register(TileEntityType.Builder.create(() -> new BackPackTile(),ModBlocks.BACKPACK).build(null).setRegistryName("backpack"));
         }
     }
 }

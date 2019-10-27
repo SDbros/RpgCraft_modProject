@@ -1,7 +1,8 @@
 {
   "item.rpgcraft.firstitem": "First Item",
   "block.rpgcraft.firstblock": "First Block",
+  "block.rpgcraft.backpack": "BackPack",
 
-  "comment": "Creatibe Tabs",
+  "comment": "Creative Tabs",
   "itemGroup.rpgcraft": "RpgCraft"
 }
