@@ -50,6 +50,19 @@ public class BackPack extends Block{
         }
     }
 
+    @Override
+    public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult result) {
+        if (!world.isRemote){
+            TileEntity tileEntity = world.getTileEntity(pos);
+            if (tileEntity instanceof INamedContainerProvider){
+                NetworkHooks.openGui((ServerPlayerEntity) player, (INamedContainerProvider) tileEntity, tileEntity.getPos());
+            }
+
+        }
+
+        return super.onBlockActivated(state, world, pos, player, hand, result);
+    }
+
     public static Direction getFacingFromEntity(BlockPos clickedBlock, LivingEntity entity) {
         return Direction.getFacingFromVector((float) (entity.posX - clickedBlock.getX()), (float) (entity.posY - clickedBlock.getY()), (float) (entity.posZ - clickedBlock.getZ()));
     }
