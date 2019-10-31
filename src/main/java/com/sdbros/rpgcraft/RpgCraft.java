@@ -1,13 +1,18 @@
 package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.blocks.*;
+import com.sdbros.rpgcraft.blocks.ores.CopperOre;
 import com.sdbros.rpgcraft.items.FirstItem;
+import com.sdbros.rpgcraft.items.ModItems;
+import com.sdbros.rpgcraft.items.ingots.CopperIngot;
 import com.sdbros.rpgcraft.setup.ClientProxy;
 import com.sdbros.rpgcraft.setup.IProxy;
 import com.sdbros.rpgcraft.setup.ModSetup;
 import com.sdbros.rpgcraft.setup.ServerProxy;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.OreBlock;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
@@ -16,11 +21,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.FurnaceRecipe;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -29,6 +36,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -45,8 +53,8 @@ import java.util.stream.Collectors;
 @Mod("rpgcraft")
 public class RpgCraft {
 
-    public static final String MODID = "rpgcraft" ;
-    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(),() -> () -> new ServerProxy());
+    public static final String MODID = "rpgcraft";
+    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
 
     public static ModSetup setup = new ModSetup();
 
@@ -70,12 +78,19 @@ public class RpgCraft {
 
         protected static final UUID MAX_HEALTH_UUID = UUID.randomUUID();
 
+        // Sets the PlayerHealth to 10 when they respawn
         @SubscribeEvent
-        public static void pickupItem(PlayerPickupXpEvent event) {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("MAX_HEALTH_UUID",-0.5, AttributeModifier.Operation.byId(1)));
-            System.out.println(player.getHealth());
-            System.out.println("Item picked up!");
+        public static void changePlayerHealthOnSpawn(EntityJoinWorldEvent event) {
+
+            if (event.getEntity() instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity) event.getEntity();
+                if (player.getHealth() > 10) {
+                    System.out.println("PlayerHealth set to "+player.getHealth());
+                    player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("MAX_HEALTH_UUID", -0.5, AttributeModifier.Operation.byId(1)));
+                    player.setHealth(10);
+                    System.out.println("PlayerHealth set to "+player.getHealth());
+                }
+            }
         }
     }
 
@@ -84,7 +99,8 @@ public class RpgCraft {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
             event.getRegistry().register(new FirstBlock());
-           event.getRegistry().register(new BackPack());
+            event.getRegistry().register(new BackPack());
+            event.getRegistry().register(new CopperOre());
         }
 
         @SubscribeEvent
@@ -93,21 +109,24 @@ public class RpgCraft {
                     .group(setup.itemGroup);
             event.getRegistry().register(new BlockItem(ModBlocks.FIRSTBLOCK, properties).setRegistryName("firstblock"));
             event.getRegistry().register(new BlockItem(ModBlocks.BACKPACK, properties).setRegistryName("backpack"));
+            event.getRegistry().register(new BlockItem(ModBlocks.COPPER_ORE, properties).setRegistryName("copperore"));
             event.getRegistry().register(new FirstItem());
+            event.getRegistry().register(new CopperIngot());
+            //todo register copperingot smelting recipe
         }
 
         @SubscribeEvent
-        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event){
-            event.getRegistry().register(TileEntityType.Builder.create(() -> new BackPackTile(),ModBlocks.BACKPACK).build(null).setRegistryName("backpack"));
+        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
+            event.getRegistry().register(TileEntityType.Builder.create(() -> new BackPackTile(), ModBlocks.BACKPACK).build(null).setRegistryName("backpack"));
         }
 
         @SubscribeEvent
         public static void onContainerRegistry(final RegistryEvent.Register<ContainerType<?>> event) {
             event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
                 BlockPos pos = data.readBlockPos();
-                return new BackPackContainer(windowId, RpgCraft.proxy.getClientWorld(),  pos, inv, RpgCraft.proxy.getClientPlayer());
+                return new BackPackContainer(windowId, RpgCraft.proxy.getClientWorld(), pos, inv, RpgCraft.proxy.getClientPlayer());
             }).setRegistryName("backpack"));
         }
-     }
+    }
 
 }

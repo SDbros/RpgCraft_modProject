@@ -3,7 +3,7 @@ package com.sdbros.rpgcraft.setup;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
-public class ServerProxy implements IProxy{
+public class ServerProxy implements IProxy {
     @Override
     public void init() {
 

@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "rgpcraft:backpack"
+          "name": "rpgcraft:copperore"
         }
       ],
       "conditions": [
