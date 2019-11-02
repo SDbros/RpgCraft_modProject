@@ -1,77 +1,48 @@
 package com.sdbros.rpgcraft;
 
-import com.sdbros.rpgcraft.blocks.*;
-import com.sdbros.rpgcraft.blocks.ores.CopperOre;
-import com.sdbros.rpgcraft.items.FirstItem;
-import com.sdbros.rpgcraft.items.ModItems;
-import com.sdbros.rpgcraft.items.ingots.CopperIngot;
-import com.sdbros.rpgcraft.setup.ClientProxy;
-import com.sdbros.rpgcraft.setup.IProxy;
-import com.sdbros.rpgcraft.setup.ModSetup;
-import com.sdbros.rpgcraft.setup.ServerProxy;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.OreBlock;
-import net.minecraft.block.material.Material;
+import com.sdbros.rpgcraft.init.*;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.IAttribute;
-import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.FurnaceRecipe;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.extensions.IForgeContainerType;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.player.ArrowNockEvent;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerPickupXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
-import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.annotation.Nonnull;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("rpgcraft")
+@Mod(RpgCraft.MOD_ID)
 public class RpgCraft {
 
-    public static final String MODID = "rpgcraft";
-    public static IProxy proxy = DistExecutor.runForDist(() -> () -> new ClientProxy(), () -> () -> new ServerProxy());
+    public static final String MOD_ID = "rpgcraft";
 
-    public static ModSetup setup = new ModSetup();
+    public static final Logger LOGGER = LogManager.getLogger();
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
+        @Override
+        public ItemStack createIcon() {
+            return new ItemStack(ModBlocks.copperIngot);
+        }
+    };
 
     public RpgCraft() {
-        // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        // Create proxy instance. DistExecutor.runForDist also returns the created object, so you
+        // could store that in a variable if you need it.
+        // We cannot use method references here because it could load classes on invalid sides.
+        //noinspection Convert2MethodRef
+        DistExecutor.runForDist(
+                () -> () -> new SideProxy.Client(),
+                () -> () -> new SideProxy.Server()
+        );
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
-        setup.init();
-        proxy.init();
-    }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
 
     @Mod.EventBusSubscriber
     public static class MyForgeEventHandler {
@@ -85,48 +56,19 @@ public class RpgCraft {
             if (event.getEntity() instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity) event.getEntity();
                 if (player.getHealth() > 10) {
-                    System.out.println("PlayerHealth set to "+player.getHealth());
+                    System.out.println("PlayerHealth set to " + player.getHealth());
                     player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("MAX_HEALTH_UUID", -0.5, AttributeModifier.Operation.byId(1)));
                     player.setHealth(10);
-                    System.out.println("PlayerHealth set to "+player.getHealth());
+                    System.out.println("PlayerHealth set to " + player.getHealth());
                 }
             }
         }
     }
 
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> event) {
-            event.getRegistry().register(new FirstBlock());
-            event.getRegistry().register(new BackPack());
-            event.getRegistry().register(new CopperOre());
-        }
 
-        @SubscribeEvent
-        public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
-            Item.Properties properties = new Item.Properties()
-                    .group(setup.itemGroup);
-            event.getRegistry().register(new BlockItem(ModBlocks.FIRSTBLOCK, properties).setRegistryName("firstblock"));
-            event.getRegistry().register(new BlockItem(ModBlocks.BACKPACK, properties).setRegistryName("backpack"));
-            event.getRegistry().register(new BlockItem(ModBlocks.COPPER_ORE, properties).setRegistryName("copperore"));
-            event.getRegistry().register(new FirstItem());
-            event.getRegistry().register(new CopperIngot());
-            //todo register copperingot smelting recipe
-        }
-
-        @SubscribeEvent
-        public static void onTileEntityRegistry(final RegistryEvent.Register<TileEntityType<?>> event) {
-            event.getRegistry().register(TileEntityType.Builder.create(() -> new BackPackTile(), ModBlocks.BACKPACK).build(null).setRegistryName("backpack"));
-        }
-
-        @SubscribeEvent
-        public static void onContainerRegistry(final RegistryEvent.Register<ContainerType<?>> event) {
-            event.getRegistry().register(IForgeContainerType.create((windowId, inv, data) -> {
-                BlockPos pos = data.readBlockPos();
-                return new BackPackContainer(windowId, RpgCraft.proxy.getClientWorld(), pos, inv, RpgCraft.proxy.getClientPlayer());
-            }).setRegistryName("backpack"));
-        }
+    @Nonnull
+    public static ResourceLocation getId(String path) {
+        return new ResourceLocation(MOD_ID, path);
     }
 
 }

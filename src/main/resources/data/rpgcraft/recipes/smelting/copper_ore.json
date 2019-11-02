@@ -1,0 +1,9 @@
+{
+  "type": "smelting",
+  "ingredient": {
+    "item": "rpgcraft:copper_ore"
+  },
+  "result": "rgpcraft:copper_ingot",
+  "experience": 0.5,
+  "cookingTime": 150
+}

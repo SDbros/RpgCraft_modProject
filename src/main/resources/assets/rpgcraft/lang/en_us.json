@@ -1,9 +1,7 @@
 {
-  "item.rpgcraft.firstitem": "First Item",
-  "item.rpgcraft.copperingot": "Copper Ingot",
-  "block.rpgcraft.firstblock": "First Block",
-  "block.rpgcraft.backpack": "BackPack",
-  "block.rpgcraft.copperore": "Copper Ore",
+  "item.rpgcraft.copper_ingot": "Copper Ingot",
+  "block.rpgcraft.copper_ore": "Copper Ore",
+  "block.rpgcraft.copper_block": "Block of Copper",
 
   "comment": "Creative Tabs",
   "itemGroup.rpgcraft": "RpgCraft"
