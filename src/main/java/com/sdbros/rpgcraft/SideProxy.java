@@ -1,8 +1,10 @@
 package com.sdbros.rpgcraft;
 
+import com.sdbros.rpgcraft.init.ModBiomes;
 import com.sdbros.rpgcraft.init.ModBlocks;
 import com.sdbros.rpgcraft.init.ModEntities;
 import com.sdbros.rpgcraft.init.ModItems;
+import com.sdbros.rpgcraft.world.biome.ModBiome;
 import com.sdbros.rpgcraft.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -10,12 +12,13 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 
@@ -37,8 +40,8 @@ class SideProxy {
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {
-        OreGeneration.setupOreGeneration();
         RpgCraft.LOGGER.info("Setup method registered.");
+        OreGeneration.setupOreGeneration();
     }
 
     private static void enqueueIMC(final InterModEnqueueEvent event) {
@@ -65,11 +68,16 @@ class SideProxy {
             }
         }
 
-        @SubscribeEvent
-        public void serverStarting(FMLServerStartingEvent event) {
-            //SimpleGiveCommand.register(event.getCommandDispatcher());
-        }
+    }
 
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class RegistryEvents {
+
+        @SubscribeEvent
+        public static void registerBiomes(final RegistryEvent.Register<Biome> event) {
+            event.getRegistry().registerAll(ModBiomes.MOD_BIOME = new ModBiome());
+            ModBiomes.registerBiomes();
+        }
     }
 
 
@@ -87,10 +95,11 @@ class SideProxy {
 
     static class Server extends SideProxy {
         Server() {
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(Server::serverSetup);
+            RpgCraft.LOGGER.debug("RpgCraft SideProxy.Server init");
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
         }
 
-        private static void serverSetup(FMLDedicatedServerSetupEvent event) {
+        private void serverSetup(FMLDedicatedServerSetupEvent event) {
             RpgCraft.LOGGER.debug("RpgCraft serverSetup");
         }
     }

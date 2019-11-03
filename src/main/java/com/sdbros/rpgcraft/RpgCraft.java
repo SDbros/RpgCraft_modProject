@@ -1,9 +1,11 @@
 package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.init.*;
+import com.sdbros.rpgcraft.world.ModWorldType;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.WorldType;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
@@ -18,6 +20,7 @@ public class RpgCraft {
     public static final String MOD_ID = "rpgcraft";
     public static final String RESOURCE_PREFIX = MOD_ID + ":";
     public static final Logger LOGGER = LogManager.getLogger();
+    public static final WorldType MOD_TYPE = new ModWorldType();
 
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
         @Override

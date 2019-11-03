@@ -2,6 +2,7 @@ package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.block.Ores;
+import com.sdbros.rpgcraft.item.Tools;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
@@ -28,6 +29,12 @@ public final class ModItems {
         // Items
         for (Ores ore : Ores.values()) {
             register(ore.getName() + "_ingot", ore.getOreItem());
+        }
+
+        for (Tools tool : Tools.values()) {
+            register(tool.getName() + "_axe", tool.getAxeItem());
+            register(tool.getName() + "_pickaxe", tool.getPickaxeItem());
+            register(tool.getName() + "_sword", tool.getSwordItem());
         }
     }
 

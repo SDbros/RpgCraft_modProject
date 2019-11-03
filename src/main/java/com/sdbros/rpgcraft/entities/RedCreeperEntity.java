@@ -138,7 +138,7 @@ public class RedCreeperEntity extends CreeperEntity {
     }
 
     public static boolean canSpawnAt(EntityType<RedCreeperEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
-        return world.getDifficulty() != Difficulty.PEACEFUL && pos.getY() < 75 && MonsterEntity.isValidLightLevel(world, pos, random);
+        return world.getDifficulty() != Difficulty.PEACEFUL;
     }
 
     @Override
