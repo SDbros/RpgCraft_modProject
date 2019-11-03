@@ -1,7 +1,10 @@
 {
   "item.rpgcraft.copper_ingot": "Copper Ingot",
+  "item.rpgcraft.runite_ingot": "Runite Chucks",
   "block.rpgcraft.copper_ore": "Copper Ore",
+  "block.rpgcraft.runite_ore": "Runite Ore",
   "block.rpgcraft.copper_block": "Block of Copper",
+  "block.rpgcraft.runite_block": "Block of Runite",
 
   "comment": "Creative Tabs",
   "itemGroup.rpgcraft": "RpgCraft"

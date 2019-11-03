@@ -31,7 +31,7 @@ public final class ModBlocks {
         }
 
         for (Ores ore : Ores.values()) {
-            register(ore.getName()+ "_ore", ore.getOreBlock());
+            register(ore.getName() + "_ore", ore.getOreBlock());
         }
     }
 

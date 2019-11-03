@@ -22,6 +22,7 @@ public class OreBlockRC extends OreBlock {
     public int getExpDrop(BlockState state, IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
         return silktouch == 0 ? MathHelper.nextInt(RANDOM, 1, 5) : 0;
     }
+
     @Override
     public int getHarvestLevel(BlockState state) {
         // Todo FIXME: Not working?

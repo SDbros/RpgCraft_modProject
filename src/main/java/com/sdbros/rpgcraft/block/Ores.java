@@ -10,7 +10,7 @@ import net.minecraft.util.*;
 import java.util.Locale;
 
 public enum Ores {
-    RUNE,
+    RUNITE,
     COPPER;
 
     private final LazyLoadBase<OreBlockRC> oreBlock;

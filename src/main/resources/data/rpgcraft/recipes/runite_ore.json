@@ -1,0 +1,14 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "#"
+  ],
+  "key": {
+    "#": {
+      "item": "rpgcraft:runite_ore"
+    }
+  },
+  "result": {
+    "item": "rpgcraft:runite_ingot"
+  }
+}

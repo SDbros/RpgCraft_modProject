@@ -11,15 +11,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Registers items and stores references to them, if needed. It works more or less like {@link
- * ModBlocks}, so I won't repeat myself here. Check ModBlocks' Javadoc for more details.
- */
 public final class ModItems {
 
     static final Map<String, BlockItem> BLOCKS_TO_REGISTER = new LinkedHashMap<>();
 
-    private ModItems() {}
+    public static Item red_creeper_spawn_egg;
+
+    private ModItems() {
+    }
 
     public static void registerAll(RegistryEvent.Register<Item> event) {
 
@@ -30,7 +29,6 @@ public final class ModItems {
         for (Ores ore : Ores.values()) {
             register(ore.getName() + "_ingot", ore.getOreItem());
         }
-
     }
 
     private static <T extends Item> T register(String name, T item) {

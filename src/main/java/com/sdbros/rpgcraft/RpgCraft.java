@@ -22,7 +22,7 @@ import java.util.UUID;
 public class RpgCraft {
 
     public static final String MOD_ID = "rpgcraft";
-
+    public static final String RESOURCE_PREFIX = MOD_ID + ":";
     public static final Logger LOGGER = LogManager.getLogger();
 
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
@@ -33,33 +33,10 @@ public class RpgCraft {
     };
 
     public RpgCraft() {
-        // Create proxy instance. DistExecutor.runForDist also returns the created object, so you
-        // could store that in a variable if you need it.
-        // We cannot use method references here because it could load classes on invalid sides.
-        //noinspection Convert2MethodRef
         DistExecutor.runForDist(
                 () -> () -> new SideProxy.Client(),
                 () -> () -> new SideProxy.Server()
         );
-    }
-
-    @Mod.EventBusSubscriber
-    public static class MyForgeEventHandler {
-
-        // Sets the PlayerHealth to 10 when they respawn
-        @SubscribeEvent
-        public static void changePlayerHealthOnSpawn(EntityJoinWorldEvent event) {
-
-            if (event.getEntity() instanceof PlayerEntity) {
-                PlayerEntity player = (PlayerEntity) event.getEntity();
-                if (player.getHealth() > 10) {
-                    System.out.println("PlayerHealth set to " + player.getHealth());
-                    player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("MAX_HEALTH_UUID", -0.5, AttributeModifier.Operation.byId(1)));
-                    player.setHealth(10);
-                    System.out.println("PlayerHealth set to " + player.getHealth());
-                }
-            }
-        }
     }
 
     @Nonnull
