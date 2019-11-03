@@ -25,7 +25,13 @@ public final class ModBlocks {
     public static void registerAll(RegistryEvent.Register<Block> event) {
 
         for (Ores ore : Ores.values()) {
-            register(ore.getName(), ore.getBlock());
+            // Names will be: ruby_block, sapphire_block
+            // This comment is, of course, not necessary, so you can remove it
+            register(ore.getName() + "_block", ore.getStorageBlock());
+        }
+
+        for (Ores ore : Ores.values()) {
+            register(ore.getName()+ "_ore", ore.getOreBlock());
         }
     }
 

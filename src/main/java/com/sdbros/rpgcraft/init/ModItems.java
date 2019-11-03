@@ -22,11 +22,14 @@ public final class ModItems {
     private ModItems() {}
 
     public static void registerAll(RegistryEvent.Register<Item> event) {
+
         // Blocks
         BLOCKS_TO_REGISTER.forEach(ModItems::register);
 
         // Items
-        //register();
+        for (Ores ore : Ores.values()) {
+            register(ore.getName() + "_ingot", ore.getOreItem());
+        }
 
     }
 

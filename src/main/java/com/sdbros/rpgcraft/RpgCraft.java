@@ -43,11 +43,8 @@ public class RpgCraft {
         );
     }
 
-
     @Mod.EventBusSubscriber
     public static class MyForgeEventHandler {
-
-        protected static final UUID MAX_HEALTH_UUID = UUID.randomUUID();
 
         // Sets the PlayerHealth to 10 when they respawn
         @SubscribeEvent
@@ -64,7 +61,6 @@ public class RpgCraft {
             }
         }
     }
-
 
     @Nonnull
     public static ResourceLocation getId(String path) {
