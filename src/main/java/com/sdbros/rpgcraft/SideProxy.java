@@ -2,10 +2,12 @@ package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.init.ModBlocks;
 import com.sdbros.rpgcraft.init.ModItems;
+import com.sdbros.rpgcraft.world.ModWorldFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -27,6 +29,10 @@ class SideProxy {
 
     private static void commonSetup(FMLCommonSetupEvent event) {
         RpgCraft.LOGGER.debug("commonSetup for RpgCraft");
+
+
+        DeferredWorkQueue.runLater(ModWorldFeatures::addFeaturesToBiomes);
+
     }
 
     private static void enqueueIMC(final InterModEnqueueEvent event) {
