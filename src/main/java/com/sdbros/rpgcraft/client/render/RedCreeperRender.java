@@ -1,11 +1,12 @@
 package com.sdbros.rpgcraft.client.render;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.entities.RedCreeperEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+
 import javax.annotation.Nonnull;
 
 public final class RedCreeperRender extends MobRenderer<RedCreeperEntity, RedCreeperModel> {

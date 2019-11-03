@@ -4,10 +4,6 @@ import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -17,13 +13,10 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Collection;
 import java.util.Random;
@@ -56,8 +49,8 @@ public class RedCreeperEntity extends CreeperEntity {
             compound.putBoolean("powered", true);
         }
 
-        compound.putShort("Fuse", (short)this.fuseTime);
-        compound.putByte("ExplosionRadius", (byte)this.explosionRadius);
+        compound.putShort("Fuse", (short) this.fuseTime);
+        compound.putByte("ExplosionRadius", (byte) this.explosionRadius);
         compound.putBoolean("ignited", this.hasIgnited());
     }
 
@@ -113,12 +106,6 @@ public class RedCreeperEntity extends CreeperEntity {
         super.tick();
     }
 
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public float getCreeperFlashIntensity(float partialTicks) {
-        return MathHelper.lerp(partialTicks, (float)this.lastActiveTime, (float)this.timeSinceIgnited) / (float)(this.fuseTime - 2);
-    }
-
     private void explode() {
         if (!this.world.isRemote) {
             Explosion.Mode explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) ? Explosion.Mode.DESTROY : Explosion.Mode.NONE;
@@ -150,9 +137,8 @@ public class RedCreeperEntity extends CreeperEntity {
 
     }
 
-
     public static boolean canSpawnAt(EntityType<RedCreeperEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
-        return world.getDifficulty() != Difficulty.PEACEFUL && pos.getY() < 65 && MonsterEntity.isValidLightLevel(world, pos, random);
+        return world.getDifficulty() != Difficulty.PEACEFUL && pos.getY() < 75 && MonsterEntity.isValidLightLevel(world, pos, random);
     }
 
     @Override

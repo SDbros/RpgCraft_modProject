@@ -3,19 +3,16 @@ package com.sdbros.rpgcraft;
 import com.sdbros.rpgcraft.init.ModBlocks;
 import com.sdbros.rpgcraft.init.ModEntities;
 import com.sdbros.rpgcraft.init.ModItems;
-import com.sdbros.rpgcraft.world.ModWorldFeatures;
+import com.sdbros.rpgcraft.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -35,12 +32,13 @@ class SideProxy {
 
         // Other events
         MinecraftForge.EVENT_BUS.register(this);
+        ModEntities.registerEntityWorldSpawns();
+
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {
-        RpgCraft.LOGGER.debug("commonSetup for RpgCraft");
-
-        DeferredWorkQueue.runLater(ModWorldFeatures::addFeaturesToBiomes);
+        OreGeneration.setupOreGeneration();
+        RpgCraft.LOGGER.info("Setup method registered.");
     }
 
     private static void enqueueIMC(final InterModEnqueueEvent event) {
