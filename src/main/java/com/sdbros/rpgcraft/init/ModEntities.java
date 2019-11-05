@@ -42,7 +42,7 @@ public class ModEntities {
     }
 
     public static void registerEntityWorldSpawns() {
-        registerEntityWorldSpawn(RED_CREEPER.getValue(), Biomes.PLAINS, Biomes.BEACH, Biomes.JUNGLE, Biomes.TAIGA);
+        registerEntityWorldSpawn(RED_CREEPER.getValue(),Biomes.NETHER);
     }
 
     public static void registerEntityWorldSpawn(EntityType<?> entity, Biome... biomes) {

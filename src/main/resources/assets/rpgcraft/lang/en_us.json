@@ -1,10 +1,16 @@
 {
   "item.rpgcraft.copper_ingot": "Copper Ingot",
+  "item.rpgcraft.copper_Axe": "Copper Axe",
+  "item.rpgcraft.copper_sword": "Copper Sword",
+  "item.rpgcraft.copper_pickaxe": "Copper Pickaxe",
   "item.rpgcraft.runite_ingot": "Runite Chucks",
   "block.rpgcraft.copper_ore": "Copper Ore",
   "block.rpgcraft.runite_ore": "Runite Ore",
   "block.rpgcraft.copper_block": "Block of Copper",
   "block.rpgcraft.runite_block": "Block of Runite",
+  "entity.rpgcraft.red_creeper": "Red Creeper",
+  "biome.rpgcraft.mod_biome": "Mod Biome",
+
 
   "comment": "Creative Tabs",
   "itemGroup.rpgcraft": "RpgCraft"

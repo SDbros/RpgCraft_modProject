@@ -4,7 +4,6 @@ import com.sdbros.rpgcraft.init.ModBiomes;
 import com.sdbros.rpgcraft.init.ModBlocks;
 import com.sdbros.rpgcraft.init.ModEntities;
 import com.sdbros.rpgcraft.init.ModItems;
-import com.sdbros.rpgcraft.world.biome.ModBiome;
 import com.sdbros.rpgcraft.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
@@ -14,12 +13,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
 
 
 class SideProxy {
@@ -32,6 +31,7 @@ class SideProxy {
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Item.class, ModItems::registerAll);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(EntityType.class, ModEntities::registerTypes);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Item.class, ModEntities::registerEntitySpawnEggs);
+        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Biome.class, ModBiomes::registerBiomes);
 
         // Other events
         MinecraftForge.EVENT_BUS.register(this);
@@ -70,15 +70,16 @@ class SideProxy {
 
     }
 
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-
-        @SubscribeEvent
-        public static void registerBiomes(final RegistryEvent.Register<Biome> event) {
-            event.getRegistry().registerAll(ModBiomes.MOD_BIOME = new ModBiome());
-            ModBiomes.registerBiomes();
-        }
-    }
+//    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+//    public static class RegistryEvents {
+//
+//        @SubscribeEvent
+//        public static void registerBiomes(final RegistryEvent.Register<Biome> event){
+//            ForgeRegistries.BIOMES.registerAll(ModBiomes.MOD_BIOME = new ModBiome());
+//            //event.getRegistry().registerAll();
+//            ModBiomes.registerBiomes();
+//        }
+//    }
 
 
     static class Client extends SideProxy {
