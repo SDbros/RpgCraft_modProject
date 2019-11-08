@@ -1,6 +1,7 @@
 package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
+import com.sdbros.rpgcraft.block.BlocksRC;
 import com.sdbros.rpgcraft.block.Ores;
 import net.minecraft.block.*;
 import net.minecraft.item.Item;
@@ -13,9 +14,14 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static com.sdbros.rpgcraft.RpgCraft.ITEM_GROUP;
 
 public final class ModBlocks {
+
+    public static final Map<String, Block> BLOCKS_TO_REGISTER = new LinkedHashMap<>();
 
     public static IItemProvider copperIngot;
 
@@ -24,12 +30,16 @@ public final class ModBlocks {
 
     public static void registerAll(RegistryEvent.Register<Block> event) {
 
+        // BlocksRC
+        new BlocksRC();
+        BLOCKS_TO_REGISTER.forEach(ModBlocks::register);
+
+        //Ores
         for (Ores ore : Ores.values()) {
-            // Names will be: ruby_block, sapphire_block
-            // This comment is, of course, not necessary, so you can remove it
             register(ore.getName() + "_block", ore.getStorageBlock());
         }
 
+        //Ores BlockItems
         for (Ores ore : Ores.values()) {
             register(ore.getName() + "_ore", ore.getOreBlock());
         }
@@ -45,7 +55,7 @@ public final class ModBlocks {
         block.setRegistryName(id);
         ForgeRegistries.BLOCKS.register(block);
         if (item != null) {
-            ModItems.BLOCKS_TO_REGISTER.put(name, item);
+            ModItems.BLOCKITEMS_TO_REGISTER.put(name, item);
         }
         return block;
     }

@@ -14,7 +14,7 @@ import java.util.Map;
 
 public final class ModItems {
 
-    static final Map<String, BlockItem> BLOCKS_TO_REGISTER = new LinkedHashMap<>();
+    static final Map<String, BlockItem> BLOCKITEMS_TO_REGISTER = new LinkedHashMap<>();
 
     public static Item red_creeper_spawn_egg;
 
@@ -23,8 +23,8 @@ public final class ModItems {
 
     public static void registerAll(RegistryEvent.Register<Item> event) {
 
-        // Blocks
-        BLOCKS_TO_REGISTER.forEach(ModItems::register);
+        // BlocksRC
+        BLOCKITEMS_TO_REGISTER.forEach(ModItems::register);
 
         // Items
         for (Ores ore : Ores.values()) {
