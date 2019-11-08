@@ -20,7 +20,6 @@ import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 
-
 class SideProxy {
     SideProxy() {
         // Life-cycle events
@@ -36,12 +35,12 @@ class SideProxy {
         // Other events
         MinecraftForge.EVENT_BUS.register(this);
         ModEntities.registerEntityWorldSpawns();
+        OreGeneration.setupOreGeneration();
 
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {
         RpgCraft.LOGGER.info("Setup method registered.");
-        OreGeneration.setupOreGeneration();
     }
 
     private static void enqueueIMC(final InterModEnqueueEvent event) {
@@ -67,20 +66,7 @@ class SideProxy {
                 }
             }
         }
-
     }
-
-//    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-//    public static class RegistryEvents {
-//
-//        @SubscribeEvent
-//        public static void registerBiomes(final RegistryEvent.Register<Biome> event){
-//            ForgeRegistries.BIOMES.registerAll(ModBiomes.MOD_BIOME = new ModBiome());
-//            //event.getRegistry().registerAll();
-//            ModBiomes.registerBiomes();
-//        }
-//    }
-
 
     static class Client extends SideProxy {
         Client() {
