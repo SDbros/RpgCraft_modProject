@@ -2,6 +2,7 @@ package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.block.Ores;
+import com.sdbros.rpgcraft.item.ItemsRC;
 import com.sdbros.rpgcraft.item.Tools;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -15,8 +16,9 @@ import java.util.Map;
 public final class ModItems {
 
     static final Map<String, BlockItem> BLOCKITEMS_TO_REGISTER = new LinkedHashMap<>();
+    public static final Map<String, Item> ITEMS_TO_REGISTER = new LinkedHashMap<>();
 
-    public static Item red_creeper_spawn_egg;
+    static Item red_creeper_spawn_egg;
 
     private ModItems() {
     }
@@ -25,6 +27,9 @@ public final class ModItems {
 
         // BlocksRC
         BLOCKITEMS_TO_REGISTER.forEach(ModItems::register);
+
+        new ItemsRC();
+        ITEMS_TO_REGISTER.forEach(ModItems::register);
 
         // Items
         for (Ores ore : Ores.values()) {
@@ -38,10 +43,9 @@ public final class ModItems {
         }
     }
 
-    private static <T extends Item> T register(String name, T item) {
+    private static <T extends Item> void register(String name, T item) {
         ResourceLocation id = RpgCraft.getId(name);
         item.setRegistryName(id);
         ForgeRegistries.ITEMS.register(item);
-        return item;
     }
 }
