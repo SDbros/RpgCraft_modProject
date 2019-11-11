@@ -8,8 +8,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
-
 public class UnstableMatterBlock extends Block {
 
     public UnstableMatterBlock(Block.Properties properties) {
