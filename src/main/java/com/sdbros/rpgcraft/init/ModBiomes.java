@@ -2,8 +2,7 @@ package com.sdbros.rpgcraft.init;
 
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.world.biome.ModBiome;
-import net.minecraft.item.Item;
+import com.sdbros.rpgcraft.world.biomes.MagicMountains;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
@@ -14,10 +13,10 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModBiomes {
-    public static ModBiome MOD_BIOME;
+    public static MagicMountains MAGICMOUNTAINS;
 
     public static void registerBiomes(RegistryEvent.Register<Biome> event) {
-        register(new ModBiome(), "mod_biome", 30, Type.FOREST);
+        register(new MagicMountains(), "magic_mountains", 30, Type.FOREST);
     }
 
     private static void register(Biome biome, String name, int weight, Type... types) {

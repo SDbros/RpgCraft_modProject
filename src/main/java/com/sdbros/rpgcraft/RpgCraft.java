@@ -20,8 +20,6 @@ public class RpgCraft {
     public static final String MOD_ID = "rpgcraft";
     public static final String RESOURCE_PREFIX = MOD_ID + ":";
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final WorldType MOD_TYPE = new ModWorldType();
-
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon() {
@@ -40,5 +38,4 @@ public class RpgCraft {
     public static ResourceLocation getId(String path) {
         return new ResourceLocation(MOD_ID, path);
     }
-
 }
