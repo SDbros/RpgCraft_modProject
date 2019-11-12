@@ -37,7 +37,7 @@ public class BrokenTowerStructure extends Structure<NoFeatureConfig> {
 
     @Override
     public String getStructureName() {
-        return "rpfcraft:broken_tower";
+        return this.getRegistryName().toString();
     }
 
     @Override
@@ -53,8 +53,7 @@ public class BrokenTowerStructure extends Structure<NoFeatureConfig> {
 
         @Override
         public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn) {
-            InputStream input = StructureManager.class.getResourceAsStream("/structures/broken_tower.nbt");
-
+            System.out.println("GENERATE HERE!");
         }
     }
 }
