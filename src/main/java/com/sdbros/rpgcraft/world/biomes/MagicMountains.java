@@ -32,8 +32,8 @@ public class MagicMountains extends Biome {
                 .waterFogColor(0x34e8eb)
                 .parent(null));
 
-        this.addStructure(FeaturesRC.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG);
-        this.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(FeaturesRC.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
+       //this.addStructure(FeaturesRC.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG);
+        //this.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(FeaturesRC.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
         DefaultBiomeFeatures.addDefaultFlowers(this);
         DefaultBiomeFeatures.addGrass(this);
         DefaultBiomeFeatures.addForestTrees(this);
