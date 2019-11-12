@@ -3,6 +3,7 @@ package com.sdbros.rpgcraft;
 import com.sdbros.rpgcraft.init.*;
 import com.sdbros.rpgcraft.world.ModWorldType;
 import com.sdbros.rpgcraft.world.OreGeneration;
+import com.sdbros.rpgcraft.world.structures.StructureManager;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -17,6 +18,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 
@@ -28,17 +30,16 @@ class SideProxy {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(SideProxy::processIMC);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Block.class, ModBlocks::registerAll);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Item.class, ModItems::registerAll);
-        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Feature.class,ModFeatures::registerFeatures);
+        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Feature.class, ModFeatures::registerFeatures);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(EntityType.class, ModEntities::registerTypes);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Item.class, ModEntities::registerEntitySpawnEggs);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Biome.class, ModBiomes::registerBiomes);
 
         // Other events
         MinecraftForge.EVENT_BUS.register(this);
+        StructureManager.init();
         ModEntities.registerEntityWorldSpawns();
         OreGeneration.setupOreGeneration();
-        //WorldType MOD_TYPE = new ModWorldType();
-
 
 
     }
@@ -51,6 +52,11 @@ class SideProxy {
     }
 
     private static void processIMC(final InterModProcessEvent event) {
+    }
+
+    @SubscribeEvent
+    public void onServerStart(FMLServerStartingEvent event) {
+        ModCommands.registerCommands(event.getCommandDispatcher());
     }
 
     @Mod.EventBusSubscriber

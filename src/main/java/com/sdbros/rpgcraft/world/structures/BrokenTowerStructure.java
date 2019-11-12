@@ -10,12 +10,11 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
+import java.io.InputStream;
 import java.util.Random;
 import java.util.function.Function;
 
 public class BrokenTowerStructure extends Structure<NoFeatureConfig> {
-
-
     public BrokenTowerStructure(Function<Dynamic<?>, ? extends NoFeatureConfig> configFactoryIn) {
         super(configFactoryIn);
     }
@@ -38,7 +37,7 @@ public class BrokenTowerStructure extends Structure<NoFeatureConfig> {
 
     @Override
     public String getStructureName() {
-        return "rpgcraft:broken_tower";
+        return "rpfcraft:broken_tower";
     }
 
     @Override
@@ -46,7 +45,7 @@ public class BrokenTowerStructure extends Structure<NoFeatureConfig> {
         return 1;
     }
 
-    public static class Start extends MarginedStructureStart {
+    public static class Start extends StructureStart {
 
         public Start(Structure<?> structure, int chunkPosX, int chunkPosZ, Biome biome, MutableBoundingBox bounds, int reference, long seed) {
             super(structure, chunkPosX, chunkPosZ, biome, bounds, reference, seed);
@@ -54,13 +53,8 @@ public class BrokenTowerStructure extends Structure<NoFeatureConfig> {
 
         @Override
         public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn) {
+            InputStream input = StructureManager.class.getResourceAsStream("/structures/broken_tower.nbt");
 
-           // System.out.println("GENERATE TOWER"); //breakpoint here
-            this.recalculateStructureSize();
         }
-
     }
-
-
 }
-

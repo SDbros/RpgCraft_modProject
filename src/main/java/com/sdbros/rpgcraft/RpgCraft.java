@@ -6,8 +6,10 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.WorldType;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,6 +28,11 @@ public class RpgCraft {
             return new ItemStack(ModBlocks.copperIngot);
         }
     };
+
+    @SubscribeEvent
+    public void onServerStart(FMLServerStartingEvent event) {
+        ModCommands.registerCommands(event.getCommandDispatcher());
+    }
 
     public RpgCraft() {
         DistExecutor.runForDist(
