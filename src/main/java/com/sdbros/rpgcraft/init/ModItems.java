@@ -40,6 +40,8 @@ public final class ModItems {
             register(tool.getName() + "_axe", tool.getAxeItem());
             register(tool.getName() + "_pickaxe", tool.getPickaxeItem());
             register(tool.getName() + "_sword", tool.getSwordItem());
+            register(tool.getName() + "_hoe", tool.getHoeItem());
+            register(tool.getName() + "_shovel", tool.getShovelItem());
         }
     }
 
