@@ -1,4 +1,4 @@
-package com.sdbros.rpgcraft.world.structures;
+package com.sdbros.rpgcraft.world.features;
 
 import net.minecraft.block.ChestBlock;
 import net.minecraft.tileentity.ChestTileEntity;

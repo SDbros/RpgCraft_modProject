@@ -2,8 +2,8 @@ package com.sdbros.rpgcraft.command;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import com.sdbros.rpgcraft.world.structures.RpgCraftTemplate;
-import com.sdbros.rpgcraft.world.structures.StructureManager;
+import com.sdbros.rpgcraft.world.features.FeatureManager;
+import com.sdbros.rpgcraft.world.features.RpgCraftTemplate;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
@@ -19,7 +19,7 @@ public class PlaceCommand extends BasicCommand {
                 .requires(context -> context.hasPermissionLevel(PERMISSION_LEVEL_ADMIN))
                 .then(Commands.argument("structure", StringArgumentType.word())
                         .suggests((context, builder) -> {
-                            return ISuggestionProvider.suggest(StructureManager.Structure.getNames(), builder);
+                            return ISuggestionProvider.suggest(FeatureManager.Feature.getNames(), builder);
                         })
                         .executes(context -> {
                             return place(context.getSource(), context.getSource().asPlayer(), StringArgumentType.getString(context, "structure"));
@@ -28,8 +28,8 @@ public class PlaceCommand extends BasicCommand {
 
     private static int place(CommandSource commandSource, ServerPlayerEntity asPlayer, String structure) {
         try {
-            StructureManager.Structure s = StructureManager.Structure.valueOf(structure);
-            RpgCraftTemplate template = StructureManager.get(s);
+            FeatureManager.Feature s = FeatureManager.Feature.valueOf(structure);
+            RpgCraftTemplate template = FeatureManager.get(s);
             if (template == null) {
                 commandSource.sendErrorMessage(new TranslationTextComponent("command.rpgcraft.test.place.notloaded", s));
             }

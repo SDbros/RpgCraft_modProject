@@ -1,7 +1,7 @@
 package com.sdbros.rpgcraft.world.biomes;
 
 import com.sdbros.rpgcraft.init.ModEntities;
-import com.sdbros.rpgcraft.world.structures.FeaturesRC;
+import com.sdbros.rpgcraft.world.features.FeaturesRC;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -11,6 +11,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.SeaGrassConfig;
+import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
@@ -32,8 +33,8 @@ public class MagicMountains extends Biome {
                 .waterFogColor(0x34e8eb)
                 .parent(null));
 
-       //this.addStructure(FeaturesRC.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG);
-        //this.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(FeaturesRC.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, IPlacementConfig.NO_PLACEMENT_CONFIG));
+
+        this.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(FeaturesRC.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG,  Placement.CHANCE_HEIGHTMAP, new ChanceConfig(1)));
         DefaultBiomeFeatures.addDefaultFlowers(this);
         DefaultBiomeFeatures.addGrass(this);
         DefaultBiomeFeatures.addForestTrees(this);

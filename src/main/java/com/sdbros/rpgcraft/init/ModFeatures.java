@@ -2,11 +2,10 @@ package com.sdbros.rpgcraft.init;
 
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.world.structures.FeaturesRC;
+import com.sdbros.rpgcraft.world.features.FeaturesRC;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.structure.IStructurePieceType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import java.util.LinkedHashMap;

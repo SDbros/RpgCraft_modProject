@@ -1,16 +1,14 @@
 package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.init.*;
-import com.sdbros.rpgcraft.world.ModWorldType;
 import com.sdbros.rpgcraft.world.OreGeneration;
-import com.sdbros.rpgcraft.world.structures.StructureManager;
+import com.sdbros.rpgcraft.world.features.FeatureManager;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
@@ -37,7 +35,7 @@ class SideProxy {
 
         // Other events
         MinecraftForge.EVENT_BUS.register(this);
-        StructureManager.init();
+        FeatureManager.init();
         ModEntities.registerEntityWorldSpawns();
         OreGeneration.setupOreGeneration();
 
