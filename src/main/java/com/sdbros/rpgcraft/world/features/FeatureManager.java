@@ -18,18 +18,17 @@ public class FeatureManager {
 
     private static final Logger LOGGER = LogManager.getLogger(FeatureManager.class);
     private final static Map<Feature, RpgCraftTemplate> templates = Maps.newHashMap();
-    private final static String TAG = "FeatureManager";
 
     public static void init() {
         LOGGER.debug("Loading feature");
-        for (Feature s : Feature.values()) {
-            loadTemplate(s);
+        for (Feature f : Feature.values()) {
+            loadTemplate(f);
         }
         LOGGER.debug("Loaded {} feature", Feature.values().length);
     }
 
     private static void loadTemplate(Feature feature) {
-        InputStream input = FeatureManager.class.getResourceAsStream("/data/rpgcraft/structures/" + feature.name + ".nbt");
+        InputStream input = FeatureManager.class.getResourceAsStream("/structures/" + feature.name + ".nbt");
         if (input == null) {
             LOGGER.error("Failed to locate feature file {}", feature.name);
             return;
@@ -39,7 +38,6 @@ public class FeatureManager {
             RpgCraftTemplate template = new RpgCraftTemplate();
             template.read(data);
             templates.put(feature, template);
-            //if (feature.loot) template.setLootTable(LootHandler.addStructureLootTable(feature.name));
 
         } catch (IOException e) {
             LOGGER.error(String.format("Failed to load feature file %s", feature.name), e);
@@ -47,12 +45,13 @@ public class FeatureManager {
 
     }
     @Nullable
-    public static RpgCraftTemplate get(@Nonnull Feature s) {
-        return templates.get(s);
+    public static RpgCraftTemplate get(@Nonnull Feature f) {
+        return templates.get(f);
     }
 
+    //name and value need to be the same
     public enum Feature {
-        BROKEN_TOWER("broken_tower", true);
+        broken_tower("broken_tower");
 
         public static Set<String> getNames() {
             Set<String> names = Sets.newHashSet();
@@ -60,14 +59,11 @@ public class FeatureManager {
                 names.add(e.name);
             }
             return names;
-
         }
         String name;
-        boolean loot;
 
-        Feature(String name, boolean loot) {
+        Feature(String name) {
             this.name = name;
-            this.loot = loot;
         }
     }
 }

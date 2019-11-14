@@ -17,26 +17,26 @@ public class PlaceCommand extends BasicCommand {
     public static ArgumentBuilder<CommandSource, ?> register() {
         return Commands.literal("place")
                 .requires(context -> context.hasPermissionLevel(PERMISSION_LEVEL_ADMIN))
-                .then(Commands.argument("structure", StringArgumentType.word())
+                .then(Commands.argument("feature", StringArgumentType.word())
                         .suggests((context, builder) -> {
                             return ISuggestionProvider.suggest(FeatureManager.Feature.getNames(), builder);
                         })
                         .executes(context -> {
-                            return place(context.getSource(), context.getSource().asPlayer(), StringArgumentType.getString(context, "structure"));
+                            return place(context.getSource(), context.getSource().asPlayer(), StringArgumentType.getString(context, "feature"));
                         }));
     }
 
-    private static int place(CommandSource commandSource, ServerPlayerEntity asPlayer, String structure) {
+    private static int place(CommandSource commandSource, ServerPlayerEntity asPlayer, String feature) {
         try {
-            FeatureManager.Feature s = FeatureManager.Feature.valueOf(structure);
-            RpgCraftTemplate template = FeatureManager.get(s);
+            FeatureManager.Feature f = FeatureManager.Feature.valueOf(feature);
+            RpgCraftTemplate template = FeatureManager.get(f);
             if (template == null) {
-                commandSource.sendErrorMessage(new TranslationTextComponent("command.rpgcraft.test.place.notloaded", s));
+                commandSource.sendErrorMessage(new TranslationTextComponent("command.rpgcraft.test.place.notloaded", f));
             }
             template.addBlocksToWorld(asPlayer.world, asPlayer.getPosition().offset(Direction.NORTH), new PlacementSettings());
 
         } catch (IllegalArgumentException e) {
-            commandSource.sendErrorMessage(new TranslationTextComponent("command.rpgcraft.test.place.notfound", structure));
+            commandSource.sendErrorMessage(new TranslationTextComponent("command.rpgcraft.test.place.notfound", feature));
         }
         return 0;
     }
