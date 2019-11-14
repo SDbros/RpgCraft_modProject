@@ -1,4 +1,4 @@
-package com.sdbros.rpgcraft.world.features;
+package com.sdbros.rpgcraft.world.gen.features;
 
 import net.minecraft.block.ChestBlock;
 import net.minecraft.tileentity.ChestTileEntity;
@@ -8,11 +8,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.List;
+
+
+import static net.minecraftforge.fml.common.ObfuscationReflectionHelper.getPrivateValue;
 
 public class RpgCraftTemplate extends Template {
 
@@ -26,7 +28,7 @@ public class RpgCraftTemplate extends Template {
             }
             if (lootTable != null) {
                 boolean flag = false;
-                List<Template.BlockInfo> blocks = ObfuscationReflectionHelper.getPrivateValue(Template.class, this, "field_204769_a");
+                List<Template.BlockInfo> blocks = getPrivateValue(Template.class, this, "field_204769_a");
                 for (Template.BlockInfo b : blocks) {
                     if (b.state.getBlock() instanceof ChestBlock) {
                         TileEntity t = worldIn.getTileEntity(b.pos);

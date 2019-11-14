@@ -1,8 +1,7 @@
 package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.init.*;
-import com.sdbros.rpgcraft.world.OreGeneration;
-import com.sdbros.rpgcraft.world.features.FeatureManager;
+import com.sdbros.rpgcraft.world.gen.features.*;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -37,7 +36,7 @@ class SideProxy {
         MinecraftForge.EVENT_BUS.register(this);
         FeatureManager.init();
         ModEntities.registerEntityWorldSpawns();
-        OreGeneration.setupOreGeneration();
+        RpgCraftBiomeFeatures.addOreGeneration();
 
 
     }

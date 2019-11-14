@@ -1,7 +1,7 @@
-package com.sdbros.rpgcraft.world.biomes;
+package com.sdbros.rpgcraft.world.gen.biomes;
 
 import com.sdbros.rpgcraft.init.ModEntities;
-import com.sdbros.rpgcraft.world.features.FeaturesRC;
+import com.sdbros.rpgcraft.world.gen.features.FeaturesRC;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -34,7 +34,7 @@ public class MagicMountains extends Biome {
                 .parent(null));
 
 
-        this.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(FeaturesRC.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG,  Placement.CHANCE_HEIGHTMAP, new ChanceConfig(1)));
+        //this.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(FeaturesRC.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG,  Placement.CHANCE_HEIGHTMAP, new ChanceConfig(1)));
         DefaultBiomeFeatures.addDefaultFlowers(this);
         DefaultBiomeFeatures.addGrass(this);
         DefaultBiomeFeatures.addForestTrees(this);

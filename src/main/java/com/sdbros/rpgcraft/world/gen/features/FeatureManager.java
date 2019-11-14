@@ -1,4 +1,4 @@
-package com.sdbros.rpgcraft.world.features;
+package com.sdbros.rpgcraft.world.gen.features;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -52,7 +52,7 @@ public class FeatureManager {
     }
 
     public enum Feature {
-        BROKEN_TOWER("broken_tower", true);
+        BROKEN_TOWER_FEATURE("broken_tower_feature", true);
 
         public static Set<String> getNames() {
             Set<String> names = Sets.newHashSet();

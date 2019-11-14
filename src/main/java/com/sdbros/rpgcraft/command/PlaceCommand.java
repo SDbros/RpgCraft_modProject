@@ -2,8 +2,8 @@ package com.sdbros.rpgcraft.command;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
-import com.sdbros.rpgcraft.world.features.FeatureManager;
-import com.sdbros.rpgcraft.world.features.RpgCraftTemplate;
+import com.sdbros.rpgcraft.world.gen.features.FeatureManager;
+import com.sdbros.rpgcraft.world.gen.features.RpgCraftTemplate;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;

@@ -1,4 +1,4 @@
-package com.sdbros.rpgcraft.world.features;
+package com.sdbros.rpgcraft.world.gen.features;
 
 import com.mojang.datafixers.Dynamic;
 import net.minecraft.util.Mirror;
@@ -15,7 +15,7 @@ import net.minecraft.world.gen.feature.template.*;
 import java.util.Random;
 import java.util.function.Function;
 
-import static com.sdbros.rpgcraft.world.features.FeatureManager.Feature.BROKEN_TOWER;
+import static com.sdbros.rpgcraft.world.gen.features.FeatureManager.Feature.BROKEN_TOWER_FEATURE;
 
 
 public class BrokenTowerFeature extends Feature<NoFeatureConfig> {
@@ -27,7 +27,7 @@ public class BrokenTowerFeature extends Feature<NoFeatureConfig> {
     public boolean place(IWorld worldIn, ChunkGenerator<? extends GenerationSettings> generator, Random rand, BlockPos pos, NoFeatureConfig noFeatureConfig) {
 
         Rotation rotation = Rotation.NONE;
-        RpgCraftTemplate template = FeatureManager.get(BROKEN_TOWER);
+        RpgCraftTemplate template = FeatureManager.get(BROKEN_TOWER_FEATURE);
         ChunkPos chunkPos = new ChunkPos(pos);
         MutableBoundingBox mutableBoundingBox = new MutableBoundingBox(chunkPos.getXStart(), 0, chunkPos.getZStart(), chunkPos.getXEnd(), 256, chunkPos.getZEnd());
         PlacementSettings placementSettings = (new PlacementSettings()).setRotation(rotation).setBoundingBox(mutableBoundingBox).addProcessor(BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK);
