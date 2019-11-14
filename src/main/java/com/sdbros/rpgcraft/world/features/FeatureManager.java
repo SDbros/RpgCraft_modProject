@@ -29,7 +29,7 @@ public class FeatureManager {
     }
 
     private static void loadTemplate(Feature feature) {
-        InputStream input = FeatureManager.class.getResourceAsStream("/structures/" + feature.name + ".nbt");
+        InputStream input = FeatureManager.class.getResourceAsStream("/data/rpgcraft/structures/" + feature.name + ".nbt");
         if (input == null) {
             LOGGER.error("Failed to locate feature file {}", feature.name);
             return;
