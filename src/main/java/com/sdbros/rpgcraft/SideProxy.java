@@ -36,9 +36,8 @@ class SideProxy {
         MinecraftForge.EVENT_BUS.register(this);
         FeatureManager.init();
         ModEntities.registerEntityWorldSpawns();
-        RpgCraftBiomeFeatures.addOreGeneration();
-
-
+        RpgCraftBiomeFeatures.generateOres();
+        RpgCraftBiomeFeatures.generateStructures();
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {
@@ -85,7 +84,6 @@ class SideProxy {
             ModEntities.registerRenderers(event);
         }
     }
-
 
     static class Server extends SideProxy {
         Server() {

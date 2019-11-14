@@ -10,7 +10,6 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.IStructurePieceType;
-import net.minecraft.world.gen.feature.structure.IglooPieces;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -23,7 +22,7 @@ public final class ModFeatures {
 
     //structures
     public static final Structure<NoFeatureConfig> BROKEN_TOWER = register("broken_tower", new BrokenTowerStructure(NoFeatureConfig::deserialize));
-    public static final IStructurePieceType TOWER = IStructurePieceType.register(BrokenTowerPieces.Piece::new, "Tower");
+    public static final IStructurePieceType TOWER_PIECE = IStructurePieceType.register(BrokenTowerPieces.Piece::new, "tower_piece");
 
     private ModFeatures(){}
 

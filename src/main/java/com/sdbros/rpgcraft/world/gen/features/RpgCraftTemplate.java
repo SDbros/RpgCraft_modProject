@@ -25,8 +25,7 @@ public class RpgCraftTemplate extends Template {
         public boolean addBlocksToWorld(IWorld worldIn, BlockPos pos, PlacementSettings placementIn, int flags) {
             if (!super.addBlocksToWorld(worldIn, pos, placementIn, flags)) {
                 return false;
-            }
-            if (lootTable != null) {
+            }            if (lootTable != null) {
                 boolean flag = false;
                 List<Template.BlockInfo> blocks = getPrivateValue(Template.class, this, "field_204769_a");
                 for (Template.BlockInfo b : blocks) {
@@ -45,7 +44,6 @@ public class RpgCraftTemplate extends Template {
             }
             return false;
         }
-
         public void setLootTable(ResourceLocation lootTable) {
             this.lootTable = lootTable;
         }

@@ -11,6 +11,7 @@ public class FeaturesRC {
 
     public static final Feature BROKEN_TOWER = register("broken_tower_feature", new BrokenTowerFeature(NoFeatureConfig::deserialize));
 
+
     private static <C extends IFeatureConfig, F extends Feature<C>> F register(String name, F feature) {
         ModFeatures.FEATURES_TO_REGISTER.put(name, feature);
         return feature;

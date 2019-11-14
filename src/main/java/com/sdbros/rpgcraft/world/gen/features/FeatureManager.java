@@ -18,7 +18,6 @@ public class FeatureManager {
 
     private static final Logger LOGGER = LogManager.getLogger(FeatureManager.class);
     private final static Map<Feature, RpgCraftTemplate> templates = Maps.newHashMap();
-    private final static String TAG = "FeatureManager";
 
     public static void init() {
         LOGGER.debug("Loading feature");
@@ -39,7 +38,7 @@ public class FeatureManager {
             RpgCraftTemplate template = new RpgCraftTemplate();
             template.read(data);
             templates.put(feature, template);
-            //if (feature.loot) template.setLootTable(LootHandler.addStructureLootTable(feature.name));
+
 
         } catch (IOException e) {
             LOGGER.error(String.format("Failed to load feature file %s", feature.name), e);
@@ -52,7 +51,7 @@ public class FeatureManager {
     }
 
     public enum Feature {
-        BROKEN_TOWER_FEATURE("broken_tower_feature", true);
+        broken_tower("broken_tower", true);
 
         public static Set<String> getNames() {
             Set<String> names = Sets.newHashSet();

@@ -1,11 +1,10 @@
 package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.init.*;
-import com.sdbros.rpgcraft.world.ModWorldType;
+import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.WorldType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -25,7 +24,7 @@ public class RpgCraft {
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon() {
-            return new ItemStack(ModBlocks.copperIngot);
+            return new ItemStack(Blocks.PUMPKIN);
         }
     };
 
@@ -36,8 +35,8 @@ public class RpgCraft {
 
     public RpgCraft() {
         DistExecutor.runForDist(
-                () -> () -> new SideProxy.Client(),
-                () -> () -> new SideProxy.Server()
+                () -> SideProxy.Client::new,
+                () -> SideProxy.Server::new
         );
     }
 
