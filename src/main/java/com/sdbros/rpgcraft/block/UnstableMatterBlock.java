@@ -1,5 +1,6 @@
 package com.sdbros.rpgcraft.block;
 
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,12 +9,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class UnstableMatterBlock extends Block {
 
-    public UnstableMatterBlock(Block.Properties properties) {
+    UnstableMatterBlock(Block.Properties properties) {
         super(properties);
     }
-
 
     private void explode(World worldIn, BlockPos pos, PlayerEntity player) {
         worldIn.createExplosion(null, pos.getX(), pos.getY() + (double) (player.getHeight() / 16.0F), pos.getZ(), 4.0F, Explosion.Mode.BREAK);

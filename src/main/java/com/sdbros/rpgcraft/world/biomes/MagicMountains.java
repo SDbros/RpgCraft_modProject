@@ -1,7 +1,6 @@
 package com.sdbros.rpgcraft.world.biomes;
 
 import com.sdbros.rpgcraft.init.ModEntities;
-import com.sdbros.rpgcraft.world.features.FeaturesRC;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -9,15 +8,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.DefaultBiomeFeatures;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.SeaGrassConfig;
-import net.minecraft.world.gen.placement.ChanceConfig;
 import net.minecraft.world.gen.placement.IPlacementConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
-
 
 public class MagicMountains extends Biome {
     public MagicMountains() {
@@ -33,8 +29,6 @@ public class MagicMountains extends Biome {
                 .waterFogColor(0x34e8eb)
                 .parent(null));
 
-
-        this.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(FeaturesRC.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG,  Placement.CHANCE_HEIGHTMAP, new ChanceConfig(1)));
         DefaultBiomeFeatures.addDefaultFlowers(this);
         DefaultBiomeFeatures.addGrass(this);
         DefaultBiomeFeatures.addForestTrees(this);
@@ -45,8 +39,6 @@ public class MagicMountains extends Biome {
         DefaultBiomeFeatures.addSedimentDisks(this);
         DefaultBiomeFeatures.addMushrooms(this);
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(Feature.SEAGRASS, new SeaGrassConfig(48, 0.4D), Placement.TOP_SOLID_HEIGHTMAP, IPlacementConfig.NO_PLACEMENT_CONFIG));
-
-
 
         //MineCraft
         this.addSpawn(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(EntityType.SQUID, 2, 1, 4));
@@ -63,6 +55,5 @@ public class MagicMountains extends Biome {
 
         //RpgCraft
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 100, 1, 5));
-
     }
 }

@@ -10,11 +10,11 @@ import net.minecraft.world.IWorldReader;
 
 public class OreBlockRC extends OreBlock {
 
-    public OreBlockRC() {
+    OreBlockRC() {
         this(Properties.create(Material.ROCK).hardnessAndResistance(3, 3));
     }
 
-    public OreBlockRC(Properties builder) {
+    private OreBlockRC(Properties builder) {
         super(builder);
     }
 

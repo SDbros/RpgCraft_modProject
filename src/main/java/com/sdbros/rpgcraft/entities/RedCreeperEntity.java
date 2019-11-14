@@ -39,7 +39,6 @@ public class RedCreeperEntity extends CreeperEntity {
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25d);
     }
 
-
     @Override
     public void tick() {
         if (this.isAlive()) {
@@ -95,11 +94,9 @@ public class RedCreeperEntity extends CreeperEntity {
 
             this.world.addEntity(areaeffectcloudentity);
         }
-
     }
 
     public static boolean canSpawnAt(EntityType<RedCreeperEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
         return world.getDifficulty() != Difficulty.PEACEFUL;
     }
-
 }

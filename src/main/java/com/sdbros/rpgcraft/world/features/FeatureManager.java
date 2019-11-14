@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.world.gen.feature.template.Template;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +18,7 @@ import java.util.Set;
 public class FeatureManager {
 
     private static final Logger LOGGER = LogManager.getLogger(FeatureManager.class);
-    private final static Map<Feature, RpgCraftTemplate> templates = Maps.newHashMap();
+    private final static Map<Feature, Template> templates = Maps.newHashMap();
 
     public static void init() {
         LOGGER.debug("Loading feature");
@@ -28,24 +29,24 @@ public class FeatureManager {
     }
 
     private static void loadTemplate(Feature feature) {
-        InputStream input = FeatureManager.class.getResourceAsStream("/structures/" + feature.name + ".nbt");
+        InputStream input = FeatureManager.class.getResourceAsStream("/data/rpgcraft/structures/" + feature.name + ".nbt");
         if (input == null) {
             LOGGER.error("Failed to locate feature file {}", feature.name);
             return;
         }
         try {
             CompoundNBT data = CompressedStreamTools.readCompressed(input);
-            RpgCraftTemplate template = new RpgCraftTemplate();
+            Template template = new Template();
             template.read(data);
             templates.put(feature, template);
 
         } catch (IOException e) {
             LOGGER.error(String.format("Failed to load feature file %s", feature.name), e);
         }
-
     }
+
     @Nullable
-    public static RpgCraftTemplate get(@Nonnull Feature f) {
+    public static Template get(@Nonnull Feature f) {
         return templates.get(f);
     }
 
@@ -60,6 +61,7 @@ public class FeatureManager {
             }
             return names;
         }
+
         String name;
 
         Feature(String name) {

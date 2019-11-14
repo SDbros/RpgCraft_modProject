@@ -26,15 +26,12 @@ public class ModEntities {
 
     public static void registerTypes(RegistryEvent.Register<EntityType<?>> event) {
         registerType("red_creeper", RED_CREEPER.getValue());
-
         EntitySpawnPlacementRegistry.register(RED_CREEPER.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, RedCreeperEntity::canSpawnAt);
-
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void registerRenderers(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(RedCreeperEntity.class, RedCreeperRender::new);
-
     }
 
     private static <T extends Entity> LazyLoadBase<EntityType<T>> makeType(String name, EntityType.IFactory<T> factory) {
@@ -42,10 +39,10 @@ public class ModEntities {
     }
 
     public static void registerEntityWorldSpawns() {
-        registerEntityWorldSpawn(RED_CREEPER.getValue(),Biomes.NETHER);
+        registerEntityWorldSpawn(RED_CREEPER.getValue(), Biomes.NETHER);
     }
 
-    public static void registerEntityWorldSpawn(EntityType<?> entity, Biome... biomes) {
+    private static void registerEntityWorldSpawn(EntityType<?> entity, Biome... biomes) {
         for (Biome biome : biomes) {
             if (biome != null) {
                 biome.getSpawns(entity.getClassification()).add(new Biome.SpawnListEntry(entity, 100, 1, 10));
@@ -58,7 +55,6 @@ public class ModEntities {
                 (
                         ModItems.red_creeper_spawn_egg = registerEntitySpawnEgg(RED_CREEPER.getValue(), 0xd12e2e, 0x000000, "red_creeper_spawn_egg")
                 );
-
     }
 
     public static Item registerEntitySpawnEgg(EntityType<?> type, int color1, int color2, String name) {
@@ -67,11 +63,9 @@ public class ModEntities {
         return item;
     }
 
-
     private static void registerType(String name, EntityType<?> type) {
         ResourceLocation id = RpgCraft.getId(name);
         type.setRegistryName(id);
         ForgeRegistries.ENTITIES.register(type);
     }
-
 }

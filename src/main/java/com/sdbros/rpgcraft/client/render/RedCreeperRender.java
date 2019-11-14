@@ -32,10 +32,10 @@ public final class RedCreeperRender extends MobRenderer<RedCreeperEntity, RedCre
 
     protected int getColorMultiplier(RedCreeperEntity entitylivingbaseIn, float lightBrightness, float partialTickTime) {
         float f = entitylivingbaseIn.getCreeperFlashIntensity(partialTickTime);
-        if ((int)(f * 10.0F) % 2 == 0) {
+        if ((int) (f * 10.0F) % 2 == 0) {
             return 0;
         } else {
-            int i = (int)(f * 0.2F * 255.0F);
+            int i = (int) (f * 0.2F * 255.0F);
             i = MathHelper.clamp(i, 0, 255);
             return i << 24 | 822083583;
         }

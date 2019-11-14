@@ -23,11 +23,6 @@ public final class ModBlocks {
 
     public static final Map<String, Block> BLOCKS_TO_REGISTER = new LinkedHashMap<>();
 
-    public static IItemProvider copperIngot;
-
-    private ModBlocks() {
-    }
-
     public static void registerAll(RegistryEvent.Register<Block> event) {
 
         // BlocksRC

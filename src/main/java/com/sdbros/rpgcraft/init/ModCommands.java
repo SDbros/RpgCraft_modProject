@@ -14,26 +14,11 @@ public class ModCommands {
 
     public static void registerCommands(CommandDispatcher<CommandSource> dispatcher) {
         List<String> rpgcraft = Lists.newArrayList("rpgcraft");
-        List<String> test = Lists.newArrayList("rpgcraft-test");
-        if (true) {
-            rpgcraft.add("r");
-            test.add("rtest");
-        }
-
         //rpgcraft commands
         for (String s : rpgcraft) {
             dispatcher.register(
                     LiteralArgumentBuilder.<CommandSource>literal(s)
-            );
-        }
-
-        //Test commands
-        for (String s : test) {
-            dispatcher.register(
-                    LiteralArgumentBuilder.<CommandSource>literal(s)
                             .then(PlaceCommand.register()));
-
         }
     }
-
 }

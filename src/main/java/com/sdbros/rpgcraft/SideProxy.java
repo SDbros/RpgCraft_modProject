@@ -19,7 +19,6 @@ import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-
 class SideProxy {
     SideProxy() {
         // Life-cycle events
@@ -37,9 +36,7 @@ class SideProxy {
         MinecraftForge.EVENT_BUS.register(this);
         FeatureManager.init();
         ModEntities.registerEntityWorldSpawns();
-        OreGeneration.setupOreGeneration();
-
-
+        OreGeneration.generateOres();
     }
 
     private static void commonSetup(FMLCommonSetupEvent event) {

@@ -1,6 +1,5 @@
 package com.sdbros.rpgcraft.init;
 
-
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.world.biomes.MagicMountains;
 import net.minecraft.util.ResourceLocation;

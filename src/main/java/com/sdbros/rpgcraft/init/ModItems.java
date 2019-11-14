@@ -15,13 +15,12 @@ import java.util.Map;
 
 public final class ModItems {
 
+    //HashMaps for quick registration
     static final Map<String, BlockItem> BLOCKITEMS_TO_REGISTER = new LinkedHashMap<>();
     public static final Map<String, Item> ITEMS_TO_REGISTER = new LinkedHashMap<>();
 
+    //Items
     static Item red_creeper_spawn_egg;
-
-    private ModItems() {
-    }
 
     public static void registerAll(RegistryEvent.Register<Item> event) {
 
