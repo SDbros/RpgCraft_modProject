@@ -1,7 +1,9 @@
 {
   "item.rpgcraft.copper_ingot": "Copper Ingot",
-  "item.rpgcraft.copper_Axe": "Copper Axe",
+  "item.rpgcraft.copper_axe": "Copper Axe",
   "item.rpgcraft.copper_sword": "Copper Sword",
+  "item.rpgcraft.copper_hoe": "Copper Hoe",
+  "item.rpgcraft.copper_shovel": "Copper Shovel",
   "item.rpgcraft.copper_pickaxe": "Copper Pickaxe",
   "item.rpgcraft.runite_ingot": "Runite Chucks",
   "item.rpgcraft.unstable_matter_item": "Unstable Matter",
@@ -13,7 +15,6 @@
   "block.rpgcraft.unstable_matter_block": "Unstable Matter",
   "entity.rpgcraft.red_creeper": "Red Creeper",
   "biome.rpgcraft.magic_mountains": "Magic Mountains",
-
 
   "comment": "Creative Tabs",
   "itemGroup.rpgcraft": "RpgCraft"

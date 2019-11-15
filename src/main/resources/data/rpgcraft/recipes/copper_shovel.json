@@ -1,0 +1,19 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "#",
+    "x",
+    "x"
+  ],
+  "key": {
+    "#": {
+      "item": "rpgcraft:copper_ingot"
+    },
+    "x": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "rpgcraft:copper_shovel"
+  }
+}

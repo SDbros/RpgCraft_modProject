@@ -1,5 +1,5 @@
 {
-  "type": "minecraft:block",
+  "type": "minecraft:item",
   "pools": [
     {
       "rolls": 1,
@@ -7,6 +7,11 @@
         {
           "type": "minecraft:item",
           "name": "rpgcraft:unstable_matter_item"
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
         }
       ],
       "name": "pool0"

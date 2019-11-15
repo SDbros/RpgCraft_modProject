@@ -1,0 +1,16 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "rpgcraft:runite_ingot"
+    }
+  },
+  "result": {
+    "item": "rpgcraft:runite_block"
+  }
+}

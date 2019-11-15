@@ -4,7 +4,10 @@ import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.IFluidState;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -29,16 +32,22 @@ public class UnstableMatterBlock extends Block {
      */
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
         if (!worldIn.isRemote() && !player.isCreative()) {
-            explode(worldIn, pos, player);
+            for (Direction direction : Direction.Plane.HORIZONTAL) {
+                IFluidState ifluidstate = worldIn.getFluidState(pos.offset(direction));
+                if (!ifluidstate.isTagged(FluidTags.WATER)) {
+                    explode(worldIn, pos, player);
+                } else ;System.out.println("Unstable Matter in Water");
+            }
         }
         super.onBlockHarvested(worldIn, pos, state, player);
     }
+
 
     /**
      * Return whether this block can drop from an explosion.
      */
     public boolean canDropFromExplosion(Explosion explosionIn) {
-        return false;
+        return true;
     }
 
     public BlockRenderLayer getRenderLayer() {
