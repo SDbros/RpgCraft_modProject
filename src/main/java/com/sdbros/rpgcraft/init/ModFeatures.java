@@ -2,7 +2,6 @@ package com.sdbros.rpgcraft.init;
 
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.world.gen.features.FeaturesRC;
 import com.sdbros.rpgcraft.world.gen.structures.BrokenTowerPieces;
 import com.sdbros.rpgcraft.world.gen.structures.BrokenTowerStructure;
 import net.minecraft.util.ResourceLocation;
@@ -21,14 +20,13 @@ public final class ModFeatures {
     public static final Map<String, Feature> FEATURES_TO_REGISTER = new LinkedHashMap<>();
 
     //structures
-    public static final Structure<NoFeatureConfig> BROKEN_TOWER = register("broken_tower", new BrokenTowerStructure(NoFeatureConfig::deserialize));
-    public static final IStructurePieceType TOWER_PIECE = IStructurePieceType.register(BrokenTowerPieces.Piece::new, "tower_piece");
+    public static final Structure<NoFeatureConfig> BROKEN_TOWER = register("broken_tower", new BrokenTowerStructure());
+    public static final IStructurePieceType TOWER_PIECE = IStructurePieceType.register(BrokenTowerPieces.Piece::new, "TOPI");
 
     private ModFeatures(){}
 
     public static void registerFeatures(RegistryEvent.Register<Feature<?>> event) {
         // FeatureRC
-        new FeaturesRC();
         FEATURES_TO_REGISTER.forEach(ModFeatures::register);
     }
 

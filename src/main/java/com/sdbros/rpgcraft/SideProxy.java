@@ -34,7 +34,6 @@ class SideProxy {
 
         // Other events
         MinecraftForge.EVENT_BUS.register(this);
-        FeatureManager.init();
         ModEntities.registerEntityWorldSpawns();
         RpgCraftBiomeFeatures.generateOres();
         RpgCraftBiomeFeatures.generateStructures();
@@ -52,7 +51,6 @@ class SideProxy {
 
     @SubscribeEvent
     public void onServerStart(FMLServerStartingEvent event) {
-        ModCommands.registerCommands(event.getCommandDispatcher());
     }
 
     @Mod.EventBusSubscriber

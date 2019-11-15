@@ -1,11 +1,13 @@
 package com.sdbros.rpgcraft.world.gen.structures;
 
 import com.mojang.datafixers.Dynamic;
+import com.sdbros.rpgcraft.init.ModFeatures;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.ScatteredStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -19,25 +21,25 @@ import java.util.function.Function;
 @ParametersAreNonnullByDefault
 public class BrokenTowerStructure extends ScatteredStructure<NoFeatureConfig> {
 
-    public BrokenTowerStructure(Function<Dynamic<?>, ? extends NoFeatureConfig> p_i51491_1_) {
-        super(p_i51491_1_);
+    public BrokenTowerStructure() {
+        super(NoFeatureConfig::deserialize);
     }
 
     @Nonnull
     @Override
     public String getStructureName() {
-        return "rpgcraft:broken_tower";
+        return "Broken_Tower";
     }
 
     @Override
     public int getSize() {
-        return 1;
+        return 3;
     }
 
     @Nonnull
     @Override
-    public IStartFactory getStartFactory() {
-        return Start::new;
+    public Structure.IStartFactory getStartFactory() {
+        return BrokenTowerStructure.Start::new;
     }
 
     @Override
@@ -52,11 +54,12 @@ public class BrokenTowerStructure extends ScatteredStructure<NoFeatureConfig> {
 
         @Override
         public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn) {
+            NoFeatureConfig nofeatureconfig = (NoFeatureConfig)generator.getStructureConfig(biomeIn, ModFeatures.BROKEN_TOWER);
             int i = chunkX * 16;
             int j = chunkZ * 16;
             BlockPos blockpos = new BlockPos(i, 90, j);
             Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-            BrokenTowerPieces.init(templateManagerIn, blockpos, rotation, this.components);
+            BrokenTowerPieces.init(templateManagerIn, blockpos, rotation, this.components, this.rand, nofeatureconfig);
             this.recalculateStructureSize();
         }
     }

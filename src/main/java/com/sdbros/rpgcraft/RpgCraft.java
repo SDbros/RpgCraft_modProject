@@ -30,7 +30,6 @@ public class RpgCraft {
 
     @SubscribeEvent
     public void onServerStart(FMLServerStartingEvent event) {
-        ModCommands.registerCommands(event.getCommandDispatcher());
     }
 
     public RpgCraft() {
