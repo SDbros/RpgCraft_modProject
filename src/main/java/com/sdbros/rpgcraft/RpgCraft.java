@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -21,6 +22,7 @@ public class RpgCraft {
     public static final String MOD_ID = "rpgcraft";
     public static final String RESOURCE_PREFIX = MOD_ID + ":";
     public static final Logger LOGGER = LogManager.getLogger();
+    public static DimensionType UNSTABLE_DIMENSION;
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon() {
