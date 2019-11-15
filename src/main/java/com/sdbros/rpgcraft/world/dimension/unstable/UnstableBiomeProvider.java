@@ -1,6 +1,7 @@
 package com.sdbros.rpgcraft.world.dimension.unstable;
 
 import com.google.common.collect.Sets;
+import com.sdbros.rpgcraft.init.ModBiomes;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
@@ -13,7 +14,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class UnstableBiomeProvider extends BiomeProvider {
-    private static final List<Biome> SPAWN = Collections.singletonList(Biomes.PLAINS);
+    private static final List<Biome> SPAWN = Collections.singletonList(ModBiomes.FLOATINGMAGICMOUNTAINS);
     private final Biome biome;
 
     public UnstableBiomeProvider(SingleBiomeProviderSettings settings) {
@@ -45,7 +46,7 @@ public class UnstableBiomeProvider extends BiomeProvider {
 
     @Override
     public boolean hasStructure(Structure<?> structureIn) {
-        return false;
+        return true;
     }
 
     @Override
