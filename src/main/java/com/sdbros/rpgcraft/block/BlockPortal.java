@@ -27,10 +27,8 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.ForgeHooks;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.hooks.BasicEventHooks;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -96,7 +94,7 @@ public class BlockPortal extends Block {
             //FROM OVERWORLD TO MINING DIM
             if (worldIn.getDimension().getType().getId() == RpgCraftConfig.CONFIG.getOverworldId()) {
                 if (DimensionType.byName(RpgCraft.getId("unstable_dimension")) == null) {
-                    DimensionManager.registerDimension(RpgCraft.getId("unstable_dimension"), ModDimensions.UNSTABLE_DIMENSION, null, true);
+                    DimensionManager.registerDimension(RpgCraft.getId("unstable_dimension"), ModDimensions.dimension, null, true);
                 }
                 World otherWorld = worldIn.getServer().getWorld(DimensionType.byName(RpgCraft.getId("unstable_dimension")));
                 otherWorld.getBlockState(pos);
@@ -108,7 +106,7 @@ public class BlockPortal extends Block {
                     for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
                         for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
                             mutableBlockPos.setPos(x, y, z);
-                            if (otherWorld.getBlockState(mutableBlockPos).getBlock() == BlocksRC.portal) {
+                            if (otherWorld.getBlockState(mutableBlockPos).getBlock() == BlocksRC.PORTAL_BLOCK) {
                                 otherWorldPos = new BlockPos(x, y + 1, z);
                                 foundBlock = true;
                                 break;
@@ -117,11 +115,11 @@ public class BlockPortal extends Block {
                     }
                 }
                 if (foundBlock) {
-                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(ModDimensions.UNSTABLE_DIMENSION.getRegistryName()));
+                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(ModDimensions.dimension.getRegistryName()));
                 }
                 if (!foundBlock) {
-                    otherWorld.setBlockState(otherWorldPos.down(), BlocksRC.portal.getDefaultState());
-                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(ModDimensions.UNSTABLE_DIMENSION.getRegistryName()));
+                    otherWorld.setBlockState(otherWorldPos.down(), BlocksRC.PORTAL_BLOCK.getDefaultState());
+                    changeDim(((ServerPlayerEntity) playerIn), otherWorldPos, DimensionType.byName(ModDimensions.dimension.getRegistryName()));
                 }
             }
 
@@ -137,7 +135,7 @@ public class BlockPortal extends Block {
                     for (int x = pos.getX() - 6; x < pos.getX() + 6; x++) {
                         for (int z = pos.getZ() - 6; z < pos.getZ() + 6; z++) {
                             mutableBlockPos.setPos(x, y, z);
-                            if (overWorld.getBlockState(mutableBlockPos).getBlock() == BlocksRC.portal) {
+                            if (overWorld.getBlockState(mutableBlockPos).getBlock() == BlocksRC.PORTAL_BLOCK) {
                                 overWorldPos = new BlockPos(x, y + 1, z);
                                 foundBlock = true;
                                 break;
@@ -149,7 +147,7 @@ public class BlockPortal extends Block {
                     changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(RpgCraftConfig.CONFIG.getOverworldId()));
                 }
                 if (!foundBlock) {
-                    overWorld.setBlockState(overWorldPos.down(), BlocksRC.portal.getDefaultState());
+                    overWorld.setBlockState(overWorldPos.down(), BlocksRC.PORTAL_BLOCK.getDefaultState());
                     changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(RpgCraftConfig.CONFIG.getOverworldId()));
                 }
             }

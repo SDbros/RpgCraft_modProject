@@ -10,8 +10,13 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.provider.BiomeProviderType;
+import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ModDimension;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -54,22 +59,38 @@ class SideProxy {
         ModCommands.registerCommands(event.getCommandDispatcher());
     }
 
-    @Mod.EventBusSubscriber
-    public static class MyForgeEventHandler {
+    // Sets the PlayerHealth to 10 when they respawn
+    @SubscribeEvent
+    public static void changePlayerHealthOnSpawn(EntityJoinWorldEvent event) {
 
-        // Sets the PlayerHealth to 10 when they respawn
-        @SubscribeEvent
-        public static void changePlayerHealthOnSpawn(EntityJoinWorldEvent event) {
-
-            if (event.getEntity() instanceof PlayerEntity) {
-                PlayerEntity player = (PlayerEntity) event.getEntity();
-                if (player.getHealth() > 10) {
-                    System.out.println("PlayerHealth set to " + player.getHealth());
-                    player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("MAX_HEALTH_UUID", -0.5, AttributeModifier.Operation.byId(1)));
-                    player.setHealth(10);
-                    System.out.println("PlayerHealth set to " + player.getHealth());
-                }
+        if (event.getEntity() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntity();
+            if (player.getHealth() > 10) {
+                System.out.println("PlayerHealth set to " + player.getHealth());
+                player.getAttribute(SharedMonsterAttributes.MAX_HEALTH).applyModifier(new AttributeModifier("MAX_HEALTH_UUID", -0.5, AttributeModifier.Operation.byId(1)));
+                player.setHealth(10);
+                System.out.println("PlayerHealth set to " + player.getHealth());
             }
+        }
+    }
+
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class RpgCraftEventHandler {
+
+        @SubscribeEvent
+        public static void onDimensionModRegistry(RegistryEvent.Register<ModDimension> event) {
+            event.getRegistry().register(ModDimensions.dimension);
+            DimensionManager.registerDimension(RpgCraft.getId("unstable_dimension"), ModDimensions.dimension, null, true);
+        }
+
+        @SubscribeEvent
+        public static void onChunkGeneratorTypeRegistry(RegistryEvent.Register<ChunkGeneratorType<?, ?>> event) {
+            event.getRegistry().register(ModBiomes.generatorType.setRegistryName(RpgCraft.MOD_ID, "generator"));
+        }
+
+        @SubscribeEvent
+        public static void onBiomeProviderTypeRegistry(RegistryEvent.Register<BiomeProviderType<?, ?>> event) {
+            event.getRegistry().register(ModBiomes.biomeProviderType.setRegistryName(RpgCraft.MOD_ID, "generator"));
         }
     }
 

@@ -78,7 +78,7 @@ public class UnstableDimension extends Dimension {
 
     @Override
     public boolean isSurfaceWorld() {
-        return true;
+        return false;
     }
 
     @Override

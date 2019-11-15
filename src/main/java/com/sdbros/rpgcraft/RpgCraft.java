@@ -1,5 +1,6 @@
 package com.sdbros.rpgcraft;
 
+import com.sdbros.rpgcraft.config.RpgCraftConfig;
 import com.sdbros.rpgcraft.init.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemGroup;
@@ -8,7 +9,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,7 +25,6 @@ public class RpgCraft {
     public static final String MOD_ID = "rpgcraft";
     public static final String RESOURCE_PREFIX = MOD_ID + ":";
     public static final Logger LOGGER = LogManager.getLogger();
-    public static DimensionType UNSTABLE_DIMENSION;
     public static final ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon() {
@@ -36,6 +38,7 @@ public class RpgCraft {
     }
 
     public RpgCraft() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, RpgCraftConfig.configSpec);
         DistExecutor.runForDist(
                 () -> SideProxy.Client::new,
                 () -> SideProxy.Server::new

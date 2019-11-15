@@ -11,10 +11,9 @@ import net.minecraftforge.registries.ObjectHolder;
 
 import java.util.function.BiFunction;
 
-@ObjectHolder(RpgCraft.MOD_ID)
 public final class ModDimensions {
 
-    public static ModDimension UNSTABLE_DIMENSION = new ModDimension() {
+    public static ModDimension dimension = new ModDimension() {
         @Override
         public BiFunction<World, DimensionType, ? extends Dimension> getFactory() {
             return UnstableDimension::new;
