@@ -1,0 +1,11 @@
+[
+{
+  "modid": "rpgcraft",
+  "name": "RpgCraft",
+  "description": "More rpg elements in minecraft",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "authors": [ "SDbros" ],
+  "credits": ""
+}
+]

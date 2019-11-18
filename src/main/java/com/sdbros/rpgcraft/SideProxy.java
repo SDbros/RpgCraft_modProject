@@ -49,6 +49,7 @@ class SideProxy {
     private static void processIMC(final InterModProcessEvent event) {
     }
 
+
     @SubscribeEvent
     public void onServerStart(FMLServerStartingEvent event) {
         ModCommands.registerCommands(event.getCommandDispatcher());
