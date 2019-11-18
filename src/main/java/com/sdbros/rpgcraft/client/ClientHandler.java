@@ -1,12 +1,11 @@
-package net.silentchaos512.scalinghealth.client;
+package com.sdbros.rpgcraft.client;
 
+import com.sdbros.rpgcraft.RpgCraft;
+import com.sdbros.rpgcraft.network.ClientLoginMessage;
+import com.sdbros.rpgcraft.network.ClientSyncMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraftforge.fml.network.NetworkEvent;
-import net.silentchaos512.scalinghealth.ScalingHealth;
-import net.silentchaos512.scalinghealth.lib.AreaDifficultyMode;
-import net.silentchaos512.scalinghealth.network.ClientLoginMessage;
-import net.silentchaos512.scalinghealth.network.ClientSyncMessage;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
 
@@ -25,7 +24,7 @@ public final class ClientHandler {
     public static int regenTimer;
     public static int locationMultiPercent;
     // Infrequent updates (join server/world, travel to new dimension)
-    public static AreaDifficultyMode areaMode = AreaDifficultyMode.WEIGHTED_AVERAGE;
+    //public static AreaDifficultyMode areaMode = AreaDifficultyMode.WEIGHTED_AVERAGE;
     public static float maxDifficultyValue;
 
     private ClientHandler() {}
@@ -55,10 +54,10 @@ public final class ClientHandler {
     }
 
     private static void handleLoginMessage(ClientLoginMessage msg) {
-        ScalingHealth.LOGGER.info(MARKER, "Processing login packet");
-        areaMode = msg.areaMode;
+        RpgCraft.LOGGER.info(MARKER, "Processing login packet");
+        //areaMode = msg.areaMode;
         maxDifficultyValue = msg.maxDifficultyValue;
-        ScalingHealth.LOGGER.info(MARKER, "Server area mode: {}", areaMode.getDisplayName().getFormattedText());
-        ScalingHealth.LOGGER.info(MARKER, "Server max difficulty: {}", maxDifficultyValue);
+        //RpgCraft.LOGGER.info(MARKER, "Server area mode: {}", areaMode.getDisplayName().getFormattedText());
+        RpgCraft.LOGGER.info(MARKER, "Server max difficulty: {}", maxDifficultyValue);
     }
 }

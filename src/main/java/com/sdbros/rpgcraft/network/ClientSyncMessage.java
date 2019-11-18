@@ -1,4 +1,4 @@
-package net.silentchaos512.scalinghealth.network;
+package com.sdbros.rpgcraft.network;
 
 import net.minecraft.network.PacketBuffer;
 
