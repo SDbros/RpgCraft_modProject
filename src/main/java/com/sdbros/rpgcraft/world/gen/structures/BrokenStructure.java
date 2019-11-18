@@ -1,13 +1,11 @@
 package com.sdbros.rpgcraft.world.gen.structures;
 
-import com.mojang.datafixers.Dynamic;
 import com.sdbros.rpgcraft.init.ModFeatures;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.ScatteredStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -16,19 +14,18 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.function.Function;
 
 @ParametersAreNonnullByDefault
-public class BrokenTowerStructure extends ScatteredStructure<NoFeatureConfig> {
+public class BrokenStructure extends ScatteredStructure<NoFeatureConfig> {
 
-    public BrokenTowerStructure() {
+    public BrokenStructure() {
         super(NoFeatureConfig::deserialize);
     }
 
     @Nonnull
     @Override
     public String getStructureName() {
-        return "Broken_Tower";
+        return "rpgcraft:broken_structure";
     }
 
     @Override
@@ -39,7 +36,7 @@ public class BrokenTowerStructure extends ScatteredStructure<NoFeatureConfig> {
     @Nonnull
     @Override
     public Structure.IStartFactory getStartFactory() {
-        return BrokenTowerStructure.Start::new;
+        return BrokenStructure.Start::new;
     }
 
     @Override
@@ -54,12 +51,12 @@ public class BrokenTowerStructure extends ScatteredStructure<NoFeatureConfig> {
 
         @Override
         public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn) {
-            NoFeatureConfig nofeatureconfig = (NoFeatureConfig)generator.getStructureConfig(biomeIn, ModFeatures.BROKEN_TOWER);
+            NoFeatureConfig nofeatureconfig = (NoFeatureConfig)generator.getStructureConfig(biomeIn, ModFeatures.BROKEN_STRUCTURE);
             int i = chunkX * 16;
             int j = chunkZ * 16;
             BlockPos blockpos = new BlockPos(i, 90, j);
             Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-            BrokenTowerPieces.init(templateManagerIn, blockpos, rotation, this.components, this.rand, nofeatureconfig);
+            BrokenStructurePieces.init(templateManagerIn, blockpos, rotation, this.components, this.rand, nofeatureconfig);
             this.recalculateStructureSize();
         }
     }

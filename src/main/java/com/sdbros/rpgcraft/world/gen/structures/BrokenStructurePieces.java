@@ -3,7 +3,6 @@ package com.sdbros.rpgcraft.world.gen.structures;
 import com.google.common.collect.ImmutableMap;
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.init.ModFeatures;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ChestTileEntity;
@@ -30,24 +29,26 @@ import java.util.Map;
 import java.util.Random;
 
 @ParametersAreNonnullByDefault
-public class BrokenTowerPieces{
+public class BrokenStructurePieces {
 
-    private static final ResourceLocation TOWER = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "broken_tower");
-    private static final Map<ResourceLocation, BlockPos> RESOURCE_LOCATION_BLOCK_POS = ImmutableMap.of(TOWER, BlockPos.ZERO);
+    private static final ResourceLocation TOWER_RESOURCE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "broken_tower");
+    private static final ResourceLocation BUILDING_RESOURCE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "broken_building");
+    private static final Map<ResourceLocation, BlockPos> RESOURCE_LOCATION_BLOCK_POS = ImmutableMap.of(TOWER_RESOURCE, BlockPos.ZERO, BUILDING_RESOURCE, BlockPos.ZERO);
 
 
     public static void init(TemplateManager templateManager, BlockPos pos, Rotation rotation, List<StructurePiece> structurePieces, Random random, NoFeatureConfig noFeatureConfig) {
-        structurePieces.add(new BrokenTowerPieces.Piece(templateManager, TOWER, pos, rotation, 0));
+        if (random.nextInt(100) > 50) structurePieces.add(new BrokenStructurePieces.Piece(templateManager, TOWER_RESOURCE, pos, rotation, 0, ModFeatures.TOWER));
+        else structurePieces.add(new BrokenStructurePieces.Piece(templateManager, BUILDING_RESOURCE, pos, rotation, 0, ModFeatures.BUILDING));
     }
 
     public static class Piece extends TemplateStructurePiece {
         private final ResourceLocation resourceLocation;
         private final Rotation rotation;
 
-        Piece(TemplateManager templateManager, ResourceLocation resourceLocation, BlockPos pos, Rotation rotation, int yOffset) {
-            super(ModFeatures.TOWER_PIECE, 0);
+        Piece(TemplateManager templateManager, ResourceLocation resourceLocation, BlockPos pos, Rotation rotation, int yOffset, IStructurePieceType piece) {
+            super(piece, 0);
             this.resourceLocation = resourceLocation;
-            BlockPos blockpos = BrokenTowerPieces.RESOURCE_LOCATION_BLOCK_POS.get(resourceLocation);
+            BlockPos blockpos = BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(resourceLocation);
             this.templatePosition = pos.add(blockpos.getX(), blockpos.getY() - yOffset, blockpos.getZ());
             this.rotation = rotation;
             this.func_207614_a(templateManager);
@@ -55,7 +56,7 @@ public class BrokenTowerPieces{
 
         //Rot == Rotation
         public Piece(TemplateManager templateManager, CompoundNBT compoundNBT) {
-            super(ModFeatures.TOWER_PIECE, compoundNBT);
+            super(ModFeatures.BUILDING, compoundNBT);
             this.resourceLocation = new ResourceLocation(compoundNBT.getString("Template"));
             this.rotation = Rotation.valueOf(compoundNBT.getString("Rot"));
             this.func_207614_a(templateManager);
@@ -64,7 +65,7 @@ public class BrokenTowerPieces{
         //todo figure out what func_207614_a is.
         private void func_207614_a(TemplateManager templateManager) {
             Template template = templateManager.getTemplateDefaulted(this.resourceLocation);
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation).setMirror(Mirror.NONE).setCenterOffset(BrokenTowerPieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation).setMirror(Mirror.NONE).setCenterOffset(BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             this.setup(template, this.templatePosition, placementsettings);
         }
 
@@ -94,20 +95,13 @@ public class BrokenTowerPieces{
          * the end, it adds Fences...
          */
         public boolean addComponentParts(IWorld worldIn, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation).setMirror(Mirror.NONE).setCenterOffset(BrokenTowerPieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-            BlockPos blockpos = BrokenTowerPieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation);
+            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation).setMirror(Mirror.NONE).setCenterOffset(BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            BlockPos blockpos = BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation);
             BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3 - blockpos.getX(), 0, 0 - blockpos.getZ())));
             int i = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
             BlockPos blockpos2 = this.templatePosition;
             this.templatePosition = this.templatePosition.add(0, i - 90, 0);
             boolean flag = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn, chunkPosIn);
-//            if (this.resourceLocation.equals(BrokenTowerPieces.TOWER)) {
-//                BlockPos blockpos3 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(3, 0, 5)));
-//                BlockState blockstate = worldIn.getBlockState(blockpos3.down());
-//                if (!blockstate.isAir() && blockstate.getBlock() != Blocks.LADDER) {
-//                    worldIn.setBlockState(blockpos3, Blocks.SNOW_BLOCK.getDefaultState(), 3);
-//                }
-//            }
             this.templatePosition = blockpos2;
             return flag;
         }

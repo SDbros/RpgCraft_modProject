@@ -25,8 +25,8 @@ public class RpgCraftBiomeFeatures {
 
     public static void generateStructures(){
         for (Biome biome : ForgeRegistries.BIOMES){
-            biome.addStructure(ModFeatures.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG);
-            biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.BROKEN_TOWER, IFeatureConfig.NO_FEATURE_CONFIG,  Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG));
+            biome.addStructure(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG);
+            biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG,  Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG));
         }
     }
 }
