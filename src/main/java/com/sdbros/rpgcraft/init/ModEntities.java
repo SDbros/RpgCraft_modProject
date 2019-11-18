@@ -2,7 +2,7 @@ package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.client.render.RedCreeperRender;
-import com.sdbros.rpgcraft.entities.RedCreeperEntity;
+import com.sdbros.rpgcraft.entity.RedCreeperEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -38,7 +38,7 @@ public class ModEntities {
         return new LazyLoadBase(() -> EntityType.Builder.create(factory, EntityClassification.MONSTER).build(RpgCraft.getId(name).toString()));
     }
 
-    public static void registerEntityWorldSpawns() {
+    public static void registerSpawns() {
         registerEntityWorldSpawn(RED_CREEPER.getValue(), Biomes.NETHER);
     }
 

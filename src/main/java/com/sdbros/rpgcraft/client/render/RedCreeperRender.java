@@ -3,10 +3,9 @@ package com.sdbros.rpgcraft.client.render;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.entities.RedCreeperEntity;
+import com.sdbros.rpgcraft.entity.RedCreeperEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
