@@ -1,7 +1,6 @@
 package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.init.*;
-import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.world.OreGeneration;
 import com.sdbros.rpgcraft.world.features.FeatureManager;
 import net.minecraft.block.Block;
@@ -20,7 +19,6 @@ import javax.annotation.Nullable;
 
 class SideProxy {
     SideProxy() {
-        Network.init();
         FeatureManager.init();
 
         // Life-cycle events
