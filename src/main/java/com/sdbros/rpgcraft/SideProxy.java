@@ -50,7 +50,7 @@ class SideProxy {
     }
 
     public void serverAboutToStart(FMLServerAboutToStartEvent event) {
-        ModCommands.registerCommands(event.getServer().getCommandManager().getDispatcher());
+        ModCommands.registerAll(event.getServer().getCommandManager().getDispatcher());
     }
 
     @Nullable

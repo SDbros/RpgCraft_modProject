@@ -38,12 +38,6 @@ public class PlayerDataCapability implements IPlayerData , ICapabilitySerializab
         ModifierHandler.addMaxHealth(player, getHealthModifier(player), AttributeModifier.Operation.ADDITION);
     }
 
-
-    @Override
-    public void updateStats(PlayerEntity player) {
-        ModifierHandler.addMaxHealth(player, getHealthModifier(player), AttributeModifier.Operation.ADDITION);
-    }
-
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
