@@ -12,9 +12,6 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 
 public final class ModFeatures {
 

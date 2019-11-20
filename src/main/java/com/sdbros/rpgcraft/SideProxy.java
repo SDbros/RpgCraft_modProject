@@ -41,8 +41,7 @@ class SideProxy {
         RpgCraft.LOGGER.info("Setup method registered.");
         PlayerDataCapability.register();
         ModEntities.registerSpawns();
-        RpgCraftBiomeFeatures.generateOres();
-        RpgCraftBiomeFeatures.generateStructures();
+        OreGeneration.register();
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
