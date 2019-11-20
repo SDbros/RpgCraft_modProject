@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -29,16 +30,14 @@ public final class RpgCraftCommonEvents {
     private RpgCraftCommonEvents() {
     }
 
-//    // Sets the PlayerHealth when they respawn
-//    @SubscribeEvent
-//    public static void onPlayerRespawn(EntityJoinWorldEvent event) {
-//
-//        if (event.getEntity() instanceof PlayerEntity) {
-//            PlayerEntity player = (PlayerEntity) event.getEntity();
-//            ModifierHandler.addMaxHealth(player, -10, AttributeModifier.Operation.ADDITION);
-//
-//        }
-//    }
+    @SubscribeEvent
+    public static void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
+        PlayerEntity player = event.getPlayer();
+        player.getCapability(PlayerDataCapability.INSTANCE).ifPresent(data -> {
+            RpgCraft.LOGGER.info("Updating stats for {}", player.getScoreboardName());
+            data.updateStats(player);
+        });
+    }
 
     @SubscribeEvent
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
@@ -58,6 +57,11 @@ public final class RpgCraftCommonEvents {
         PlayerEntity original = event.getOriginal();
         PlayerEntity clone = event.getEntityPlayer();
         copyCapability(PlayerDataCapability.INSTANCE, original, clone);
+        clone.getCapability(PlayerDataCapability.INSTANCE).ifPresent(data -> {
+            RpgCraft.LOGGER.info("Updating stats for {}", clone.getScoreboardName());
+            data.updateStats(clone);
+        });
+
     }
 
     private static <T> void copyCapability(Capability<T> capability, ICapabilityProvider original, ICapabilityProvider clone) {

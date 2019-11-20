@@ -8,7 +8,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.storage.WorldSavedData;
 import net.minecraftforge.fml.network.NetworkDirection;
 
-
 public interface IPlayerData {
     int getExtraHearts();
 
@@ -21,4 +20,6 @@ public interface IPlayerData {
     default int getHealthModifier(PlayerEntity player) {
         return getExtraHearts() + Players.startingHealth(player);
     }
+
+    void updateStats(PlayerEntity player);
 }

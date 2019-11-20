@@ -44,6 +44,10 @@ public class PlayerDataCapability implements IPlayerData, ICapabilitySerializabl
         return INSTANCE.orEmpty(cap, holder);
     }
 
+    @Override
+    public void updateStats(PlayerEntity player) {
+        ModifierHandler.addMaxHealth(player, getHealthModifier(player), AttributeModifier.Operation.ADDITION);
+    }
 
     public static boolean canAttachTo(ICapabilityProvider entity) {
         if (!(entity instanceof PlayerEntity)) {
