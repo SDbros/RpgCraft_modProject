@@ -2,8 +2,7 @@ package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import com.sdbros.rpgcraft.init.*;
-import com.sdbros.rpgcraft.world.OreGeneration;
-import com.sdbros.rpgcraft.world.features.FeatureManager;
+import com.sdbros.rpgcraft.world.gen.features.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
@@ -76,7 +75,6 @@ class SideProxy {
             return Minecraft.getInstance().player;
         }
     }
-
 
     static class Server extends SideProxy {
         Server() {
