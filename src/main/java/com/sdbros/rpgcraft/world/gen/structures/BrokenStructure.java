@@ -41,7 +41,7 @@ public class BrokenStructure extends ScatteredStructure<NoFeatureConfig> {
 
     @Override
     protected int getSeedModifier() {
-        return 14357719;
+        return 14357619;
     }
 
     public static class Start extends StructureStart {
@@ -51,12 +51,11 @@ public class BrokenStructure extends ScatteredStructure<NoFeatureConfig> {
 
         @Override
         public void init(ChunkGenerator<?> generator, TemplateManager templateManagerIn, int chunkX, int chunkZ, Biome biomeIn) {
-            NoFeatureConfig nofeatureconfig = (NoFeatureConfig)generator.getStructureConfig(biomeIn, ModFeatures.BROKEN_STRUCTURE);
             int i = chunkX * 16;
             int j = chunkZ * 16;
             BlockPos blockpos = new BlockPos(i, 90, j);
             Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-            BrokenStructurePieces.init(templateManagerIn, blockpos, rotation, this.components, this.rand, nofeatureconfig);
+            BrokenStructurePieces.init(templateManagerIn, blockpos, rotation, this.components, this.rand);
             this.recalculateStructureSize();
         }
     }
