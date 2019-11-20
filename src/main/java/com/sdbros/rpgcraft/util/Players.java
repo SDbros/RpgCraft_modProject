@@ -19,7 +19,7 @@ public final class Players {
 
     public static int maxHealth(PlayerEntity player) {
         int value = 30;
-        return value <= 0 ? Integer.MAX_VALUE : value;
+        return value; //<= 0 ? Integer.MAX_VALUE : value;
     }
 
     public static int clampExtraHearts(PlayerEntity player, int value) {

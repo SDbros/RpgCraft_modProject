@@ -1,5 +1,6 @@
 package com.sdbros.rpgcraft;
 
+import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import com.sdbros.rpgcraft.init.*;
 import com.sdbros.rpgcraft.world.OreGeneration;
 import com.sdbros.rpgcraft.world.features.FeatureManager;
@@ -39,6 +40,7 @@ class SideProxy {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         RpgCraft.LOGGER.info("Setup method registered.");
+        PlayerDataCapability.register();
         ModEntities.registerSpawns();
         OreGeneration.register();
     }

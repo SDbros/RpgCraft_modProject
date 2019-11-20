@@ -16,7 +16,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class PlayerDataCapability implements IPlayerData , ICapabilitySerializable<CompoundNBT>{
+public class PlayerDataCapability implements IPlayerData, ICapabilitySerializable<CompoundNBT> {
     @CapabilityInject(IPlayerData.class)
     public static Capability<IPlayerData> INSTANCE = null;
     public static ResourceLocation NAME = RpgCraft.getId("player_data");
