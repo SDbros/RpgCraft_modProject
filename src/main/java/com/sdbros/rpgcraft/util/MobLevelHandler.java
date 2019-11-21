@@ -64,7 +64,7 @@ public final class MobLevelHandler {
         //Config.get(entity).mobs.randomPotions.tryApply(entity, totalDifficulty);
 
         // Apply extra health and damage.
-        ModifierHandler.addMaxHealth(entity, healthBoost, AttributeModifier.Operation.ADDITION);
+        ModifierHandler.addMaxHealth(entity, -100, AttributeModifier.Operation.ADDITION);
 
 
 //        MobHealthMode mode = EntityGroup.from(entity).getHealthMode(entity);

@@ -7,7 +7,6 @@ import com.sdbros.rpgcraft.util.MobLevelHandler;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.*;
@@ -19,11 +18,11 @@ import javax.annotation.Nullable;
 public class MobDataCapability implements IMobData, ICapabilitySerializable<CompoundNBT> {
     @CapabilityInject(IMobData.class)
     public static Capability<IMobData> INSTANCE = null;
-    public static ResourceLocation NAME = RpgCraft.getId("mob_level");
-
-    private static final String NBT_LEVEL = "Level";
+    public static ResourceLocation NAME = RpgCraft.getId("mob_data");
 
     private final LazyOptional<IMobData> holder = LazyOptional.of(() -> this);
+
+    private static final String NBT_LEVEL = "Level";
 
     private int level;
     private boolean processed;
@@ -57,20 +56,7 @@ public class MobDataCapability implements IMobData, ICapabilitySerializable<Comp
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == null)
-            return LazyOptional.empty();
         return INSTANCE.orEmpty(cap, holder);
-    }
-
-    public static MobDataCapability read(PacketBuffer buffer) {
-        MobDataCapability cap = new MobDataCapability();
-        cap.level = buffer.readInt();
-        cap.processed = true;
-        return cap;
-    }
-
-    public void write(PacketBuffer buffer) {
-        buffer.writeFloat(level);
     }
 
     public static boolean canAttachTo(ICapabilityProvider entity) {
