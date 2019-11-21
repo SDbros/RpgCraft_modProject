@@ -24,35 +24,34 @@ public final class MobLevelHandler {
         if (!entity.isAlive()) return;
 
         float level = data.getLevel();
+        setEntityProperties(entity, level);
+
     }
 
-    public static void setEntityProperties(MobEntity entity, IMobData data, float difficulty, boolean makeBlight) {
+    public static void setEntityProperties(MobEntity entity, float level) {
         if (!entity.isAlive()) return;
 
-        World world = entity.world;
         boolean isHostile = entity instanceof IMob;
 
-        final float totalDifficulty = difficulty;
-
-        double healthBoost = difficulty;
+        double healthBoost = level;
         double damageBoost = 0;
 
         IAttributeInstance attributeMaxHealth = entity.getAttribute(SharedMonsterAttributes.MAX_HEALTH);
         double baseMaxHealth = attributeMaxHealth.getBaseValue();
         double healthMultiplier = isHostile
-                ? 0.5 //Config.Mob.Health.hostileHealthMultiplier
-                : 0.25; //Config.Mob.Health.peacefulHealthMultiplier;
+                ? 1.5 //Config.Mob.Health.hostileHealthMultiplier
+                : 1.25; //Config.Mob.Health.peacefulHealthMultiplier;
 
         healthBoost *= healthMultiplier;
 
-        if (difficulty > 0) {
-            double diffIncrease = 2 * healthMultiplier * difficulty * random.nextFloat();
+        if (level > 1) {
+            double diffIncrease = 2 * healthMultiplier * level * random.nextFloat();
             healthBoost += diffIncrease;
         }
 
         // Increase attack damage.
-        if (difficulty > 0) {
-            float diffIncrease = difficulty * random.nextFloat();
+        if (level > 1) {
+            float diffIncrease = level * random.nextFloat();
             damageBoost = diffIncrease * Level.damageBoostScale(entity);
             // Clamp the value so it doesn't go over the maximum config.
             double max = Level.maxDamageBoost(entity);
@@ -65,7 +64,7 @@ public final class MobLevelHandler {
         //Config.get(entity).mobs.randomPotions.tryApply(entity, totalDifficulty);
 
         // Apply extra health and damage.
-        ModifierHandler.addMaxHealth(entity, 10, AttributeModifier.Operation.ADDITION);
+        ModifierHandler.addMaxHealth(entity, healthBoost, AttributeModifier.Operation.ADDITION);
 
 
 //        MobHealthMode mode = EntityGroup.from(entity).getHealthMode(entity);

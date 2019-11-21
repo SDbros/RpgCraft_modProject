@@ -41,6 +41,8 @@ public class PlayerDataCapability implements IPlayerData, ICapabilitySerializabl
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
+        if (cap == null)
+            return LazyOptional.empty();
         return INSTANCE.orEmpty(cap, holder);
     }
 
@@ -97,5 +99,10 @@ public class PlayerDataCapability implements IPlayerData, ICapabilitySerializabl
                 ((PlayerDataCapability) instance).deserializeNBT((CompoundNBT) nbt);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(INSTANCE);
     }
 }

@@ -1,6 +1,7 @@
 package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
+import com.sdbros.rpgcraft.capability.MobDataCapability;
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,21 +18,28 @@ public final class RpgCraftCommonEvents {
     private RpgCraftCommonEvents() {
     }
 
-    @SubscribeEvent
-    public static void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
-        PlayerEntity player = event.getPlayer();
-        player.getCapability(PlayerDataCapability.INSTANCE).ifPresent(data -> {
-            RpgCraft.LOGGER.info("Updating stats for {}", player.getScoreboardName());
-            data.updateStats(player);
-        });
-    }
+//    @SubscribeEvent
+//    public static void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
+//        PlayerEntity player = event.getPlayer();
+//        player.getCapability(PlayerDataCapability.INSTANCE).ifPresent(data -> {
+//            RpgCraft.LOGGER.info("Updating stats for {}", player.getScoreboardName());
+//            data.updateStats(player);
+//        });
+//    }
 
     @SubscribeEvent
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
+        if (MobDataCapability.canAttachTo(entity)){
+            event.addCapability(MobDataCapability.NAME, new MobDataCapability());
+            //event.addCapability(PlayerDataCapability.NAME, new PlayerDataCapability());
+            RpgCraft.LOGGER.info("MOB " + event.getCapabilities());
+        }
+
         if (PlayerDataCapability.canAttachTo(entity)) {
-            RpgCraft.LOGGER.debug("Attaching player data capability to " + entity);
-            event.addCapability(PlayerDataCapability.NAME, new PlayerDataCapability());
+            event.addCapability(MobDataCapability.NAME, new MobDataCapability());
+           // event.addCapability(PlayerDataCapability.NAME, new PlayerDataCapability());
+            RpgCraft.LOGGER.info("PLAYER " + event.getCapabilities());
         }
     }
 
