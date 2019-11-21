@@ -1,4 +1,4 @@
-package com.sdbros.rpgcraft.world.features;
+package com.sdbros.rpgcraft.world.gen.features;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;

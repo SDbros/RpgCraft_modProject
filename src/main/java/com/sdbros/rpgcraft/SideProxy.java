@@ -2,7 +2,8 @@ package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import com.sdbros.rpgcraft.init.*;
-import com.sdbros.rpgcraft.world.gen.features.*;
+import com.sdbros.rpgcraft.world.gen.features.FeatureManager;
+import com.sdbros.rpgcraft.world.gen.features.RpgCraftBiomeFeatures;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
