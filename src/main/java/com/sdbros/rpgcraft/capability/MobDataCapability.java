@@ -56,8 +56,6 @@ public class MobDataCapability implements IMobData, ICapabilitySerializable<Comp
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if (cap == null)
-            return LazyOptional.empty();
         return INSTANCE.orEmpty(cap, holder);
     }
 

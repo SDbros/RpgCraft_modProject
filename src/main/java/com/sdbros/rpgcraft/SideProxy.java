@@ -1,5 +1,6 @@
 package com.sdbros.rpgcraft;
 
+import com.sdbros.rpgcraft.capability.MobDataCapability;
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import com.sdbros.rpgcraft.init.*;
 import com.sdbros.rpgcraft.world.gen.features.FeatureManager;
@@ -40,6 +41,7 @@ class SideProxy {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         RpgCraft.LOGGER.info("Setup method registered.");
+        MobDataCapability.register();
         PlayerDataCapability.register();
         ModEntities.registerSpawns();
         RpgCraftBiomeFeatures.generateOres();

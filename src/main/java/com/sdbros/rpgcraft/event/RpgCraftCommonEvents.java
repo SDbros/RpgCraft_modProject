@@ -31,19 +31,13 @@ public final class RpgCraftCommonEvents {
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (MobDataCapability.canAttachTo(entity)){
-            MobDataCapability mobdata = new MobDataCapability();
-            RpgCraft.LOGGER.info("MOBDATTA " + mobdata);
-            event.addCapability(MobDataCapability.NAME, mobdata);
-            PlayerDataCapability playerdata = new PlayerDataCapability();
-            RpgCraft.LOGGER.info("PLAYERDATTA " + playerdata);
-            event.addCapability(PlayerDataCapability.NAME, playerdata);
-            RpgCraft.LOGGER.info("MOB " + event.getCapabilities());
+            event.addCapability(MobDataCapability.NAME, new MobDataCapability());;
+            //RpgCraft.LOGGER.info("MOB " + event.getCapabilities());
         }
 
         if (PlayerDataCapability.canAttachTo(entity)) {
-            event.addCapability(MobDataCapability.NAME, new MobDataCapability());
             event.addCapability(PlayerDataCapability.NAME, new PlayerDataCapability());
-            RpgCraft.LOGGER.info("PLAYER " + event.getCapabilities());
+            //RpgCraft.LOGGER.info("PLAYER " + event.getCapabilities());
         }
     }
 
