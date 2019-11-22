@@ -38,4 +38,8 @@ public final class ModifierHandler {
             entity.setHealth((float) newMax);
         }
     }
+
+    public static void addAttackDamage(LivingEntity entity, double amount, AttributeModifier.Operation op) {
+        setModifier(entity, SharedMonsterAttributes.ATTACK_DAMAGE, MODIFIER_ID_DAMAGE, MODIFIER_NAME_DAMAGE, amount, op);
+    }
 }

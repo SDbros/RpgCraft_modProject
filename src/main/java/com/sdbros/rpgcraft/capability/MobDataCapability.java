@@ -45,10 +45,10 @@ public class MobDataCapability implements IMobData, ICapabilitySerializable<Comp
     @Override
     public void tick(MobEntity entity) {
         if (!processed && entity.isAlive() && entity.ticksExisted > 2) {
-            level = (int) Level.areaDifficulty(entity.world, entity.getPosition());
+            level = (int) Level.areaLevel(entity.world, entity.getPosition());
             MobLevelHandler.process(entity, this);
             processed = true;
-            RpgCraft.LOGGER.debug(LevelEvents.MARKER, "Processed {} -> difficulty={}", entity, level);
+            RpgCraft.LOGGER.debug(LevelEvents.MARKER, "Processed {} -> level={}", entity, level);
         }
     }
 

@@ -7,7 +7,6 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
 
 
 import java.util.Random;
@@ -23,13 +22,11 @@ public final class MobLevelHandler {
         // Already dead?
         if (!entity.isAlive()) return;
 
-        float level = data.getLevel();
+        int level = data.getLevel();
         setEntityProperties(entity, level);
-
     }
 
-    public static void setEntityProperties(MobEntity entity, float level) {
-        if (!entity.isAlive()) return;
+    public static void setEntityProperties(MobEntity entity, int level) {
 
         boolean isHostile = entity instanceof IMob;
 
@@ -60,16 +57,8 @@ public final class MobLevelHandler {
             }
         }
 
-        // Random potion effect
-        //Config.get(entity).mobs.randomPotions.tryApply(entity, totalDifficulty);
-
         // Apply extra health and damage.
-        ModifierHandler.addMaxHealth(entity, -100, AttributeModifier.Operation.ADDITION);
-
-
-//        MobHealthMode mode = EntityGroup.from(entity).getHealthMode(entity);
-//        double healthModAmount = mode.getModifierValue(healthBoost, baseMaxHealth);
-//        ModifierHandler.addMaxHealth(entity, healthModAmount, mode.getOperator());
-//        ModifierHandler.addAttackDamage(entity, damageBoost, AttributeModifier.Operation.ADDITION);
+        ModifierHandler.addMaxHealth(entity, healthBoost, AttributeModifier.Operation.ADDITION);
+        ModifierHandler.addAttackDamage(entity, damageBoost, AttributeModifier.Operation.ADDITION);
     }
 }
