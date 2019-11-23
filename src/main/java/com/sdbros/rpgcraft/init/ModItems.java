@@ -2,6 +2,7 @@ package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.block.Ores;
+import com.sdbros.rpgcraft.item.Armours;
 import com.sdbros.rpgcraft.item.ItemsRC;
 import com.sdbros.rpgcraft.item.Tools;
 import net.minecraft.item.BlockItem;
@@ -41,6 +42,13 @@ public final class ModItems {
             register(tool.getName() + "_sword", tool.getSwordItem());
             register(tool.getName() + "_hoe", tool.getHoeItem());
             register(tool.getName() + "_shovel", tool.getShovelItem());
+        }
+
+        for (Armours armour : Armours.values()){
+            register(armour.getName() + "_head", armour.getHeadArmourItem());
+            register(armour.getName() + "_chest", armour.getChestArmourItem());
+            register(armour.getName() + "_legs", armour.getLegsArmourItem());
+            register(armour.getName() + "_feet", armour.getFeetArmourItem());
         }
     }
 

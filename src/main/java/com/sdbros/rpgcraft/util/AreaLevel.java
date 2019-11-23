@@ -52,9 +52,9 @@ public enum AreaLevel {
     DISTANCE_FROM_SPAWN {
         @Override
         public double getAreaLevel(World world, BlockPos pos, int radius) {
-            double dx = Math.abs(pos.getX() - world.getSpawnPoint().getX()) / 160F;
-            double dz = Math.abs(pos.getZ() - world.getSpawnPoint().getZ()) / 160F;
-            return dx + dz;
+            double dx = Math.abs(pos.getX() - world.getSpawnPoint().getX());
+            double dz = Math.abs(pos.getZ() - world.getSpawnPoint().getZ());
+            return Math.pow((Math.pow(dz , 0.5) + Math.pow(dx , 0.5)), 0.5);
         }
     },
     DIMENSION_WIDE {
