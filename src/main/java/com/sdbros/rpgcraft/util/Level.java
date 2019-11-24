@@ -18,6 +18,7 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 public final class Level {
+
     private Level() {
         throw new IllegalAccessError("Utility class");
     }
@@ -51,7 +52,11 @@ public final class Level {
 
 
     public static double areaLevel(World world, BlockPos pos) {
-        return AreaLevel.DISTANCE_FROM_SPAWN.getAreaLevel(world, pos, searchRadius(world));
+        return AreaLevelMode.DISTANCE_FROM_SPAWN.getAreaLevel(world, pos, searchRadius(world));
+    }
+
+    public static AreaLevelMode getAreaLevelMode(){
+        return AreaLevelMode.DISTANCE_FROM_SPAWN;
     }
 
     public static int searchRadius(IWorldReader world) {
@@ -69,12 +74,6 @@ public final class Level {
         //return Config.get(world).level.maxValue.get();
         return 50;
     }
-
-    public static double changePerSecond(IWorldReader world) {
-        //return Config.get(world).difficulty.changePerSecond.get();
-        return 5;
-    }
-
     public static boolean allowsDifficultyChanges(MobEntity entity) {
         return true;
     }

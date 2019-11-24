@@ -5,6 +5,7 @@ import com.sdbros.rpgcraft.util.ModifierHandler;
 import com.sdbros.rpgcraft.util.Players;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -47,6 +48,13 @@ public class PlayerDataCapability implements IPlayerData, ICapabilitySerializabl
     @Override
     public void updateStats(PlayerEntity player) {
         ModifierHandler.addMaxHealth(player, getHealthModifier(player), AttributeModifier.Operation.ADDITION);
+    }
+
+    @Override
+    public void tick(PlayerEntity player) {
+        if (player.world.getGameTime() % 20 == 0 && player instanceof ServerPlayerEntity) {
+            IPlayerData.sendUpdatePacketTo(player);
+        }
     }
 
     public static boolean canAttachTo(ICapabilityProvider entity) {

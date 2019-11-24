@@ -12,7 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.registries.ObjectHolder;
 
-@ObjectHolder("rpgcraft")
+@ObjectHolder(RpgCraft.MOD_ID)
 public class ItemsRC {
     public static  final UnstableMatterItem UNSTABLE_MATTER = register("unstable_matter_item", new UnstableMatterItem((new Item.Properties()).group(RpgCraft.ITEM_GROUP)));
 

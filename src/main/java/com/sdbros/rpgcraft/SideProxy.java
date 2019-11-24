@@ -3,6 +3,7 @@ package com.sdbros.rpgcraft;
 import com.sdbros.rpgcraft.capability.MobDataCapability;
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import com.sdbros.rpgcraft.init.*;
+import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.world.gen.features.FeatureManager;
 import com.sdbros.rpgcraft.world.gen.features.RpgCraftBiomeFeatures;
 import net.minecraft.block.Block;
@@ -21,6 +22,7 @@ import javax.annotation.Nullable;
 
 class SideProxy {
     SideProxy() {
+        Network.init();
         FeatureManager.init();
 
         // Life-cycle events

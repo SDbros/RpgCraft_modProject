@@ -48,7 +48,7 @@ public class MobDataCapability implements IMobData, ICapabilitySerializable<Comp
             level = (int) Level.areaLevel(entity.world, entity.getPosition());
             MobLevelHandler.process(entity, this);
             processed = true;
-            RpgCraft.LOGGER.debug(LevelEvents.MARKER, "Processed {} -> level={}", entity, level);
+            //RpgCraft.LOGGER.debug(LevelEvents.MARKER, "Processed {} -> level={}", entity, level);
         }
     }
 

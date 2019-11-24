@@ -28,7 +28,7 @@ import net.minecraft.world.World;
 
 import java.util.Locale;
 
-public enum AreaLevel {
+public enum AreaLevelMode {
     MIN_LEVEL {
         @Override
         public double getAreaLevel(World world, BlockPos pos, int radius) {
@@ -70,7 +70,7 @@ public enum AreaLevel {
         return new TranslationTextComponent("config.rpgcraft.area_level." + name().toLowerCase(Locale.ROOT));
     }
 
-    public static AreaLevel fromOrdinal(int ordinal) {
+    public static AreaLevelMode fromOrdinal(int ordinal) {
         return values()[MathHelper.clamp(ordinal, 0, values().length - 1)];
     }
 }

@@ -42,7 +42,6 @@ public enum Armours implements IArmorMaterial {
         this.toughness = toughness;
         this.repairMaterial = repairMaterial;
         this.armourEffect = armourEffect;
-        this.armourEffect.setPotionDurationMax(true);
 
         headArmourItem = new LazyLoadBase<>(() -> new ArmorItem(this, EquipmentSlotType.HEAD, (new Item.Properties()).group(RpgCraft.ITEM_GROUP)));
         chestArmourItem = new LazyLoadBase<>(() -> new ArmorItem(this, EquipmentSlotType.CHEST, (new Item.Properties()).group(RpgCraft.ITEM_GROUP)));

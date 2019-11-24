@@ -1,5 +1,8 @@
 package com.sdbros.rpgcraft.capability;
 
+import com.sdbros.rpgcraft.network.ClientSyncMessage;
+import com.sdbros.rpgcraft.network.Network;
+import com.sdbros.rpgcraft.util.Level;
 import com.sdbros.rpgcraft.util.Players;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -22,4 +25,17 @@ public interface IPlayerData {
     }
 
     void updateStats(PlayerEntity player);
+
+    void tick(PlayerEntity player);
+
+    static void sendUpdatePacketTo(PlayerEntity player) {
+        World world = player.world;
+        BlockPos pos = player.getPosition();
+        ClientSyncMessage msg = new ClientSyncMessage(
+                (float) Level.areaLevel(world, pos),
+                player.experienceLevel
+        );
+        ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
+        Network.channel.sendTo(msg, playerMP.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+    }
 }
