@@ -34,6 +34,11 @@ public final class RpgCraftCommonEvents {
         Network.channel.sendTo(msg, player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
     }
 
+    @SubscribeEvent
+    public static void onPlayerName(PlayerEvent.NameFormat event){
+        event.setDisplayname("Notch");
+    }
+
 
     @SubscribeEvent
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {

@@ -1,5 +1,6 @@
 package com.sdbros.rpgcraft.util;
 
+import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.capability.IMobData;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -29,36 +30,23 @@ public final class MobLevelHandler {
     public static void setEntityProperties(MobEntity entity, int level) {
 
         boolean isHostile = entity instanceof IMob;
+        IAttributeInstance attibuteMaxHealth = entity.getAttribute(SharedMonsterAttributes.MAX_HEALTH);
+        IAttributeInstance attributeAttackDamage = entity.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
 
-        double healthBoost = level;
         double damageBoost = 0;
 
-        IAttributeInstance attributeMaxHealth = entity.getAttribute(SharedMonsterAttributes.MAX_HEALTH);
-        double baseMaxHealth = attributeMaxHealth.getBaseValue();
-        double healthMultiplier = isHostile
-                ? 1.5 //Config.Mob.Health.hostileHealthMultiplier
-                : 1.25; //Config.Mob.Health.peacefulHealthMultiplier;
-
-        healthBoost *= healthMultiplier;
-
-        if (level > 1) {
-            double diffIncrease = 2 * healthMultiplier * level * random.nextFloat();
-            healthBoost += diffIncrease;
+        if (attributeAttackDamage != null) {
+            damageBoost = attributeAttackDamage.getBaseValue() * Math.pow(1.15, level - 1) - attributeAttackDamage.getBaseValue();
         }
 
-        // Increase attack damage.
-        if (level > 1) {
-            float diffIncrease = level * random.nextFloat();
-            damageBoost = diffIncrease * Level.damageBoostScale(entity);
-            // Clamp the value so it doesn't go over the maximum config.
-            double max = Level.maxDamageBoost(entity);
-            if (max > 0f) {
-                damageBoost = MathHelper.clamp(damageBoost, 0, max);
-            }
-        }
+        double healthBoost = attibuteMaxHealth.getBaseValue() * Math.pow(1.15, level - 1) - attibuteMaxHealth.getBaseValue();
+
 
         // Apply extra health and damage.
         ModifierHandler.addMaxHealth(entity, healthBoost, AttributeModifier.Operation.ADDITION);
+        RpgCraft.LOGGER.info("HealthBoost is " + healthBoost);
         ModifierHandler.addAttackDamage(entity, damageBoost, AttributeModifier.Operation.ADDITION);
+        RpgCraft.LOGGER.info("DamageBoost is " + damageBoost);
+
     }
 }
