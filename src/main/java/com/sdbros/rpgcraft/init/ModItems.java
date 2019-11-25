@@ -22,6 +22,7 @@ public final class ModItems {
 
     //Items
     static Item red_creeper_spawn_egg;
+    static Item zombie_variant_spawn_egg;
 
     public static void registerAll(RegistryEvent.Register<Item> event) {
 

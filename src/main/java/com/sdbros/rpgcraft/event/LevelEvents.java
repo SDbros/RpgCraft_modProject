@@ -2,9 +2,14 @@ package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.capability.MobDataCapability;
+import com.sdbros.rpgcraft.capability.PlayerDataCapability;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.Marker;
@@ -14,6 +19,15 @@ import org.apache.logging.log4j.MarkerManager;
 public class LevelEvents {
 
     public static final Marker MARKER = MarkerManager.getMarker("Level");
+
+    @SubscribeEvent
+    public static void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
+        PlayerEntity player = event.getPlayer();
+        player.getCapability(PlayerDataCapability.INSTANCE).ifPresent(data -> {
+            RpgCraft.LOGGER.info("Updating stats for {}", player.getScoreboardName());
+            data.updateStats(player);
+        });
+    }
 
     @SubscribeEvent
     public static void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {

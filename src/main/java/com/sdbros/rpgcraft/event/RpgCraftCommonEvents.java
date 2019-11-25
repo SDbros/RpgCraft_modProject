@@ -6,6 +6,7 @@ import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import com.sdbros.rpgcraft.network.ClientLoginMessage;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.util.Level;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -35,14 +36,9 @@ public final class RpgCraftCommonEvents {
     }
 
     @SubscribeEvent
-    public static void onPlayerName(PlayerEvent.NameFormat event){
-        event.setDisplayname("Notch");
-    }
-
-
-    @SubscribeEvent
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        Entity entity = event.getObject();
+
+          Entity entity = event.getObject();
         if (MobDataCapability.canAttachTo(entity)){
             event.addCapability(MobDataCapability.NAME, new MobDataCapability());;
             //RpgCraft.LOGGER.info("MOB " + event.getCapabilities());
@@ -50,7 +46,7 @@ public final class RpgCraftCommonEvents {
 
         if (PlayerDataCapability.canAttachTo(entity)) {
             event.addCapability(PlayerDataCapability.NAME, new PlayerDataCapability());
-            //RpgCraft.LOGGER.info("PLAYER " + event.getCapabilities());
+            RpgCraft.LOGGER.info("PLAYER " + event.getCapabilities());
         }
     }
 

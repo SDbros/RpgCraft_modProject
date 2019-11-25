@@ -44,9 +44,9 @@ public final class MobLevelHandler {
 
         // Apply extra health and damage.
         ModifierHandler.addMaxHealth(entity, healthBoost, AttributeModifier.Operation.ADDITION);
-        RpgCraft.LOGGER.info("HealthBoost is " + healthBoost);
+        //RpgCraft.LOGGER.info("HealthBoost is " + healthBoost);
         ModifierHandler.addAttackDamage(entity, damageBoost, AttributeModifier.Operation.ADDITION);
-        RpgCraft.LOGGER.info("DamageBoost is " + damageBoost);
+        //RpgCraft.LOGGER.info("DamageBoost is " + damageBoost);
 
     }
 }

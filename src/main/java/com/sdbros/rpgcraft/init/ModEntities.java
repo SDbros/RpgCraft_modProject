@@ -2,7 +2,9 @@ package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.client.render.RedCreeperRender;
+import com.sdbros.rpgcraft.client.render.ZombieVariantRender;
 import com.sdbros.rpgcraft.entity.RedCreeperEntity;
+import com.sdbros.rpgcraft.entity.ZombieVariantEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
@@ -23,14 +25,20 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModEntities {
     public static final LazyLoadBase<EntityType<RedCreeperEntity>> RED_CREEPER = makeType("red_creeper", RedCreeperEntity::new);
+    public static final LazyLoadBase<EntityType<ZombieVariantEntity>> ZOMBIE_VARIANT = makeType("zombie_variant", ZombieVariantEntity::new);
+
 
     public static void registerTypes(RegistryEvent.Register<EntityType<?>> event) {
         registerType("red_creeper", RED_CREEPER.getValue());
+        registerType("zombie_variant", ZOMBIE_VARIANT.getValue());
+        //EntitySpawnPlacementRegistry.register(ZOMBIE_VARIANT.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, ZombieVariantEntity::canSpawnAt);
         EntitySpawnPlacementRegistry.register(RED_CREEPER.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, RedCreeperEntity::canSpawnAt);
+
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void registerRenderers(FMLClientSetupEvent event) {
+        RenderingRegistry.registerEntityRenderingHandler(ZombieVariantEntity.class, ZombieVariantRender::new);
         RenderingRegistry.registerEntityRenderingHandler(RedCreeperEntity.class, RedCreeperRender::new);
     }
 
@@ -39,7 +47,8 @@ public class ModEntities {
     }
 
     public static void registerSpawns() {
-        registerEntityWorldSpawn(RED_CREEPER.getValue(), Biomes.NETHER);
+        registerEntityWorldSpawn(RED_CREEPER.getValue(), ModBiomes.MAGICMOUNTAINS);
+        registerEntityWorldSpawn(ZOMBIE_VARIANT.getValue(), ModBiomes.MAGICMOUNTAINS);
     }
 
     private static void registerEntityWorldSpawn(EntityType<?> entity, Biome... biomes) {
@@ -53,8 +62,10 @@ public class ModEntities {
     public static void registerEntitySpawnEggs(final RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll
                 (
-                        ModItems.red_creeper_spawn_egg = registerEntitySpawnEgg(RED_CREEPER.getValue(), 0xd12e2e, 0x000000, "red_creeper_spawn_egg")
+                        ModItems.red_creeper_spawn_egg = registerEntitySpawnEgg(RED_CREEPER.getValue(), 0xd12e2e, 0x000000, "red_creeper_spawn_egg"),
+                        ModItems.zombie_variant_spawn_egg = registerEntitySpawnEgg(ZOMBIE_VARIANT.getValue(), 0xd22e2e, 0x000000, "zombie_variant_spawn_egg")
                 );
+
     }
 
     public static Item registerEntitySpawnEgg(EntityType<?> type, int color1, int color2, String name) {
