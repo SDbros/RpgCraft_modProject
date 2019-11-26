@@ -31,8 +31,8 @@ public class ModEntities {
     public static void registerTypes(RegistryEvent.Register<EntityType<?>> event) {
         registerType("red_creeper", RED_CREEPER.getValue());
         registerType("zombie_variant", ZOMBIE_VARIANT.getValue());
-        //EntitySpawnPlacementRegistry.register(ZOMBIE_VARIANT.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, ZombieVariantEntity::canSpawnAt);
         EntitySpawnPlacementRegistry.register(RED_CREEPER.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, RedCreeperEntity::canSpawnAt);
+        EntitySpawnPlacementRegistry.register(ZOMBIE_VARIANT.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, ZombieVariantEntity::canSpawnAt);
 
     }
 
@@ -63,7 +63,7 @@ public class ModEntities {
         event.getRegistry().registerAll
                 (
                         ModItems.red_creeper_spawn_egg = registerEntitySpawnEgg(RED_CREEPER.getValue(), 0xd12e2e, 0x000000, "red_creeper_spawn_egg"),
-                        ModItems.zombie_variant_spawn_egg = registerEntitySpawnEgg(ZOMBIE_VARIANT.getValue(), 0xd22e2e, 0x000000, "zombie_variant_spawn_egg")
+                        ModItems.zombie_variant_spawn_egg = registerEntitySpawnEgg(ZOMBIE_VARIANT.getValue(), 0x4e9154, 0x000000, "zombie_variant_spawn_egg")
                 );
 
     }

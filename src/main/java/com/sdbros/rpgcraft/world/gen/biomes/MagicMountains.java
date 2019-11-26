@@ -64,6 +64,7 @@ public class MagicMountains extends Biome {
 
         //RpgCraft
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 100, 1, 5));
+        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(ModEntities.ZOMBIE_VARIANT.getValue(), 100, 1, 5));
 
     }
 }
