@@ -1,11 +1,13 @@
 package com.sdbros.rpgcraft.capability;
 
 import com.sdbros.rpgcraft.RpgCraft;
+import com.sdbros.rpgcraft.item.Armours;
 import com.sdbros.rpgcraft.util.ModifierHandler;
 import com.sdbros.rpgcraft.util.Players;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -52,7 +54,20 @@ public class PlayerDataCapability implements IPlayerData, ICapabilitySerializabl
 
     @Override
     public void tick(PlayerEntity player) {
-        if (player.world.getGameTime() % 20 == 0 && player instanceof ServerPlayerEntity) {
+        if (player.world.getGameTime() % 100 == 0 && player instanceof ServerPlayerEntity) {
+            int set = 0;
+            for (ItemStack item : player.getArmorInventoryList()) {
+                //RpgCraft.LOGGER.info(item + " <---- ITEM HERE");
+                for (Armours armour : Armours.values()) {
+                    if (armour.getChestArmourItem() == item.getItem()
+                            || armour.getFeetArmourItem() == item.getItem()
+                            || armour.getHeadArmourItem() == item.getItem()
+                            || armour.getLegsArmourItem() == item.getItem()) {
+                        set++;
+                    }
+                    player.addPotionEffect(armour.getSetBonus(set));
+                }
+            }
             IPlayerData.sendUpdatePacketTo(player);
         }
     }

@@ -1,8 +1,8 @@
-package com.sdbros.rpgcraft.client.render;
+package com.sdbros.rpgcraft.client.model;
 
 import com.sdbros.rpgcraft.entity.RedCreeperEntity;
 import net.minecraft.client.renderer.entity.model.CreeperModel;
 
-class RedCreeperModel extends CreeperModel<RedCreeperEntity> {
+public class RedCreeperModel extends CreeperModel<RedCreeperEntity> {
 
 }

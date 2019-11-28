@@ -5,7 +5,6 @@ import com.sdbros.rpgcraft.block.Ores;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.AbsorptionEffect;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -18,7 +17,7 @@ import java.util.Locale;
 public enum Armours implements IArmorMaterial {
 
 
-    RUNITE(15, new int[]{2, 5, 6, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0F, Ores.RUNITE.getOreItem(), new EffectInstance(Effects.ABSORPTION, -1));
+    RUNITE(8, new int[]{1, 2, 3, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0F, Ores.RUNITE.getOreItem(), Effects.ABSORPTION);
 
     private final LazyLoadBase<ArmorItem> headArmourItem;
     private final LazyLoadBase<ArmorItem> chestArmourItem;
@@ -32,9 +31,9 @@ public enum Armours implements IArmorMaterial {
     private final SoundEvent soundEvent;
     private final float toughness;
     private final Item repairMaterial;
-    private final EffectInstance armourEffect;
+    private final Effect armourEffect;
 
-    Armours(int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float toughness, Item repairMaterial, EffectInstance armourEffect) {
+    Armours(int maxDamageFactorIn, int[] damageReductionAmountsIn, int enchantabilityIn, SoundEvent equipSoundIn, float toughness, Item repairMaterial, Effect armourEffect) {
         this.maxDamageFactor = maxDamageFactorIn;
         this.damageReductionAmountArray = damageReductionAmountsIn;
         this.enchantability = enchantabilityIn;
@@ -90,8 +89,11 @@ public enum Armours implements IArmorMaterial {
         return Ingredient.fromItems(this.repairMaterial);
     }
 
-    public EffectInstance getArmourEffect() {
-        return armourEffect;
+    public EffectInstance getSetBonus(int set) {
+        if (set > 3) {
+            return new EffectInstance(armourEffect, 100, 0, true, false);
+        }
+        return new EffectInstance(armourEffect, 0, 0, false, true);
     }
 
     public String getName() {
@@ -103,5 +105,6 @@ public enum Armours implements IArmorMaterial {
     public float getToughness() {
         return this.toughness;
     }
-
 }
+
+

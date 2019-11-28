@@ -40,5 +40,11 @@ public class LevelEvents {
                 affected.tick((MobEntity) entity);
             });
         }
+        if (entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) entity;
+            player.getCapability(PlayerDataCapability.INSTANCE).ifPresent(affected -> {
+                affected.tick((PlayerEntity) player);
+            });
+        }
     }
 }

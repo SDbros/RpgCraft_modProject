@@ -25,8 +25,7 @@ public class ZombieVariantEntity extends ZombieEntity {
     @Override
     protected void registerAttributes() {
         super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0d);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.1d);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(15.0d);
     }
 
     @Override
@@ -38,13 +37,14 @@ public class ZombieVariantEntity extends ZombieEntity {
                 LivingEntity livingentity = list.get(this.rand.nextInt(list.size()));
                 if (livingentity instanceof PlayerEntity) {
                     if (!((PlayerEntity) livingentity).abilities.disableDamage) {
-                        livingentity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10));
+                        livingentity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10, 2));
                     }
                 }
                 list.remove(livingentity);
             }
-            super.tick();
         }
+        super.tick();
+
     }
 
 

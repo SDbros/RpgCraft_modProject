@@ -2,6 +2,7 @@ package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.capability.MobDataCapability;
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
+import com.sdbros.rpgcraft.client.renderer.ModelHandler;
 import com.sdbros.rpgcraft.init.*;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.world.gen.features.FeatureManager;
@@ -72,24 +73,24 @@ class SideProxy {
 
         private void clientSetup(FMLClientSetupEvent event) {
             RpgCraft.LOGGER.debug("RpgCraft clientSetup");
-            ModEntities.registerRenderers(event);
+            ModelHandler.registerModels(event);
         }
 
-        @Nullable
-        @Override
-        public PlayerEntity getClientPlayer() {
-            return Minecraft.getInstance().player;
+@Nullable
+@Override
+public PlayerEntity getClientPlayer() {
+        return Minecraft.getInstance().player;
         }
+        }
+
+static class Server extends SideProxy {
+    Server() {
+        RpgCraft.LOGGER.debug("RpgCraft SideProxy.Server init");
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
     }
 
-    static class Server extends SideProxy {
-        Server() {
-            RpgCraft.LOGGER.debug("RpgCraft SideProxy.Server init");
-            FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
-        }
-
-        private void serverSetup(FMLDedicatedServerSetupEvent event) {
-            RpgCraft.LOGGER.debug("RpgCraft serverSetup");
-        }
+    private void serverSetup(FMLDedicatedServerSetupEvent event) {
+        RpgCraft.LOGGER.debug("RpgCraft serverSetup");
     }
+}
 }

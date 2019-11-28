@@ -1,8 +1,6 @@
 package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.client.render.RedCreeperRender;
-import com.sdbros.rpgcraft.client.render.ZombieVariantRender;
 import com.sdbros.rpgcraft.entity.RedCreeperEntity;
 import com.sdbros.rpgcraft.entity.ZombieVariantEntity;
 import net.minecraft.entity.Entity;
@@ -14,13 +12,8 @@ import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModEntities {
@@ -34,12 +27,6 @@ public class ModEntities {
         EntitySpawnPlacementRegistry.register(RED_CREEPER.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, RedCreeperEntity::canSpawnAt);
         EntitySpawnPlacementRegistry.register(ZOMBIE_VARIANT.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, ZombieVariantEntity::canSpawnAt);
 
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static void registerRenderers(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(ZombieVariantEntity.class, ZombieVariantRender::new);
-        RenderingRegistry.registerEntityRenderingHandler(RedCreeperEntity.class, RedCreeperRender::new);
     }
 
     private static <T extends Entity> LazyLoadBase<EntityType<T>> makeType(String name, EntityType.IFactory<T> factory) {
