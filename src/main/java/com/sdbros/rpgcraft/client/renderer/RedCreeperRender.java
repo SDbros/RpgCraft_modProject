@@ -1,4 +1,4 @@
-package com.sdbros.rpgcraft.client.render;
+package com.sdbros.rpgcraft.client.renderer;
 
 
 import com.mojang.blaze3d.platform.GlStateManager;

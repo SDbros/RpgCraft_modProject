@@ -6,8 +6,9 @@ import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import com.sdbros.rpgcraft.network.ClientLoginMessage;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.util.Level;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.INBT;
@@ -15,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -38,9 +40,9 @@ public final class RpgCraftCommonEvents {
     @SubscribeEvent
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
 
-          Entity entity = event.getObject();
-        if (MobDataCapability.canAttachTo(entity)){
-            event.addCapability(MobDataCapability.NAME, new MobDataCapability());;
+        Entity entity = event.getObject();
+        if (MobDataCapability.canAttachTo(entity)) {
+            event.addCapability(MobDataCapability.NAME, new MobDataCapability());
             //RpgCraft.LOGGER.info("MOB " + event.getCapabilities());
         }
 
@@ -63,7 +65,6 @@ public final class RpgCraftCommonEvents {
             RpgCraft.LOGGER.info("Updating stats for {}", clone.getScoreboardName());
             data.updateStats(clone);
         });
-
     }
 
     private static <T> void copyCapability(Capability<T> capability, ICapabilityProvider original, ICapabilityProvider clone) {
@@ -74,5 +75,4 @@ public final class RpgCraftCommonEvents {
             });
         });
     }
-
 }

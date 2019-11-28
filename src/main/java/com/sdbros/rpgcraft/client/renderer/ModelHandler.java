@@ -1,7 +1,5 @@
-package com.sdbros.rpgcraft.client.model;
+package com.sdbros.rpgcraft.client.renderer;
 
-import com.sdbros.rpgcraft.client.renderer.entity.RedCreeperRender;
-import com.sdbros.rpgcraft.client.renderer.entity.ZombieVariantRender;
 import com.sdbros.rpgcraft.entity.RedCreeperEntity;
 import com.sdbros.rpgcraft.entity.ZombieVariantEntity;
 import net.minecraftforge.api.distmarker.Dist;

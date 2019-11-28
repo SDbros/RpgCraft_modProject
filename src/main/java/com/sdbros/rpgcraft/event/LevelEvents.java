@@ -6,9 +6,12 @@ import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -17,8 +20,6 @@ import org.apache.logging.log4j.MarkerManager;
 
 @Mod.EventBusSubscriber(modid = RpgCraft.MOD_ID)
 public class LevelEvents {
-
-    public static final Marker MARKER = MarkerManager.getMarker("Level");
 
     @SubscribeEvent
     public static void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
@@ -44,6 +45,16 @@ public class LevelEvents {
             PlayerEntity player = (PlayerEntity) entity;
             player.getCapability(PlayerDataCapability.INSTANCE).ifPresent(affected -> {
                 affected.tick((PlayerEntity) player);
+            });
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingExperienceDropEvent(LivingExperienceDropEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+        if (entity instanceof MobEntity) {
+            entity.getCapability(MobDataCapability.INSTANCE).ifPresent(affected -> {
+                event.setDroppedExperience(event.getOriginalExperience() * affected.getLevel());
             });
         }
     }

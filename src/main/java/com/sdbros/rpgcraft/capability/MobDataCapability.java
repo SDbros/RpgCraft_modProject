@@ -5,6 +5,7 @@ import com.sdbros.rpgcraft.event.LevelEvents;
 import com.sdbros.rpgcraft.util.Level;
 import com.sdbros.rpgcraft.util.MobLevelHandler;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
@@ -51,7 +52,6 @@ public class MobDataCapability implements IMobData, ICapabilitySerializable<Comp
             //RpgCraft.LOGGER.debug(LevelEvents.MARKER, "Processed {} -> level={}", entity, level);
         }
     }
-
 
     @Nonnull
     @Override

@@ -1,4 +1,4 @@
-package com.sdbros.rpgcraft.client.model;
+package com.sdbros.rpgcraft.client.renderer;
 
 import com.sdbros.rpgcraft.entity.RedCreeperEntity;
 import net.minecraft.client.renderer.entity.model.CreeperModel;
