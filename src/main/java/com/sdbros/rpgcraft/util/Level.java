@@ -1,7 +1,7 @@
 package com.sdbros.rpgcraft.util;
 
-import com.sdbros.rpgcraft.capability.IMobData;
-import com.sdbros.rpgcraft.capability.MobDataCapability;
+import com.sdbros.rpgcraft.capability.MobCapability;
+import com.sdbros.rpgcraft.capability.MobCapability.*;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Tuple;
@@ -23,22 +23,22 @@ public final class Level {
         throw new IllegalAccessError("Utility class");
     }
 
-    public static IMobData affected(ICapabilityProvider entity) {
-        return entity.getCapability(MobDataCapability.INSTANCE)
-                .orElseGet(MobDataCapability::new);
+    public static IMobCapabilityHandler affected(ICapabilityProvider entity) {
+        return entity.getCapability(MobCapability.INSTANCE)
+                .orElseGet(MobCapabilityData::new);
     }
 
-    public static IMobData source(ICapabilityProvider source) {
-        return source.getCapability(MobDataCapability.INSTANCE)
-                .orElseGet(MobDataCapability::new);
+    public static IMobCapabilityHandler source(ICapabilityProvider source) {
+        return source.getCapability(MobCapability.INSTANCE)
+                .orElseGet(MobCapabilityData::new);
     }
 
-    public static Collection<Tuple<BlockPos, IMobData>> sources(IEntityReader world, Vec3i center, long radius) {
-        Collection<Tuple<BlockPos, IMobData>> list = new ArrayList<>();
+    public static Collection<Tuple<BlockPos, IMobCapabilityHandler>> sources(IEntityReader world, Vec3i center, long radius) {
+        Collection<Tuple<BlockPos, IMobCapabilityHandler>> list = new ArrayList<>();
 
         // Get players
         playersInRange(world, center, radius).forEach(player -> {
-            player.getCapability(MobDataCapability.INSTANCE).ifPresent(source -> {
+            player.getCapability(MobCapability.INSTANCE).ifPresent(source -> {
                 list.add(new Tuple<>(player.getPosition(), source));
             });
         });

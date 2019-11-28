@@ -1,15 +1,11 @@
 package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.capability.MobDataCapability;
+import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraftforge.event.entity.EntityTravelToDimensionEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -20,6 +16,8 @@ import org.apache.logging.log4j.MarkerManager;
 
 @Mod.EventBusSubscriber(modid = RpgCraft.MOD_ID)
 public class LevelEvents {
+
+    public static final Marker MARKER = MarkerManager.getMarker("level");
 
     @SubscribeEvent
     public static void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
@@ -37,7 +35,7 @@ public class LevelEvents {
 
         // Tick mobs, which will calculate difficulty when appropriate and apply changes
         if (entity instanceof MobEntity) {
-            entity.getCapability(MobDataCapability.INSTANCE).ifPresent(affected -> {
+            entity.getCapability(MobCapability.INSTANCE).ifPresent(affected -> {
                 affected.tick((MobEntity) entity);
             });
         }
@@ -53,7 +51,7 @@ public class LevelEvents {
     public static void onLivingExperienceDropEvent(LivingExperienceDropEvent event) {
         LivingEntity entity = event.getEntityLiving();
         if (entity instanceof MobEntity) {
-            entity.getCapability(MobDataCapability.INSTANCE).ifPresent(affected -> {
+            entity.getCapability(MobCapability.INSTANCE).ifPresent(affected -> {
                 event.setDroppedExperience(event.getOriginalExperience() * affected.getLevel());
             });
         }

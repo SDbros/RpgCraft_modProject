@@ -1,24 +1,7 @@
-/*
- * Scaling Health
- * Copyright (C) 2018 SilentChaos512
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation version 3
- * of the License.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package com.sdbros.rpgcraft.util;
 
-import com.sdbros.rpgcraft.capability.IMobData;
+import com.sdbros.rpgcraft.capability.MobCapability.*;
+import com.sdbros.rpgcraft.capability.MobCapability;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -34,7 +17,7 @@ public enum AreaLevelMode {
         @Override
         public double getAreaLevel(World world, BlockPos pos, int radius) {
             double min = Level.maxValue(world);
-            for (Tuple<BlockPos, IMobData> tuple : Level.sources(world, pos, radius)) {
+            for (Tuple<BlockPos, IMobCapabilityHandler> tuple : Level.sources(world, pos, radius)) {
                 min = Math.min(tuple.getB().getLevel(), min);
             }
             return min;
@@ -44,7 +27,7 @@ public enum AreaLevelMode {
         @Override
         public double getAreaLevel(World world, BlockPos pos, int radius) {
             double max = 1;
-            for (Tuple<BlockPos, IMobData> tuple : Level.sources(world, pos, radius)) {
+            for (Tuple<BlockPos, IMobCapabilityHandler> tuple : Level.sources(world, pos, radius)) {
                 max = Math.max(tuple.getB().getLevel(), max);
             }
             return max;

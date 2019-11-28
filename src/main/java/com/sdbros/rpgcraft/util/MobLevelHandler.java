@@ -1,13 +1,11 @@
 package com.sdbros.rpgcraft.util;
 
-import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.capability.IMobData;
+import com.sdbros.rpgcraft.capability.MobCapability;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.util.math.MathHelper;
 
 
 import java.util.Random;
@@ -19,7 +17,7 @@ public final class MobLevelHandler {
     private MobLevelHandler() {
     }
 
-    public static void process(MobEntity entity, IMobData data) {
+    public static void process(MobEntity entity, MobCapability.MobCapabilityData data) {
         // Already dead?
         if (!entity.isAlive()) return;
 

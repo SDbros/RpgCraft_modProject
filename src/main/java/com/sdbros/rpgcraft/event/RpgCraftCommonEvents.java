@@ -1,14 +1,13 @@
 package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.capability.MobDataCapability;
+import com.sdbros.rpgcraft.capability.MobCapability;
+import com.sdbros.rpgcraft.capability.MobCapability.*;
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import com.sdbros.rpgcraft.network.ClientLoginMessage;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.util.Level;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.INBT;
@@ -16,7 +15,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.living.LivingExperienceDropEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -41,8 +39,8 @@ public final class RpgCraftCommonEvents {
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {
 
         Entity entity = event.getObject();
-        if (MobDataCapability.canAttachTo(entity)) {
-            event.addCapability(MobDataCapability.NAME, new MobDataCapability());
+        if (MobCapabilityData.canAttachTo(entity)) {
+            event.addCapability(MobCapability.NAME, new MobCapabilityData());
             //RpgCraft.LOGGER.info("MOB " + event.getCapabilities());
         }
 
