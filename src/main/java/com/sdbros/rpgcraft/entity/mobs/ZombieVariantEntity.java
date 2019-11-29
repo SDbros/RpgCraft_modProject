@@ -46,8 +46,7 @@ public class ZombieVariantEntity extends ZombieEntity {
         super.tick();
     }
 
-    public static boolean canSpawnAt(EntityType<ZombieVariantEntity> type, IWorld world, SpawnReason
-            reason, BlockPos pos, Random random) {
+    public static boolean canSpawnAt(EntityType<ZombieVariantEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
         return world.getDifficulty() != Difficulty.PEACEFUL;
     }
 }

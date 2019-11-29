@@ -1,6 +1,7 @@
 package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
+import com.sdbros.rpgcraft.entity.mobs.LumberjackEntity;
 import com.sdbros.rpgcraft.entity.mobs.RedCreeperEntity;
 import com.sdbros.rpgcraft.entity.mobs.ZombieVariantEntity;
 import net.minecraft.entity.Entity;
@@ -17,17 +18,25 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModEntities {
+    //types
     public static final LazyLoadBase<EntityType<RedCreeperEntity>> RED_CREEPER = makeType("red_creeper", RedCreeperEntity::new);
     public static final LazyLoadBase<EntityType<ZombieVariantEntity>> ZOMBIE_VARIANT = makeType("zombie_variant", ZombieVariantEntity::new);
+    public static final LazyLoadBase<EntityType<LumberjackEntity>> LUMBERJACK = makeType("lumberjack", LumberjackEntity::new);
 
+    //eggs
+    static Item red_creeper_spawn_egg;
+    static Item zombie_variant_spawn_egg;
+    static Item lumberjack_spawn_egg;
 
     public static void registerEntityTypes(RegistryEvent.Register<EntityType<?>> event) {
+        //register types
         registerEntity("red_creeper", RED_CREEPER.getValue());
         registerEntity("zombie_variant", ZOMBIE_VARIANT.getValue());
+        registerEntity("lumberjack", LUMBERJACK.getValue());
 
+        //register placement
         EntitySpawnPlacementRegistry.register(RED_CREEPER.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, RedCreeperEntity::canSpawnAt);
         EntitySpawnPlacementRegistry.register(ZOMBIE_VARIANT.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, ZombieVariantEntity::canSpawnAt);
-
     }
 
     private static <T extends Entity> LazyLoadBase<EntityType<T>> makeType(String name, EntityType.IFactory<T> factory) {
@@ -37,8 +46,9 @@ public class ModEntities {
     public static void registerEntitySpawnEggs(final RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll
                 (
-                        ModItems.red_creeper_spawn_egg = registerEntitySpawnEgg(RED_CREEPER.getValue(), 0xd12e2e, 0x000000, "red_creeper_spawn_egg"),
-                        ModItems.zombie_variant_spawn_egg = registerEntitySpawnEgg(ZOMBIE_VARIANT.getValue(), 0x4e9154, 0x000001, "zombie_variant_spawn_egg")
+                        red_creeper_spawn_egg = registerEntitySpawnEgg(RED_CREEPER.getValue(), 0xd12e2e, 0x000000, "red_creeper_spawn_egg"),
+                        zombie_variant_spawn_egg = registerEntitySpawnEgg(ZOMBIE_VARIANT.getValue(), 0x4e9154, 0x000001, "zombie_variant_spawn_egg"),
+                        lumberjack_spawn_egg = registerEntitySpawnEgg(LUMBERJACK.getValue(), 0x963a33, 0xffffff, "lumberjack_spawn_egg")
                 );
     }
 
