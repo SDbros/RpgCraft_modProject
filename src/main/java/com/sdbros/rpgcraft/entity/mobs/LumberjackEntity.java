@@ -6,53 +6,64 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.BreakBlockGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.common.BiomeManager;
 
 import java.util.Random;
 
-public class LumberjackEntity extends ZombieEntity {
-    public LumberjackEntity(EntityType<? extends ZombieEntity> type, World worldIn) {
+import static net.minecraft.world.biome.Biomes.FOREST;
+
+public class LumberjackEntity extends MonsterEntity {
+    public LumberjackEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-    }
-
-
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(10, new AttackWoodGoal(this, 3.0D, 15));
-        super.registerGoals();
     }
 
     @Override
     protected void registerAttributes() {
         super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(45.0D);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) 0.3F);
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.23D);
+        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(35.0D);
         this.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
         this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1.0D);
     }
 
     @Override
-    protected void applyEntityAI() {
-        super.applyEntityAI();
-        this.goalSelector.addGoal(10, new AttackWoodGoal(this, 3.0D, 15));
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new AttackWoodGoal(this, 1.0D, 3));
+        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
     }
 
+    /**
+     * Gives armor or weapon for entity based on given DifficultyInstance
+     */
     @Override
-    protected boolean shouldBurnInDay() {
-        return false;
+    protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
+        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.IRON_AXE));
     }
 
     public static boolean canSpawnAt(EntityType<RedCreeperEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
-        return world.getDifficulty() != Difficulty.PEACEFUL;
+        return world.getBiome(pos) == BiomeDictionary.getTypes(FOREST);
     }
 
+    //todo create new method for harvesting wood
     static class AttackWoodGoal extends BreakBlockGoal {
         AttackWoodGoal(CreatureEntity creatureIn, double speed, int yMax) {
             super(Blocks.OAK_LOG, creatureIn, speed, yMax);
@@ -67,7 +78,7 @@ public class LumberjackEntity extends ZombieEntity {
         }
 
         public double getTargetDistanceSq() {
-            return 1.7D;
+            return 1.14D;
         }
     }
 }

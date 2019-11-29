@@ -1,14 +1,22 @@
 package com.sdbros.rpgcraft.init;
 
+import com.mojang.datafixers.types.Type;
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.block.BlocksRC;
 import com.sdbros.rpgcraft.block.Ores;
+import com.sdbros.rpgcraft.block.radioTower.RadioTowerTileEntity;
 import net.minecraft.block.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.BlockItem;
-import net.minecraft.util.IItemProvider;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.ForgeRegistries;
 
 
@@ -21,6 +29,7 @@ import static com.sdbros.rpgcraft.RpgCraft.ITEM_GROUP;
 
 public final class ModBlocks {
 
+    //Block
     public static final Map<String, Block> BLOCKS_TO_REGISTER = new LinkedHashMap<>();
 
     public static void registerAll(RegistryEvent.Register<Block> event) {

@@ -125,7 +125,7 @@ public class MobCapability {
                 level = (int) Level.areaLevel(entity.world, entity.getPosition());
                 MobLevelHandler.process(entity, this);
                 processed = true;
-                RpgCraft.LOGGER.debug(LevelEventHandler.MARKER, "Processed {} -> level={}", entity, level);
+                //RpgCraft.LOGGER.debug(LevelEventHandler.MARKER, "Processed {} -> level={}", entity, level);
             }
         }
 

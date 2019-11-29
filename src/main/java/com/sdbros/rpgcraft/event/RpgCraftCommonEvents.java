@@ -4,6 +4,7 @@ import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.MobCapability.*;
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
+import com.sdbros.rpgcraft.init.ModTileEntities;
 import com.sdbros.rpgcraft.network.ClientLoginMessage;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.util.Level;
@@ -11,10 +12,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.INBT;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,6 +27,7 @@ import net.minecraftforge.fml.network.NetworkDirection;
 public final class RpgCraftCommonEvents {
     private RpgCraftCommonEvents() {
     }
+
 
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
