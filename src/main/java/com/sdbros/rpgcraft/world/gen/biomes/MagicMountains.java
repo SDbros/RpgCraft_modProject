@@ -48,7 +48,6 @@ public class MagicMountains extends Biome {
         this.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, createDecoratedFeature(Feature.SEAGRASS, new SeaGrassConfig(48, 0.4D), Placement.TOP_SOLID_HEIGHTMAP, IPlacementConfig.NO_PLACEMENT_CONFIG));
 
 
-
         //MineCraft
         this.addSpawn(EntityClassification.WATER_CREATURE, new Biome.SpawnListEntry(EntityType.SQUID, 2, 1, 4));
         this.addSpawn(EntityClassification.CREATURE, new Biome.SpawnListEntry(EntityType.CHICKEN, 10, 1, 5));
@@ -61,10 +60,5 @@ public class MagicMountains extends Biome {
         this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.SLIME, 100, 4, 4));
         this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.ENDERMAN, 10, 1, 4));
         this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.WITCH, 10, 1, 1));
-
-        //RpgCraft
-        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 100, 1, 5));
-        this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(ModEntities.ZOMBIE_VARIANT.getValue(), 100, 1, 5));
-
     }
 }

@@ -20,10 +20,6 @@ public final class ModItems {
     static final Map<String, BlockItem> BLOCKITEMS_TO_REGISTER = new LinkedHashMap<>();
     public static final Map<String, Item> ITEMS_TO_REGISTER = new LinkedHashMap<>();
 
-    //Items
-    static Item red_creeper_spawn_egg;
-    static Item zombie_variant_spawn_egg;
-
     public static void registerAll(RegistryEvent.Register<Item> event) {
 
         // BlocksRC

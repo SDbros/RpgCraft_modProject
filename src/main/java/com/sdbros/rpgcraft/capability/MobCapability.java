@@ -1,7 +1,7 @@
 package com.sdbros.rpgcraft.capability;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.event.LevelEvents;
+import com.sdbros.rpgcraft.event.LevelEventHandler;
 import com.sdbros.rpgcraft.util.Level;
 import com.sdbros.rpgcraft.util.MobLevelHandler;
 import net.minecraft.entity.MobEntity;
@@ -125,7 +125,7 @@ public class MobCapability {
                 level = (int) Level.areaLevel(entity.world, entity.getPosition());
                 MobLevelHandler.process(entity, this);
                 processed = true;
-                RpgCraft.LOGGER.debug(LevelEvents.MARKER, "Processed {} -> level={}", entity, level);
+                RpgCraft.LOGGER.debug(LevelEventHandler.MARKER, "Processed {} -> level={}", entity, level);
             }
         }
 

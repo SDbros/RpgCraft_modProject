@@ -1,4 +1,4 @@
-package com.sdbros.rpgcraft.entity;
+package com.sdbros.rpgcraft.entity.mobs;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.monster.ZombieEntity;
@@ -44,9 +44,7 @@ public class ZombieVariantEntity extends ZombieEntity {
             }
         }
         super.tick();
-
     }
-
 
     public static boolean canSpawnAt(EntityType<ZombieVariantEntity> type, IWorld world, SpawnReason
             reason, BlockPos pos, Random random) {

@@ -23,69 +23,36 @@ public final class Level {
         throw new IllegalAccessError("Utility class");
     }
 
-    public static IMobCapabilityHandler affected(ICapabilityProvider entity) {
-        return entity.getCapability(MobCapability.INSTANCE)
-                .orElseGet(MobCapabilityData::new);
-    }
-
     public static IMobCapabilityHandler source(ICapabilityProvider source) {
         return source.getCapability(MobCapability.INSTANCE)
                 .orElseGet(MobCapabilityData::new);
     }
 
-    public static Collection<Tuple<BlockPos, IMobCapabilityHandler>> sources(IEntityReader world, Vec3i center, long radius) {
-        Collection<Tuple<BlockPos, IMobCapabilityHandler>> list = new ArrayList<>();
-
-        // Get players
-        playersInRange(world, center, radius).forEach(player -> {
-            player.getCapability(MobCapability.INSTANCE).ifPresent(source -> {
-                list.add(new Tuple<>(player.getPosition(), source));
-            });
-        });
-        return list;
-    }
-
-    public static Stream<? extends PlayerEntity> playersInRange(IEntityReader world, Vec3i center, long radius) {
-        long radiusSquared = radius * radius;
-        return world.getPlayers().stream().filter(p -> radius <= 0); //|| MCMathUtils.distanceSq(p, center) < radiusSquared);
-    }
-
-
     public static double areaLevel(World world, BlockPos pos) {
         return AreaLevelMode.DISTANCE_FROM_SPAWN.getAreaLevel(world, pos, searchRadius(world));
     }
 
-    public static AreaLevelMode getAreaLevelMode(){
+    //todo use Config
+    public static AreaLevelMode getAreaLevelMode() {
         return AreaLevelMode.DISTANCE_FROM_SPAWN;
     }
 
+    //todo use Config
     public static int searchRadius(IWorldReader world) {
-//        final int radius = Config.get(world).difficulty.searchRadius.get();
-//        return radius <= 0 ? Integer.MAX_VALUE : radius;
+        //final int radius = Config.get(world).difficulty.searchRadius.get();
+        //return radius <= 0 ? Integer.MAX_VALUE : radius;
         return 50;
     }
 
-    public static double minValue(IWorldReader world) {
-        //return Config.get(world).level.minValue.get();
-        return 1;
-    }
-
+    //todo use Config
     public static double maxValue(IWorldReader world) {
         //return Config.get(world).level.maxValue.get();
         return 50;
     }
+
+    //todo use Config
     public static boolean allowsDifficultyChanges(MobEntity entity) {
         return true;
-    }
-
-    public static double damageBoostScale(MobEntity entity) {
-        //return Config.get(entity).mobs.damageBoostScale.get();
-        return 1;
-    }
-
-    public static double maxDamageBoost(MobEntity entity) {
-        //return Config.get(entity).mobs.maxDamageBoost.get();
-        return 40;
     }
 
     public static int startingLevel(MobEntity mob) {

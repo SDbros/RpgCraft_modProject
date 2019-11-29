@@ -1,4 +1,4 @@
-package com.sdbros.rpgcraft.entity;
+package com.sdbros.rpgcraft.entity.mobs;
 
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;

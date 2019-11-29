@@ -2,7 +2,12 @@ package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
-import com.sdbros.rpgcraft.client.renderer.ModelHandler;
+import com.sdbros.rpgcraft.entity.mobs.LumberjackEntity;
+import com.sdbros.rpgcraft.entity.render.LumberjackRender;
+import com.sdbros.rpgcraft.entity.render.RedCreeperRender;
+import com.sdbros.rpgcraft.entity.render.ZombieVariantRender;
+import com.sdbros.rpgcraft.entity.mobs.RedCreeperEntity;
+import com.sdbros.rpgcraft.entity.mobs.ZombieVariantEntity;
 import com.sdbros.rpgcraft.init.*;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.world.gen.features.FeatureManager;
@@ -15,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -35,20 +41,16 @@ class SideProxy {
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Block.class, ModBlocks::registerAll);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Item.class, ModItems::registerAll);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Feature.class, ModFeatures::registerFeatures);
-        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(EntityType.class, ModEntities::registerTypes);
+        FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(EntityType.class, ModEntities::registerEntityTypes);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Item.class, ModEntities::registerEntitySpawnEggs);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Biome.class, ModBiomes::registerBiomes);
-
-
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
         RpgCraft.LOGGER.info("Setup method registered.");
         MobCapability.register();
         PlayerDataCapability.register();
-        ModEntities.registerSpawns();
-        RpgCraftBiomeFeatures.generateOres();
-        RpgCraftBiomeFeatures.generateStructures();
+        RpgCraftBiomeFeatures.init();
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -73,24 +75,28 @@ class SideProxy {
 
         private void clientSetup(FMLClientSetupEvent event) {
             RpgCraft.LOGGER.debug("RpgCraft clientSetup");
-            ModelHandler.registerModels(event);
+
+            //Mobs
+            RenderingRegistry.registerEntityRenderingHandler(ZombieVariantEntity.class, ZombieVariantRender::new);
+            RenderingRegistry.registerEntityRenderingHandler(RedCreeperEntity.class, RedCreeperRender::new);
+            RenderingRegistry.registerEntityRenderingHandler(LumberjackEntity.class, LumberjackRender::new);
         }
 
-@Nullable
-@Override
-public PlayerEntity getClientPlayer() {
-        return Minecraft.getInstance().player;
+        @Nullable
+        @Override
+        public PlayerEntity getClientPlayer() {
+            return Minecraft.getInstance().player;
         }
-        }
-
-static class Server extends SideProxy {
-    Server() {
-        RpgCraft.LOGGER.debug("RpgCraft SideProxy.Server init");
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
     }
 
-    private void serverSetup(FMLDedicatedServerSetupEvent event) {
-        RpgCraft.LOGGER.debug("RpgCraft serverSetup");
+    static class Server extends SideProxy {
+        Server() {
+            RpgCraft.LOGGER.debug("RpgCraft SideProxy.Server init");
+            FMLJavaModLoadingContext.get().getModEventBus().addListener(this::serverSetup);
+        }
+
+        private void serverSetup(FMLDedicatedServerSetupEvent event) {
+            RpgCraft.LOGGER.debug("RpgCraft serverSetup");
+        }
     }
-}
 }

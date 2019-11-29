@@ -1,21 +1,21 @@
-package com.sdbros.rpgcraft.client.renderer;
+package com.sdbros.rpgcraft.entity.render;
 
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.entity.RedCreeperEntity;
+import com.sdbros.rpgcraft.entity.mobs.RedCreeperEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.model.CreeperModel;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
-import javax.annotation.Nonnull;
 
-public final class RedCreeperRender extends MobRenderer<RedCreeperEntity, RedCreeperModel> {
+public final class RedCreeperRender extends MobRenderer<RedCreeperEntity, CreeperModel<RedCreeperEntity>> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "textures/entity/red_creeper.png");
 
     public RedCreeperRender(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new RedCreeperModel(), 0.25F);
+        super(renderManagerIn, new CreeperModel<>(), 0.25F);
     }
 
     protected void preRenderCallback(RedCreeperEntity entitylivingbaseIn, float partialTickTime) {
@@ -40,12 +40,8 @@ public final class RedCreeperRender extends MobRenderer<RedCreeperEntity, RedCre
         }
     }
 
-    /**
-     * Returns the location of an entity's texture. Doesn't seem to be called unless you call
-     * Render.bindEntityTexture.
-     */
     @Override
-    protected ResourceLocation getEntityTexture(@Nonnull RedCreeperEntity entity) {
+    protected ResourceLocation getEntityTexture(RedCreeperEntity entity) {
         return TEXTURE;
     }
 }

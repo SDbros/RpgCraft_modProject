@@ -16,9 +16,9 @@ public final class Players {
         return -19;
     }
 
+    //todo use Config
     public static int maxHealth(PlayerEntity player) {
-        int value = 50;
-        return value; //<= 0 ? Integer.MAX_VALUE : value;
+        return 40;
     }
 
     public static int clampExtraHearts(PlayerEntity player, int value) {
