@@ -1,25 +1,16 @@
 package com.sdbros.rpgcraft.capability;
 
-import com.sdbros.rpgcraft.item.Armours;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.List;
 
 import static com.sdbros.rpgcraft.capability.ImplementedEntityAbilities.ENTITY_ABILITY_REGISTRY;
-import static com.sdbros.rpgcraft.capability.ImplementedEntityAbilities.NONE;
 import static com.sdbros.rpgcraft.capability.MobCapability.INSTANCE;
 
 public class EntityAbilityData extends ForgeRegistryEntry<EntityAbilityData> {

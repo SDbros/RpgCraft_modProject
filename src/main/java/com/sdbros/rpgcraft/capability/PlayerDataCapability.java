@@ -1,7 +1,7 @@
 package com.sdbros.rpgcraft.capability;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.item.Armours;
+import com.sdbros.rpgcraft.item.armours.ArmourMaterials;
 import com.sdbros.rpgcraft.util.ModifierHandler;
 import com.sdbros.rpgcraft.util.Players;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -54,20 +54,7 @@ public class PlayerDataCapability implements IPlayerData, ICapabilitySerializabl
 
     @Override
     public void tick(PlayerEntity player) {
-        if (player.world.getGameTime() % 100 == 0 && player instanceof ServerPlayerEntity) {
-            int set = 0;
-            for (ItemStack item : player.getArmorInventoryList()) {
-                //RpgCraft.LOGGER.info(item + " <---- ITEM HERE");
-                for (Armours armour : Armours.values()) {
-                    if (armour.getChestArmourItem() == item.getItem()
-                            || armour.getFeetArmourItem() == item.getItem()
-                            || armour.getHeadArmourItem() == item.getItem()
-                            || armour.getLegsArmourItem() == item.getItem()) {
-                        set++;
-                    }
-                    player.addPotionEffect(armour.getSetBonus(set));
-                }
-            }
+        if (player.world.getGameTime() % 20 == 0 && player instanceof ServerPlayerEntity) {
             IPlayerData.sendUpdatePacketTo(player);
         }
     }
