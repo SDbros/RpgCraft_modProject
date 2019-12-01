@@ -42,10 +42,10 @@ public final class ModItems {
         }
 
         for (Armours armour : Armours.values()){
-            register(armour.getName() + "_head", armour.getHeadArmourItem());
-            register(armour.getName() + "_chest", armour.getChestArmourItem());
-            register(armour.getName() + "_legs", armour.getLegsArmourItem());
-            register(armour.getName() + "_feet", armour.getFeetArmourItem());
+            register(armour.getName() + "_helmet", armour.getHeadArmourItem());
+            register(armour.getName() + "_chestplate", armour.getChestArmourItem());
+            register(armour.getName() + "_leggings", armour.getLegsArmourItem());
+            register(armour.getName() + "_boots", armour.getFeetArmourItem());
         }
     }
 
