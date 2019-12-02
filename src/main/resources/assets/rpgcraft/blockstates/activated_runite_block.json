@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "rpgcraft:block/activated_runite_block"
+    }
+  }
+}

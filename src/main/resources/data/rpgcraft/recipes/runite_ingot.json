@@ -1,14 +1,17 @@
 {
   "type": "crafting_shaped",
   "pattern": [
-    "#"
+    "#x"
   ],
   "key": {
     "#": {
-      "item": "rpgcraft:runite_ore"
+      "item": "rpgcraft:runite_ingot"
+    },
+    "x": {
+      "item": "minecraft:coal"
     }
   },
   "result": {
-    "item": "rpgcraft:runite_ingot"
+    "item": "rpgcraft:activated_runite_ingot"
   }
 }

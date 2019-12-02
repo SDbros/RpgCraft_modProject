@@ -1,12 +1,12 @@
 {
-  "type": "minecraft:item",
+  "type": "minecraft:block",
   "pools": [
     {
-      "rolls": 3,
+      "rolls": 1,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "rpgcraft:runite_ingot"
+          "name": "rpgcraft:activated_runite_block"
         }
       ],
       "conditions": [

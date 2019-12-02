@@ -15,6 +15,8 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder(RpgCraft.MOD_ID)
 public class ItemsRC {
     public static  final UnstableMatterItem UNSTABLE_MATTER = register("unstable_matter_item", new UnstableMatterItem((new Item.Properties()).group(RpgCraft.ITEM_GROUP)));
+    public static  final Item ACTIVATED_RUNITE_INGOT = register("activated_runite_ingot", new Item((new Item.Properties()).group(RpgCraft.ITEM_GROUP)));
+
 
     private static <T extends Item> T register(String name, T item) {
         ModItems.ITEMS_TO_REGISTER.put(name, item);
