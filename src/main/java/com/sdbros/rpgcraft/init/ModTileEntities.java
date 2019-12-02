@@ -14,10 +14,6 @@ import java.util.function.Supplier;
 @ObjectHolder(RpgCraft.MOD_ID)
 public class ModTileEntities {
 
-//    public static @Nonnull
-//    <T> T getNull() {
-//        return null;
-//    }
 
     public static final TileEntityType<RadioTowerTileEntity> RADIO_TOWER_TILE = null;
 

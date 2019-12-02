@@ -1,6 +1,7 @@
 package com.sdbros.rpgcraft.block.radioTower;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ContainerBlock;
 import net.minecraft.entity.item.ItemEntity;
@@ -15,6 +16,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 
@@ -23,7 +25,7 @@ public class RadioTowerBlock extends ContainerBlock {
 
     public RadioTowerBlock(Block.Properties builder) {
         super(builder);
-        this.setDefaultState(this.stateContainer.getBaseState().with(HAS_RECORD, Boolean.valueOf(false)));
+        this.setDefaultState(this.stateContainer.getBaseState().with(HAS_RECORD, Boolean.FALSE));
     }
 
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
@@ -33,11 +35,19 @@ public class RadioTowerBlock extends ContainerBlock {
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (state.get(HAS_RECORD)) {
             this.dropRecord(worldIn, pos);
-            state = state.with(HAS_RECORD, Boolean.valueOf(false));
+            state = state.with(HAS_RECORD, Boolean.FALSE);
             worldIn.setBlockState(pos, state, 2);
             return true;
         } else {
             return false;
+        }
+    }
+
+    public void insertRecord(IWorld worldIn, BlockPos pos, BlockState state, ItemStack recordStack) {
+        TileEntity tileentity = worldIn.getTileEntity(pos);
+        if (tileentity instanceof JukeboxTileEntity) {
+            ((JukeboxTileEntity)tileentity).setRecord(recordStack.copy());
+            worldIn.setBlockState(pos, state.with(HAS_RECORD, Boolean.TRUE), 2);
         }
     }
 
@@ -61,6 +71,15 @@ public class RadioTowerBlock extends ContainerBlock {
                 }
             }
         }
+    }
+
+    /**
+     * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
+     * LIQUID for vanilla liquids, INVISIBLE to skip all rendering
+     * @deprecated call via {@link BlockState#getRenderType()} whenever possible. Implementing/overriding is fine.
+     */
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
