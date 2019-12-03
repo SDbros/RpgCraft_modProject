@@ -58,6 +58,7 @@ public class ModEntities {
                 );
     }
 
+
     private static Item registerEntitySpawnEgg(EntityType<?> type, int color1, int color2, String name) {
         SpawnEggItem item = new SpawnEggItem(type, color1, color2, new Item.Properties().group(RpgCraft.ITEM_GROUP));
         item.setRegistryName(RpgCraft.getId(name));

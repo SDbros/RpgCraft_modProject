@@ -1,6 +1,7 @@
 package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
+import com.sdbros.rpgcraft.capability.Abilities;
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
 import net.minecraft.entity.LivingEntity;
@@ -37,6 +38,7 @@ public class LevelEventHandler {
         if (entity instanceof MobEntity) {
             entity.getCapability(MobCapability.INSTANCE).ifPresent(affected -> {
                 affected.tick((MobEntity) entity);
+                //affected.addAbility(Abilities.absorption.getAbility());
             });
         }
         if (entity instanceof PlayerEntity) {

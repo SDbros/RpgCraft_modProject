@@ -101,6 +101,11 @@ public class ClusterCreeperEntity extends CreatureEntity {
         return this.dataManager.get(CLUSTER_CREEPER_SIZE);
     }
 
+    @Override
+    public EntityClassification getClassification(boolean forSpawnCount) {
+        return EntityClassification.MONSTER;
+    }
+
     /**
      * The maximum height from where the entity is allowed to jump (used in pathfinder)
      */

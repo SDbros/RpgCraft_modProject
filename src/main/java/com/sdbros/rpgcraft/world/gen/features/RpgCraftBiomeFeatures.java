@@ -3,6 +3,7 @@ package com.sdbros.rpgcraft.world.gen.features;
 import com.sdbros.rpgcraft.init.ModBiomes;
 import com.sdbros.rpgcraft.init.ModEntities;
 import com.sdbros.rpgcraft.init.ModFeatures;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;
@@ -43,22 +44,22 @@ public class RpgCraftBiomeFeatures {
     //used to add mob to all biomes
     private static void registerEntitySpawns() {
         for (Biome biome : ForgeRegistries.BIOMES) {
-            biome.getSpawns(ModEntities.CLUSTER_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.CLUSTER_CREEPER.getValue(), 30, 1, 3));
-            biome.getSpawns(ModEntities.RED_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 70, 1, 3));
-            biome.getSpawns(ModEntities.ZOMBIE_VARIANT.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.ZOMBIE_VARIANT.getValue(), 80, 1, 1));
+            
+            biome.getSpawns(ModEntities.CLUSTER_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.CLUSTER_CREEPER.getValue(), 1, 1, 1));
+            biome.getSpawns(ModEntities.RED_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 5, 1, 3));
+            biome.getSpawns(ModEntities.ZOMBIE_VARIANT.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.ZOMBIE_VARIANT.getValue(), 30, 1, 2));
         }
     }
 
     //used to add mob to specific biome
     private static void registerBiomeSpecificSpawns() {
-        registerEntityWorldSpawn(ModEntities.RED_CREEPER.getValue(), 120, 2, 5, ModBiomes.MAGICMOUNTAINS);
+        registerEntityWorldSpawn(ModEntities.RED_CREEPER.getValue(), 100, 2, 5, ModBiomes.MAGICMOUNTAINS);
     }
 
     private static void registerEntityWorldSpawn(EntityType<?> entity, int weight, int minGroupCountIn, int maxGroupCountIn, Biome... biomes) {
         for (Biome biome : biomes) {
             if (biome != null) {
                 biome.getSpawns(entity.getClassification()).add(new Biome.SpawnListEntry(entity, weight, minGroupCountIn, maxGroupCountIn));
-                //int weight, int minGroupCountIn, int maxGroupCountIn
             }
         }
     }

@@ -8,10 +8,7 @@ import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 
 import java.util.Collection;
 import java.util.Random;
