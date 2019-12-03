@@ -16,17 +16,16 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.Explosion;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.Random;
 
 public class ClusterCreeperEntity extends CreatureEntity {
     private static final DataParameter<Integer> STATE = EntityDataManager.createKey(CreeperEntity.class, DataSerializers.VARINT);
@@ -37,10 +36,6 @@ public class ClusterCreeperEntity extends CreatureEntity {
     private int timeSinceIgnited;
     private int fuseTime = 30;
     private int explosionRadius = 3;
-    public float squishAmount;
-    public float squishFactor;
-    public float prevSquishFactor;
-    private boolean wasOnGround;
 
 
     public ClusterCreeperEntity(EntityType<? extends CreatureEntity> type, World worldIn) {
@@ -50,8 +45,8 @@ public class ClusterCreeperEntity extends CreatureEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new ClusterCreeperSwellGoal(this));
-        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 0.5D, false));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1D, true));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 18.0F));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
@@ -79,7 +74,7 @@ public class ClusterCreeperEntity extends CreatureEntity {
         this.setPosition(this.posX, this.posY, this.posZ);
         this.recalculateSize();
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((size * size));
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1 - (0.15 *size));
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5 - (0.07 * size));
         if (resetHealth) {
             this.setHealth(this.getMaxHealth());
         }
@@ -118,7 +113,6 @@ public class ClusterCreeperEntity extends CreatureEntity {
         }
 
         compound.putInt("Size", this.getClusterCreeperSize());
-        compound.putBoolean("wasOnGround", this.wasOnGround);
         compound.putShort("Fuse", (short) this.fuseTime);
         compound.putByte("ExplosionRadius", (byte) this.explosionRadius);
         compound.putBoolean("ignited", this.hasIgnited());
@@ -146,7 +140,6 @@ public class ClusterCreeperEntity extends CreatureEntity {
             i = 0;
         }
         this.setClusterCreeperSize(i + 1, false);
-        this.wasOnGround = compound.getBoolean("wasOnGround");
     }
 
 
@@ -154,31 +147,6 @@ public class ClusterCreeperEntity extends CreatureEntity {
      * Called to update the entity's position/logic.
      */
     public void tick() {
-        this.squishFactor += (this.squishAmount - this.squishFactor) * 0.5F;
-        this.prevSquishFactor = this.squishFactor;
-
-        if (this.onGround && !this.wasOnGround) {
-            int i = this.getClusterCreeperSize();
-
-            if (spawnCustomParticles()) i = 0; // don't spawn particles if it's handled by the implementation itself
-            for (int j = 0; j < i * 8; ++j) {
-                float f = this.rand.nextFloat() * ((float) Math.PI * 2F);
-                float f1 = this.rand.nextFloat() * 0.5F + 0.5F;
-                float f2 = MathHelper.sin(f) * (float) i * 0.5F * f1;
-                float f3 = MathHelper.cos(f) * (float) i * 0.5F * f1;
-                World world = this.world;
-                double d0 = this.posX + (double) f2;
-                double d1 = this.posZ + (double) f3;
-            }
-
-            this.squishAmount = -0.5F;
-        } else if (!this.onGround && this.wasOnGround) {
-            this.squishAmount = 1.0F;
-        }
-
-        this.wasOnGround = this.onGround;
-        this.alterSquishAmount();
-
         if (this.isAlive()) {
             this.lastActiveTime = this.timeSinceIgnited;
             if (this.hasIgnited()) {
@@ -202,10 +170,6 @@ public class ClusterCreeperEntity extends CreatureEntity {
         }
 
         super.tick();
-    }
-
-    protected void alterSquishAmount() {
-        this.squishAmount *= 0.6F;
     }
 
     public void notifyDataManagerChange(DataParameter<?> key) {
@@ -301,7 +265,6 @@ public class ClusterCreeperEntity extends CreatureEntity {
         this.dataManager.set(STATE, state);
     }
 
-
     protected boolean processInteract(PlayerEntity player, Hand hand) {
         ItemStack itemstack = player.getHeldItem(hand);
         if (itemstack.getItem() == Items.FLINT_AND_STEEL) {
@@ -365,10 +328,6 @@ public class ClusterCreeperEntity extends CreatureEntity {
         return super.getSize(poseIn).scale(0.255F * (float) this.getClusterCreeperSize());
     }
 
-    protected boolean spawnCustomParticles() {
-        return false;
-    }
-
     public class ClusterCreeperSwellGoal extends Goal {
         private final ClusterCreeperEntity clusterCreeperEntity;
         private LivingEntity livingEntity;
@@ -416,6 +375,10 @@ public class ClusterCreeperEntity extends CreatureEntity {
                 this.clusterCreeperEntity.setCreeperState(1);
             }
         }
+    }
+
+    public static boolean canSpawnAt(EntityType<ClusterCreeperEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+        return world.getDifficulty() != Difficulty.PEACEFUL;
     }
 }
 

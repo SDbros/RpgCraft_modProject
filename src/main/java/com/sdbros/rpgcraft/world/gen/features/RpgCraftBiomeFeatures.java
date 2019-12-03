@@ -43,6 +43,7 @@ public class RpgCraftBiomeFeatures {
     //used to add mob to all biomes
     private static void registerEntitySpawns() {
         for (Biome biome : ForgeRegistries.BIOMES) {
+            biome.getSpawns(ModEntities.CLUSTER_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.CLUSTER_CREEPER.getValue(), 30, 1, 3));
             biome.getSpawns(ModEntities.RED_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 70, 1, 3));
             biome.getSpawns(ModEntities.ZOMBIE_VARIANT.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.ZOMBIE_VARIANT.getValue(), 80, 1, 1));
         }

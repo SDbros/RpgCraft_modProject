@@ -4,11 +4,9 @@ package com.sdbros.rpgcraft.entity.render;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.entity.mobs.ClusterCreeperEntity;
-import com.sdbros.rpgcraft.entity.mobs.RedCreeperEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.model.CreeperModel;
-import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
@@ -25,15 +23,8 @@ public final class ClusterCreeperRender extends MobRenderer<ClusterCreeperEntity
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
-    @Override
-    public float prepareScale(ClusterCreeperEntity entitylivingbaseIn, float partialTicks) {
-        return super.prepareScale(entitylivingbaseIn, partialTicks);
-    }
-
     protected void preRenderCallback(ClusterCreeperEntity entitylivingbaseIn, float partialTickTime) {
         float f = (float)entitylivingbaseIn.getClusterCreeperSize()/3.5f;
-        float f2 = (1.0F + f * 0.4F);
-        float f3 = (1.0F + f * 0.1F);
         GlStateManager.scalef(f, f, f);
 
     }
