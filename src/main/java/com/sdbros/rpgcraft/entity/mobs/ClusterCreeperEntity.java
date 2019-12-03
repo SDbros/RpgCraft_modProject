@@ -3,6 +3,7 @@ package com.sdbros.rpgcraft.entity.mobs;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -28,9 +30,9 @@ import java.util.EnumSet;
 import java.util.Random;
 
 public class ClusterCreeperEntity extends CreatureEntity {
-    private static final DataParameter<Integer> STATE = EntityDataManager.createKey(CreeperEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> POWERED = EntityDataManager.createKey(CreeperEntity.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(CreeperEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> STATE = EntityDataManager.createKey(ClusterCreeperEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> POWERED = EntityDataManager.createKey(ClusterCreeperEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(ClusterCreeperEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> CLUSTER_CREEPER_SIZE = EntityDataManager.createKey(ClusterCreeperEntity.class, DataSerializers.VARINT);
     private int lastActiveTime;
     private int timeSinceIgnited;
@@ -45,10 +47,12 @@ public class ClusterCreeperEntity extends CreatureEntity {
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new ClusterCreeperSwellGoal(this));
-        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1D, true));
+        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 18.0F));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, VillagerEntity.class, true));
+
     }
 
     protected void registerAttributes() {
@@ -74,13 +78,20 @@ public class ClusterCreeperEntity extends CreatureEntity {
         this.setPosition(this.posX, this.posY, this.posZ);
         this.recalculateSize();
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue((size * size));
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5 - (0.07 * size));
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(Math.max((.5 - (0.07 * size)), 0.25));
         if (resetHealth) {
             this.setHealth(this.getMaxHealth());
         }
         this.fuseTime = 7 * size;
         this.explosionRadius = size;
         this.experienceValue = size;
+    }
+
+    @Override
+    protected void jump() {
+        Vec3d vec3d = this.getMotion();
+        this.setMotion(vec3d.x,  Math.max(getClusterCreeperSize() / 10F * 1.05, 0.42F), vec3d.z);
+        this.isAirBorne = true;
     }
 
     /**
@@ -188,8 +199,8 @@ public class ClusterCreeperEntity extends CreatureEntity {
     @Override
     public void remove(boolean keepData) {
         int i = this.getClusterCreeperSize();
-        if (i > 1) {
-            int j = this.rand.nextInt(3);
+        if (!this.world.isRemote && i > 1) {
+            int j = this.rand.nextInt(4);
 
             for (int k = 0; k < j; ++k) {
                 float f = ((float) (k % 2) - 0.5F) * (float) i / 4.0F;
@@ -367,7 +378,7 @@ public class ClusterCreeperEntity extends CreatureEntity {
         public void tick() {
             if (this.livingEntity == null) {
                 this.clusterCreeperEntity.setCreeperState(-1);
-            } else if (this.clusterCreeperEntity.getDistanceSq(this.livingEntity) > 49.0D) {
+            } else if (this.clusterCreeperEntity.getDistanceSq(this.livingEntity) > 50.0D) {
                 this.clusterCreeperEntity.setCreeperState(-1);
             } else if (!this.clusterCreeperEntity.getEntitySenses().canSee(this.livingEntity)) {
                 this.clusterCreeperEntity.setCreeperState(-1);

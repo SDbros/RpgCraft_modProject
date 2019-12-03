@@ -1,19 +1,19 @@
 package com.sdbros.rpgcraft.block.radioTower;
 
 
+import com.sdbros.rpgcraft.init.ModTileEntities;
 import net.minecraft.inventory.IClearable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 
-import static com.sdbros.rpgcraft.init.ModTileEntities.RADIO_TOWER_TILE;
 
 public class RadioTowerTileEntity extends TileEntity implements IClearable {
 
     private ItemStack record = ItemStack.EMPTY;
 
     public RadioTowerTileEntity() {
-        super(RADIO_TOWER_TILE);
+        super(ModTileEntities.RADIO_TOWER_TILE);
     }
 
     public void read(CompoundNBT compound) {

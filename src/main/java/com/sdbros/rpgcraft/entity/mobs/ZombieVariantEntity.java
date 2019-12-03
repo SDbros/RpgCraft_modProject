@@ -50,3 +50,6 @@ public class ZombieVariantEntity extends ZombieEntity {
         return world.getDifficulty() != Difficulty.PEACEFUL;
     }
 }
+
+
+

@@ -21,6 +21,7 @@ public class ModTileEntities {
         event.getRegistry().register(create("radio_tower", RadioTowerTileEntity::new, BlocksRC.RADIO_TOWER));
     }
 
+    @SuppressWarnings("ConstantConditions")
     private static <T extends TileEntity> TileEntityType<?> create(String id, Supplier<? extends T> factoryIn, Block... blocks) {
         return TileEntityType.Builder.create(factoryIn, blocks).build(null).setRegistryName(RpgCraft.MOD_ID, id);
     }

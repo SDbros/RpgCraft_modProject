@@ -28,10 +28,6 @@ public class RadioTowerBlock extends ContainerBlock {
         this.setDefaultState(this.stateContainer.getBaseState().with(HAS_RECORD, Boolean.FALSE));
     }
 
-    public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return new RadioTowerTileEntity();
-    }
-
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (state.get(HAS_RECORD)) {
             this.dropRecord(worldIn, pos);
@@ -72,6 +68,18 @@ public class RadioTowerBlock extends ContainerBlock {
             }
         }
     }
+
+    public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
+        if (state.getBlock() != newState.getBlock()) {
+            this.dropRecord(worldIn, pos);
+            super.onReplaced(state, worldIn, pos, newState, isMoving);
+        }
+    }
+
+    public TileEntity createNewTileEntity(IBlockReader worldIn) {
+        return new RadioTowerTileEntity();
+    }
+
 
     /**
      * The type of render function called. MODEL for mixed tesr and static model, MODELBLOCK_ANIMATED for TESR-only,
