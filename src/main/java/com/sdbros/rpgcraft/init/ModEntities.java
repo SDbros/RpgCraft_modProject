@@ -1,6 +1,7 @@
 package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
+import com.sdbros.rpgcraft.entity.mobs.ClusterCreeperEntity;
 import com.sdbros.rpgcraft.entity.mobs.LumberjackEntity;
 import com.sdbros.rpgcraft.entity.mobs.RedCreeperEntity;
 import com.sdbros.rpgcraft.entity.mobs.ZombieVariantEntity;
@@ -19,17 +20,20 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModEntities {
     //types
+    public static final LazyLoadBase<EntityType<ClusterCreeperEntity>> CLUSTER_CREEPER = makeType("cluster_creeper", ClusterCreeperEntity::new);
     public static final LazyLoadBase<EntityType<RedCreeperEntity>> RED_CREEPER = makeType("red_creeper", RedCreeperEntity::new);
     public static final LazyLoadBase<EntityType<ZombieVariantEntity>> ZOMBIE_VARIANT = makeType("zombie_variant", ZombieVariantEntity::new);
     public static final LazyLoadBase<EntityType<LumberjackEntity>> LUMBERJACK = makeType("lumberjack", LumberjackEntity::new);
 
     //eggs
+    static Item cluster_creeper_spawn_egg;
     static Item red_creeper_spawn_egg;
     static Item zombie_variant_spawn_egg;
     static Item lumberjack_spawn_egg;
 
     public static void registerEntityTypes(RegistryEvent.Register<EntityType<?>> event) {
         //register types
+        registerEntity("cluster_creeper", CLUSTER_CREEPER.getValue());
         registerEntity("red_creeper", RED_CREEPER.getValue());
         registerEntity("zombie_variant", ZOMBIE_VARIANT.getValue());
         registerEntity("lumberjack", LUMBERJACK.getValue());
@@ -46,6 +50,7 @@ public class ModEntities {
     public static void registerEntitySpawnEggs(final RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll
                 (
+                        cluster_creeper_spawn_egg = registerEntitySpawnEgg(CLUSTER_CREEPER.getValue(), 0xffffff, 0x4e9154, "cluster_creeper_spawn_egg"),
                         red_creeper_spawn_egg = registerEntitySpawnEgg(RED_CREEPER.getValue(), 0xd12e2e, 0x000000, "red_creeper_spawn_egg"),
                         zombie_variant_spawn_egg = registerEntitySpawnEgg(ZOMBIE_VARIANT.getValue(), 0x4e9154, 0x000001, "zombie_variant_spawn_egg"),
                         lumberjack_spawn_egg = registerEntitySpawnEgg(LUMBERJACK.getValue(), 0x963a33, 0xffffff, "lumberjack_spawn_egg")

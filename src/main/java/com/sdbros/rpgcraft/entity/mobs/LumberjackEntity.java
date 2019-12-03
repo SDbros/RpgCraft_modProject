@@ -59,7 +59,7 @@ public class LumberjackEntity extends MonsterEntity {
         this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.IRON_AXE));
     }
 
-    public static boolean canSpawnAt(EntityType<RedCreeperEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
+    public static boolean canSpawnAt(EntityType<LumberjackEntity> type, IWorld world, SpawnReason reason, BlockPos pos, Random random) {
         return world.getBiome(pos) == BiomeDictionary.getTypes(FOREST);
     }
 

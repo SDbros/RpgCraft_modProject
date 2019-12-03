@@ -2,7 +2,9 @@ package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.PlayerDataCapability;
+import com.sdbros.rpgcraft.entity.mobs.ClusterCreeperEntity;
 import com.sdbros.rpgcraft.entity.mobs.LumberjackEntity;
+import com.sdbros.rpgcraft.entity.render.ClusterCreeperRender;
 import com.sdbros.rpgcraft.entity.render.LumberjackRender;
 import com.sdbros.rpgcraft.entity.render.RedCreeperRender;
 import com.sdbros.rpgcraft.entity.render.ZombieVariantRender;
@@ -85,6 +87,7 @@ class SideProxy {
             //Mobs
             RenderingRegistry.registerEntityRenderingHandler(ZombieVariantEntity.class, ZombieVariantRender::new);
             RenderingRegistry.registerEntityRenderingHandler(RedCreeperEntity.class, RedCreeperRender::new);
+            RenderingRegistry.registerEntityRenderingHandler(ClusterCreeperEntity.class, ClusterCreeperRender::new);
             RenderingRegistry.registerEntityRenderingHandler(LumberjackEntity.class, LumberjackRender::new);
         }
 
