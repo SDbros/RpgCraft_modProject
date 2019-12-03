@@ -1,37 +1,42 @@
 
 package com.sdbros.rpgcraft.capability;
 
-import com.google.common.collect.Sets;
-import net.minecraft.potion.Effect;
+import net.minecraft.entity.EntityPredicate;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraftforge.registries.IForgeRegistry;
 
-import java.util.Set;
+import java.util.List;
+import java.util.Random;
 
-public enum Abilities {
-    none("none", null),
-    absorption("absorption", Effects.ABSORPTION),
-    slowAoe("slowAoe", null);
+public class Abilities {
+    static Random rand;
 
-    private final LazyLoadBase<EntityAbilityData> ability;
+    public static IForgeRegistry<EntityAbilityData> ENTITY_ABILITY_REGISTRY;
 
-    private String name;
+    public static final EntityAbilityData ABSORPTION = new EntityAbilityData("absorption", Effects.ABSORPTION);
 
-    Abilities(String name, Effect potionEffect) {
-        this.name = name;
-        ability = new LazyLoadBase<>(() -> new EntityAbilityData(name, potionEffect));
-    }
+    public static final EntityAbilityData SLOWAOE = new EntityAbilityData("slowaoe", null) {
+        private final EntityPredicate ENTITY_PREDICATE = (new EntityPredicate()).setDistance(20.0D);
 
-    public static Set<String> getNames() {
-        Set<String> names = Sets.newHashSet();
-        for (Abilities a : values()) {
-            names.add(a.name);
+        @Override
+        public void runAbility(LivingEntity entity) {
+            if (entity.isAlive()) {
+                List<LivingEntity> list = entity.world.getTargettableEntitiesWithinAABB(LivingEntity.class, ENTITY_PREDICATE, entity, entity.getBoundingBox().grow(20.0D, 8.0D, 20.0D));
+
+                for (int i = 0; i < 10 && !list.isEmpty(); ++i) {
+                    LivingEntity livingentity = list.get(rand.nextInt(list.size()));
+                    if (livingentity instanceof PlayerEntity) {
+                        if (!((PlayerEntity) livingentity).abilities.disableDamage) {
+                            livingentity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 10, 2));
+                        }
+                    }
+                    list.remove(livingentity);
+                }
+            }
         }
-        return names;
-    }
-
-    public EntityAbilityData getAbility() {
-        return ability.getValue();
-    }
+    };
 }
 
