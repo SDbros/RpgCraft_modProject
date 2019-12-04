@@ -17,8 +17,11 @@ public class Abilities {
     public static IForgeRegistry<EntityAbilityData> ENTITY_ABILITY_REGISTRY;
 
     public static final EntityAbilityData ABSORPTION = new EntityAbilityData("absorption", Effects.ABSORPTION);
+    public static final EntityAbilityData JUMP_BOOST = new EntityAbilityData("jump_boost", Effects.JUMP_BOOST);
+    public static final EntityAbilityData INVISIBILITY = new EntityAbilityData("invisibility", Effects.INVISIBILITY);
+    public static final EntityAbilityData SPEED = new EntityAbilityData("speed", Effects.SPEED);
 
-    public static final EntityAbilityData SLOWAOE = new EntityAbilityData("slowaoe", null) {
+    public static final EntityAbilityData SLOWAOE = new EntityAbilityData("slow_aoe", null) {
         private final EntityPredicate ENTITY_PREDICATE = (new EntityPredicate()).setDistance(20.0D);
 
         @Override
