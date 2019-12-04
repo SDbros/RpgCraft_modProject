@@ -21,9 +21,14 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.provider.BiomeProviderType;
+import net.minecraft.world.gen.ChunkGeneratorType;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.ModDimension;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.event.lifecycle.*;
@@ -71,9 +76,29 @@ class SideProxy {
         ModCommands.registerAll(event.getServer().getCommandManager().getDispatcher());
     }
 
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class RpgCraftEventHandler {
+
+        @SubscribeEvent
+        public static void onDimensionModRegistry(RegistryEvent.Register<ModDimension> event) {
+            event.getRegistry().register(ModDimensions.dimension);
+            DimensionManager.registerDimension(RpgCraft.getId("unstable_dimension"), ModDimensions.dimension, null, true);
+        }
+
+        @SubscribeEvent
+        public static void onChunkGeneratorTypeRegistry(RegistryEvent.Register<ChunkGeneratorType<?, ?>> event) {
+            event.getRegistry().register(ModBiomes.generatorType.setRegistryName(RpgCraft.MOD_ID, "generator"));
+        }
+
+        @SubscribeEvent
+        public static void onBiomeProviderTypeRegistry(RegistryEvent.Register<BiomeProviderType<?, ?>> event) {
+            event.getRegistry().register(ModBiomes.biomeProviderType.setRegistryName(RpgCraft.MOD_ID, "generator"));
+        }
+
     @Nullable
     public PlayerEntity getClientPlayer() {
         return null;
+
     }
 
     static class Client extends SideProxy {

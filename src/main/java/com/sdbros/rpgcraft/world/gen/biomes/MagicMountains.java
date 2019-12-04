@@ -61,4 +61,8 @@ public class MagicMountains extends Biome {
         this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.ENDERMAN, 10, 1, 4));
         this.addSpawn(EntityClassification.MONSTER, new Biome.SpawnListEntry(EntityType.WITCH, 10, 1, 1));
     }
+
+    public MagicMountains(Builder parent) {
+        super(parent);
+    }
 }
