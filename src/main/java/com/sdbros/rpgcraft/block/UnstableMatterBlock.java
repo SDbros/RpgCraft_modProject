@@ -44,12 +44,12 @@ public class UnstableMatterBlock extends Block {
     }
 
 
-    /**
-     * Return whether this block can drop from an explosion.
-     */
-    public boolean canDropFromExplosion(Explosion explosionIn) {
-        return true;
-    }
+//    /**
+//     * Return whether this block can drop from an explosion.
+//     */
+//    public boolean canDropFromExplosion(Explosion explosionIn) {
+//        return true;
+//    }
 
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.TRANSLUCENT;

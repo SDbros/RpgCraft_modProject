@@ -1,4 +1,4 @@
-package com.sdbros.rpgcraft.world.biomes;
+package com.sdbros.rpgcraft.world.gen.biomes;
 
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStage;

@@ -48,7 +48,7 @@ public class ClusterCreeperEntity extends CreatureEntity {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new ClusterCreeperSwellGoal(this));
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 18.0F));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, (15.0F + getClusterCreeperSize())));
         this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, VillagerEntity.class, true));
@@ -90,7 +90,7 @@ public class ClusterCreeperEntity extends CreatureEntity {
     @Override
     protected void jump() {
         Vec3d vec3d = this.getMotion();
-        this.setMotion(vec3d.x,  Math.max(getClusterCreeperSize() / 10F * 1.05, 0.42F), vec3d.z);
+        this.setMotion(vec3d.x,  Math.min(Math.max((getClusterCreeperSize() / 4F) * 0.40, 0.42), 1.6F), vec3d.z);
         this.isAirBorne = true;
     }
 
@@ -110,10 +110,11 @@ public class ClusterCreeperEntity extends CreatureEntity {
      * The maximum height from where the entity is allowed to jump (used in pathfinder)
      */
     public int getMaxFallHeight() {
-        return this.getAttackTarget() == null ? 3 : 3 + (int) (this.getHealth() - 1.0F);
+        return this.getAttackTarget() == null ? getClusterCreeperSize()/4 : getClusterCreeperSize()/4 + (int) (this.getHealth() - 1.0F);
     }
 
     public void fall(float distance, float damageMultiplier) {
+        damageMultiplier = Math.max(damageMultiplier / (getClusterCreeperSize()/4F), damageMultiplier);
         super.fall(distance, damageMultiplier);
         this.timeSinceIgnited = (int) ((float) this.timeSinceIgnited + distance * 1.5F);
         if (this.timeSinceIgnited > this.fuseTime - 5) {
@@ -317,10 +318,10 @@ public class ClusterCreeperEntity extends CreatureEntity {
         Collection<EffectInstance> collection = this.getActivePotionEffects();
         if (!collection.isEmpty()) {
             AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(this.world, this.posX, this.posY, this.posZ);
-            areaeffectcloudentity.setRadius(2.5F);
+            areaeffectcloudentity.setRadius(1.5F);
             areaeffectcloudentity.setRadiusOnUse(-0.5F);
             areaeffectcloudentity.setWaitTime(10);
-            areaeffectcloudentity.setDuration(areaeffectcloudentity.getDuration() / 2);
+            areaeffectcloudentity.setDuration(areaeffectcloudentity.getDuration() / 3);
             areaeffectcloudentity.setRadiusPerTick(-areaeffectcloudentity.getRadius() / (float) areaeffectcloudentity.getDuration());
 
             for (EffectInstance effectinstance : collection) {
@@ -359,7 +360,7 @@ public class ClusterCreeperEntity extends CreatureEntity {
          */
         public boolean shouldExecute() {
             LivingEntity livingentity = this.clusterCreeperEntity.getAttackTarget();
-            return this.clusterCreeperEntity.getCreeperState() > 0 || livingentity != null && this.clusterCreeperEntity.getDistanceSq(livingentity) < 1.0D + getClusterCreeperSize();
+            return this.clusterCreeperEntity.getCreeperState() > 0 || livingentity != null && this.clusterCreeperEntity.getDistanceSq(livingentity) <  getClusterCreeperSize()*2;
         }
 
         /**

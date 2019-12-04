@@ -28,9 +28,9 @@ import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ModDimension;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -76,7 +76,7 @@ class SideProxy {
         ModCommands.registerAll(event.getServer().getCommandManager().getDispatcher());
     }
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RpgCraftEventHandler {
 
         @SubscribeEvent
@@ -94,11 +94,6 @@ class SideProxy {
         public static void onBiomeProviderTypeRegistry(RegistryEvent.Register<BiomeProviderType<?, ?>> event) {
             event.getRegistry().register(ModBiomes.biomeProviderType.setRegistryName(RpgCraft.MOD_ID, "generator"));
         }
-
-    @Nullable
-    public PlayerEntity getClientPlayer() {
-        return null;
-
     }
 
     static class Client extends SideProxy {
@@ -117,7 +112,6 @@ class SideProxy {
         }
 
         @Nullable
-        @Override
         public PlayerEntity getClientPlayer() {
             return Minecraft.getInstance().player;
         }
