@@ -8,6 +8,7 @@ public final class Players {
         throw new IllegalAccessError("Utility class");
     }
 
+    //todo use Config
     public static int startingHealth(PlayerEntity player) {
         return -10;
     }

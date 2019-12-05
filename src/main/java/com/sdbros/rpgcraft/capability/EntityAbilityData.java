@@ -85,6 +85,13 @@ public class EntityAbilityData extends ForgeRegistryEntry<EntityAbilityData> {
         return !handler.getAbilities().isEmpty();
     }
 
+
+    /**
+     * Applies a potion effect to the entity by default
+     * Overwrite if you want something else to happen
+     *
+     * @param entity the entity to run the ability on
+     */
     public void runAbility(LivingEntity entity) {
         if (!entity.isAlive()) return;
         entity.getCapability(INSTANCE).filter(EntityAbilityData::hasAbilities).ifPresent(handler -> {
@@ -92,7 +99,6 @@ public class EntityAbilityData extends ForgeRegistryEntry<EntityAbilityData> {
                         if (data.isPotion() && entity.world.getGameTime() % 100 == 0) {
                             data.applyPotionToEntity(entity, potionEffect);
                         }
-                        //todo run abilities here
                     }
                 }
         );

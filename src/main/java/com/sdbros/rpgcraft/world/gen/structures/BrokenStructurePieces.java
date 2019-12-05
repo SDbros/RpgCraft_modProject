@@ -68,7 +68,6 @@ public class BrokenStructurePieces {
             this.func_207614_a(templateManager);
         }
 
-        //todo figure out what func_207614_a is.
         private void func_207614_a(TemplateManager templateManager) {
             Template template = templateManager.getTemplateDefaulted(this.resourceLocation);
             PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation)

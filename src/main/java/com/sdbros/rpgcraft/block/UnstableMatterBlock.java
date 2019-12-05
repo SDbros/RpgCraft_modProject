@@ -36,20 +36,11 @@ public class UnstableMatterBlock extends Block {
                 IFluidState ifluidstate = worldIn.getFluidState(pos.offset(direction));
                 if (!ifluidstate.isTagged(FluidTags.WATER)) {
                     explode(worldIn, pos, player);
-                } else ;
-                System.out.println("Unstable Matter in Water");
+                } else System.out.println("Unstable Matter in Water");
             }
         }
         super.onBlockHarvested(worldIn, pos, state, player);
     }
-
-
-//    /**
-//     * Return whether this block can drop from an explosion.
-//     */
-//    public boolean canDropFromExplosion(Explosion explosionIn) {
-//        return true;
-//    }
 
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.TRANSLUCENT;

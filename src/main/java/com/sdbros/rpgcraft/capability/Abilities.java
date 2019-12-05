@@ -24,6 +24,7 @@ public class Abilities {
     public static final EntityAbilityData SLOWAOE = new EntityAbilityData("slow_aoe", null) {
         private final EntityPredicate ENTITY_PREDICATE = (new EntityPredicate()).setDistance(20.0D);
 
+        //todo fix index out of bound exception
         @Override
         public void runAbility(LivingEntity entity) {
             if (entity.isAlive()) {

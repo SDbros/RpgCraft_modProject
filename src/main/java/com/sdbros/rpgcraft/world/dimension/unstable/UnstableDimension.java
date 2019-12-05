@@ -2,6 +2,7 @@ package com.sdbros.rpgcraft.world.dimension.unstable;
 
 import com.sdbros.rpgcraft.config.RpgCraftConfig;
 import com.sdbros.rpgcraft.init.ModBiomes;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -22,6 +23,7 @@ public class UnstableDimension extends Dimension {
         super(world, type);
     }
 
+    //todo generate floating magic mountains instead of plains biome
     @Override
     public ChunkGenerator<?> createChunkGenerator() {
         return ModBiomes.generatorType.create(this.world, ModBiomes.biomeProviderType.create(ModBiomes.biomeProviderType.createSettings().setBiome(Biomes.PLAINS)), ModBiomes.generatorType.createSettings());
@@ -39,6 +41,7 @@ public class UnstableDimension extends Dimension {
         return null;
     }
 
+    //todo fix sky box and sun/moon not showing
     @Override
     public float calculateCelestialAngle(long worldTime, float partialTicks) {
         if (RpgCraftConfig.CONFIG.day.get()) {

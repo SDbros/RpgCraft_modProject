@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.structure.Structure;
 
 public class UnstableChunkGenerator extends NoiseChunkGenerator<GenerationSettings> {
 
+    //todo make the bottom of the island round like in the end
     public UnstableChunkGenerator(IWorld world, BiomeProvider biomeProvider, GenerationSettings settings) {
         super(world, biomeProvider, 8, 4, 128,settings, true);
     }

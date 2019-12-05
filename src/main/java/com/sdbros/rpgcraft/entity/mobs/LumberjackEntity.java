@@ -44,6 +44,7 @@ public class LumberjackEntity extends MonsterEntity {
         this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(1.0D);
     }
 
+    //todo create new goals
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new AttackWoodGoal(this, 1.0D, 3));
@@ -54,6 +55,7 @@ public class LumberjackEntity extends MonsterEntity {
     /**
      * Gives armor or weapon for entity based on given DifficultyInstance
      */
+    //todo fix axe not spawning
     @Override
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.IRON_AXE));

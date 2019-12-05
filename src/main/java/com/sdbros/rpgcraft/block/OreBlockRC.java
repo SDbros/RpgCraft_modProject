@@ -23,9 +23,9 @@ public class OreBlockRC extends OreBlock {
         return silktouch == 0 ? MathHelper.nextInt(RANDOM, 1, 5) : 0;
     }
 
+    //todo check if needed
     @Override
     public int getHarvestLevel(BlockState state) {
-        // Todo FIXME: Not working?
         return 2;
     }
 }
