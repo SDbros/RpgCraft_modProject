@@ -3,19 +3,10 @@ package com.sdbros.rpgcraft.util;
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.MobCapability.*;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
-import net.minecraft.world.IEntityReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.stream.Stream;
 
 public final class Level {
 
@@ -24,7 +15,7 @@ public final class Level {
     }
 
     public static IMobCapabilityHandler source(ICapabilityProvider source) {
-        return source.getCapability(MobCapability.INSTANCE)
+        return source.getCapability(MobCapability.MOB_INSTANCE)
                 .orElseGet(MobCapabilityData::new);
     }
 

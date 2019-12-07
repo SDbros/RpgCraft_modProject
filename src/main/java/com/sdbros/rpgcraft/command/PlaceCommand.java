@@ -21,20 +21,20 @@ public class PlaceCommand extends BasicCommand {
         builder
                 .then(Commands.literal("place")
                         .then(Commands.argument("feature", StringArgumentType.word())
-                                .suggests((context, suggestionsBuilder) ->  ISuggestionProvider.suggest(FeatureManager.Feature.getNames(), suggestionsBuilder))
+                                .suggests((context, suggestionsBuilder) -> ISuggestionProvider.suggest(FeatureManager.Feature.getNames(), suggestionsBuilder))
                                 .executes(context ->
                                         place(
                                                 context.getSource(),
                                                 context.getSource().asPlayer(),
                                                 StringArgumentType.getString(context, "feature")
-                                            )
                                         )
+                                )
                         )
                 );
         dispatcher.register(builder);
     }
 
-    private static int place(CommandSource commandSource, ServerPlayerEntity asPlayer, String feature){
+    private static int place(CommandSource commandSource, ServerPlayerEntity asPlayer, String feature) {
         try {
             FeatureManager.Feature f = FeatureManager.Feature.valueOf(feature);
             Template template = FeatureManager.get(f);

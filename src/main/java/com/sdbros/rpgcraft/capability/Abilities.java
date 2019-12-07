@@ -14,14 +14,14 @@ import java.util.Random;
 public class Abilities {
     static Random rand;
 
-    public static IForgeRegistry<EntityAbilityData> ENTITY_ABILITY_REGISTRY;
+    public static IForgeRegistry<AbilityData> ABILITY_REGISTRY;
 
-    public static final EntityAbilityData ABSORPTION = new EntityAbilityData("absorption", Effects.ABSORPTION);
-    public static final EntityAbilityData JUMP_BOOST = new EntityAbilityData("jump_boost", Effects.JUMP_BOOST);
-    public static final EntityAbilityData INVISIBILITY = new EntityAbilityData("invisibility", Effects.INVISIBILITY);
-    public static final EntityAbilityData SPEED = new EntityAbilityData("speed", Effects.SPEED);
+    public static final AbilityData ABSORPTION = new AbilityData("absorption", Effects.ABSORPTION);
+    public static final AbilityData JUMP_BOOST = new AbilityData("jump_boost", Effects.JUMP_BOOST);
+    public static final AbilityData INVISIBILITY = new AbilityData("invisibility", Effects.INVISIBILITY);
+    public static final AbilityData SPEED = new AbilityData("speed", Effects.SPEED);
 
-    public static final EntityAbilityData SLOWAOE = new EntityAbilityData("slow_aoe", null) {
+    public static final AbilityData SLOWAOE = new AbilityData("slow_aoe", null) {
         private final EntityPredicate ENTITY_PREDICATE = (new EntityPredicate()).setDistance(20.0D);
 
         //todo fix index out of bound exception

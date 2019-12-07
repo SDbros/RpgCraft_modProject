@@ -7,8 +7,9 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.capability.Abilities;
-import com.sdbros.rpgcraft.capability.EntityAbilityData;
+import com.sdbros.rpgcraft.capability.AbilityData;
 import com.sdbros.rpgcraft.capability.MobCapability;
+import com.sdbros.rpgcraft.capability.PlayerCapability;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
@@ -25,23 +26,23 @@ public class AbilityCommand extends BasicCommand {
                 .then(Commands.literal("addability")
                         .then(Commands.argument("targets", EntityArgument.entities())
                                 .then(Commands.argument("ability", StringArgumentType.word())
-                                        .suggests((context, suggestionsBuilder) -> ISuggestionProvider.suggestIterable(Abilities.ENTITY_ABILITY_REGISTRY.getKeys(), suggestionsBuilder))
+                                        .suggests((context, suggestionsBuilder) -> ISuggestionProvider.suggestIterable(Abilities.ABILITY_REGISTRY.getKeys(), suggestionsBuilder))
                                         .executes(
                                                 AbilityCommand::addAbility
                                         )
                                 )
                         )
                 )
-        .then(Commands.literal("removeability")
-                .then(Commands.argument("targets", EntityArgument.entities())
-                        .then(Commands.argument("ability", StringArgumentType.word())
-                                .suggests((context, suggestionsBuilder) -> ISuggestionProvider.suggestIterable(Abilities.ENTITY_ABILITY_REGISTRY.getKeys(), suggestionsBuilder))
-                                .executes(
-                                        AbilityCommand::removeAbility
+                .then(Commands.literal("removeability")
+                        .then(Commands.argument("targets", EntityArgument.entities())
+                                .then(Commands.argument("ability", StringArgumentType.word())
+                                        .suggests((context, suggestionsBuilder) -> ISuggestionProvider.suggestIterable(Abilities.ABILITY_REGISTRY.getKeys(), suggestionsBuilder))
+                                        .executes(
+                                                AbilityCommand::removeAbility
+                                        )
                                 )
                         )
-                )
-        );
+                );
         dispatcher.register(builder);
     }
 
@@ -49,32 +50,48 @@ public class AbilityCommand extends BasicCommand {
 
         try {
             ResourceLocation rl = RpgCraft.getId(StringArgumentType.getString(context, "ability"));
+            AbilityData a = Abilities.ABILITY_REGISTRY.getValue(rl);
 
-            EntityAbilityData a = Abilities.ENTITY_ABILITY_REGISTRY.getValue(rl);
             for (Entity entity : EntityArgument.getEntities(context, "targets")) {
                 entity.getCapability(MobCapability.INSTANCE).ifPresent(affected -> {
                     affected.addAbility(a.getData());
                 });
             }
+
+            for (Entity entity : EntityArgument.getEntities(context, "targets")) {
+                entity.getCapability(PlayerCapability.INSTANCE).ifPresent(affected -> {
+                    affected.addAbility(a.getData());
+                });
+            }
+
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
+
         return 0;
     }
 
     private static int removeAbility(CommandContext<CommandSource> context) throws CommandSyntaxException {
         try {
             ResourceLocation rl = RpgCraft.getId(StringArgumentType.getString(context, "ability"));
+            AbilityData a = Abilities.ABILITY_REGISTRY.getValue(rl);
 
-            EntityAbilityData a = Abilities.ENTITY_ABILITY_REGISTRY.getValue(rl);
             for (Entity entity : EntityArgument.getEntities(context, "targets")) {
                 entity.getCapability(MobCapability.INSTANCE).ifPresent(affected -> {
                     affected.removeAbility(a.getData());
                 });
             }
+
+            for (Entity entity : EntityArgument.getEntities(context, "targets")) {
+                entity.getCapability(PlayerCapability.INSTANCE).ifPresent(affected -> {
+                    affected.addAbility(a.getData());
+                });
+            }
+
         } catch (CommandSyntaxException e) {
             e.printStackTrace();
         }
+
         return 0;
     }
 }

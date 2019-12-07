@@ -4,16 +4,13 @@ import com.sdbros.rpgcraft.RpgCraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import java.util.List;
-
 import static com.sdbros.rpgcraft.capability.MobCapability.INSTANCE;
 
-public class EntityAbilityData extends ForgeRegistryEntry<EntityAbilityData> {
+public class AbilityData extends ForgeRegistryEntry<AbilityData> {
 
     /**
      * Ability's name
@@ -22,7 +19,7 @@ public class EntityAbilityData extends ForgeRegistryEntry<EntityAbilityData> {
     private Effect potionEffect;
     private boolean isPotion;
 
-    public EntityAbilityData(String name, Effect potionEffect) {
+    public AbilityData(String name, Effect potionEffect) {
         this.name = name;
         this.setRegistryName(RpgCraft.getId(name));
         setPotionEffect(potionEffect);
@@ -32,7 +29,7 @@ public class EntityAbilityData extends ForgeRegistryEntry<EntityAbilityData> {
         return this.name;
     }
 
-    public EntityAbilityData getData() {
+    public AbilityData getData() {
         return this;
     }
 
@@ -94,8 +91,8 @@ public class EntityAbilityData extends ForgeRegistryEntry<EntityAbilityData> {
      */
     public void runAbility(LivingEntity entity) {
         if (!entity.isAlive()) return;
-        entity.getCapability(INSTANCE).filter(EntityAbilityData::hasAbilities).ifPresent(handler -> {
-                    for (EntityAbilityData data : handler.getAbilities()) {
+        entity.getCapability(INSTANCE).filter(AbilityData::hasAbilities).ifPresent(handler -> {
+                    for (AbilityData data : handler.getAbilities()) {
                         if (data.isPotion() && entity.world.getGameTime() % 100 == 0) {
                             data.applyPotionToEntity(entity, potionEffect);
                         }

@@ -1,9 +1,8 @@
 package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.capability.Abilities;
 import com.sdbros.rpgcraft.capability.MobCapability;
-import com.sdbros.rpgcraft.capability.PlayerDataCapability;
+import com.sdbros.rpgcraft.capability.PlayerCapability;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +22,7 @@ public class LevelEventHandler {
     @SubscribeEvent
     public static void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
         PlayerEntity player = event.getPlayer();
-        player.getCapability(PlayerDataCapability.INSTANCE).ifPresent(data -> {
+        player.getCapability(PlayerCapability.INSTANCE).ifPresent(data -> {
             RpgCraft.LOGGER.info("Updating stats for {}", player.getScoreboardName());
             data.updateStats(player);
         });
@@ -43,7 +42,7 @@ public class LevelEventHandler {
         }
         if (entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
-            player.getCapability(PlayerDataCapability.INSTANCE).ifPresent(affected -> {
+            player.getCapability(PlayerCapability.INSTANCE).ifPresent(affected -> {
                 affected.tick((PlayerEntity) player);
             });
         }

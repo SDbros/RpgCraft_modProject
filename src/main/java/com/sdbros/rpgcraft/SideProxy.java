@@ -1,7 +1,7 @@
 package com.sdbros.rpgcraft;
 
 import com.sdbros.rpgcraft.capability.MobCapability;
-import com.sdbros.rpgcraft.capability.PlayerDataCapability;
+import com.sdbros.rpgcraft.capability.PlayerCapability;
 import com.sdbros.rpgcraft.entity.mobs.ClusterCreeperEntity;
 import com.sdbros.rpgcraft.entity.mobs.LumberjackEntity;
 import com.sdbros.rpgcraft.entity.render.ClusterCreeperRender;
@@ -55,14 +55,13 @@ class SideProxy {
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(TileEntityType.class, ModTileEntities::registerTiles);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Item.class, ModEntities::registerEntitySpawnEggs);
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Biome.class, ModBiomes::registerBiomes);
-
     }
 
 
     private void commonSetup(FMLCommonSetupEvent event) {
         RpgCraft.LOGGER.info("Setup method registered.");
         MobCapability.register();
-        PlayerDataCapability.register();
+        PlayerCapability.register();
         RpgCraftBiomeFeatures.init();
     }
 

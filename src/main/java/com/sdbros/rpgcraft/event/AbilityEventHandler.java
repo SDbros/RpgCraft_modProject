@@ -1,7 +1,7 @@
 package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.capability.EntityAbilityData;
+import com.sdbros.rpgcraft.capability.AbilityData;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,22 +18,22 @@ public class AbilityEventHandler {
 
     @SubscribeEvent
     public static void registerCapability(RegistryEvent.Register.NewRegistry event) {
-        if (ENTITY_ABILITY_REGISTRY == null) {
+        if (ABILITY_REGISTRY == null) {
             ResourceLocation registryName = RpgCraft.getId("armor_abilities");
-            ENTITY_ABILITY_REGISTRY = new RegistryBuilder<EntityAbilityData>().setType(EntityAbilityData.class).setName(registryName).create();
+            ABILITY_REGISTRY = new RegistryBuilder<AbilityData>().setType(AbilityData.class).setName(registryName).create();
         }
     }
 
     @SubscribeEvent
-    public static void registerAbilities(RegistryEvent.Register<EntityAbilityData> event) {
+    public static void registerAbilities(RegistryEvent.Register<AbilityData> event) {
         registerAbility(event,
                 ABSORPTION, SLOWAOE, JUMP_BOOST, SPEED, INVISIBILITY
         );
     }
 
-    private static void registerAbility(RegistryEvent.Register<EntityAbilityData> event, EntityAbilityData... dataList) {
-        for (EntityAbilityData data : dataList) {
-            IForgeRegistry<EntityAbilityData> registry = event.getRegistry();
+    private static void registerAbility(RegistryEvent.Register<AbilityData> event, AbilityData... dataList) {
+        for (AbilityData data : dataList) {
+            IForgeRegistry<AbilityData> registry = event.getRegistry();
             if (!registry.containsValue(data)) {
                 event.getRegistry().register(data);
             }

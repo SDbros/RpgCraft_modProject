@@ -50,23 +50,23 @@ public class MobCapability {
         /**
          * Returns the list of abilities currently stored.
          */
-        List<EntityAbilityData> getAbilities();
+        List<AbilityData> getAbilities();
 
-        IMobCapabilityHandler setAbilities(List<EntityAbilityData> ability);
+        IMobCapabilityHandler setAbilities(List<AbilityData> ability);
 
         /**
          * Adds an ability from the list.
          *
          * @param ability the ability that is going to be added.
          */
-        IMobCapabilityHandler addAbility(EntityAbilityData ability);
+        IMobCapabilityHandler addAbility(AbilityData ability);
 
         /**
          * Removes an ability from the list.
          *
          * @param ability the ability that is going to be removed.
          */
-        IMobCapabilityHandler removeAbility(EntityAbilityData ability);
+        IMobCapabilityHandler removeAbility(AbilityData ability);
 
         void tick(MobEntity entity);
     }
@@ -79,7 +79,7 @@ public class MobCapability {
 
         private int level;
         private boolean processed;
-        private List<EntityAbilityData> abilityList = new ArrayList<>();
+        private List<AbilityData> abilityList = new ArrayList<>();
         private static final String NBT_LEVEL = "Level";
 
         LazyOptional<IMobCapabilityHandler> holder = LazyOptional.of(MobCapabilityData::new);
@@ -91,19 +91,19 @@ public class MobCapability {
         }
 
         @Override
-        public List<EntityAbilityData> getAbilities() {
+        public List<AbilityData> getAbilities() {
             return this.abilityList;
         }
 
         @Override
-        public IMobCapabilityHandler setAbilities(List<EntityAbilityData> abilities) {
+        public IMobCapabilityHandler setAbilities(List<AbilityData> abilities) {
             this.abilityList.clear();
             this.abilityList.addAll(abilities);
             return this;
         }
 
         @Override
-        public IMobCapabilityHandler addAbility(EntityAbilityData ability) {
+        public IMobCapabilityHandler addAbility(AbilityData ability) {
             if (!abilityList.contains(ability)) {
                 this.abilityList.add(ability);
             }
@@ -111,7 +111,7 @@ public class MobCapability {
         }
 
         @Override
-        public IMobCapabilityHandler removeAbility(EntityAbilityData ability) {
+        public IMobCapabilityHandler removeAbility(AbilityData ability) {
             if (!this.abilityList.isEmpty()) {
                 this.abilityList.remove(ability);
             }
@@ -126,7 +126,7 @@ public class MobCapability {
                 processed = true;
                 //RpgCraft.LOGGER.debug(LevelEventHandler.MARKER, "Processed {} -> level={}", entity, level);
             }
-            for (EntityAbilityData ability : abilityList) {
+            for (AbilityData ability : abilityList) {
                 ability.runAbility(entity);
             }
         }

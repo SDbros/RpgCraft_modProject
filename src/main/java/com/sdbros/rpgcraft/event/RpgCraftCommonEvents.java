@@ -3,19 +3,15 @@ package com.sdbros.rpgcraft.event;
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.MobCapability.*;
-import com.sdbros.rpgcraft.capability.PlayerDataCapability;
-import com.sdbros.rpgcraft.init.ModTileEntities;
+import com.sdbros.rpgcraft.capability.PlayerCapability;
+import com.sdbros.rpgcraft.capability.PlayerCapability.PlayerCapabilityData;
 import com.sdbros.rpgcraft.network.ClientLoginMessage;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.util.Level;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.INBT;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -47,8 +43,8 @@ public final class RpgCraftCommonEvents {
             //RpgCraft.LOGGER.info("MOB " + event.getCapabilities());
         }
 
-        if (PlayerDataCapability.canAttachTo(entity)) {
-            event.addCapability(PlayerDataCapability.NAME, new PlayerDataCapability());
+        if (PlayerCapabilityData.canAttachTo(entity)) {
+            event.addCapability(PlayerCapability.NAME, new PlayerCapabilityData());
             RpgCraft.LOGGER.info("PLAYER " + event.getCapabilities());
         }
     }
@@ -61,8 +57,8 @@ public final class RpgCraftCommonEvents {
         // Player died. Copy capabilities and apply health/difficulty changes.
         PlayerEntity original = event.getOriginal();
         PlayerEntity clone = event.getPlayer();
-        copyCapability(PlayerDataCapability.INSTANCE, original, clone);
-        clone.getCapability(PlayerDataCapability.INSTANCE).ifPresent(data -> {
+        copyCapability(PlayerCapability.INSTANCE, original, clone);
+        clone.getCapability(PlayerCapability.INSTANCE).ifPresent(data -> {
             RpgCraft.LOGGER.info("Updating stats for {}", clone.getScoreboardName());
             data.updateStats(clone);
         });

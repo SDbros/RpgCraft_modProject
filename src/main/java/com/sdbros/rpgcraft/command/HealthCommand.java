@@ -5,7 +5,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.sdbros.rpgcraft.capability.PlayerDataCapability;
+import com.sdbros.rpgcraft.capability.PlayerCapability;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.EntityArgument;
@@ -33,7 +33,7 @@ public class HealthCommand extends BasicCommand {
     private static int setHealth(CommandContext<CommandSource> context) throws CommandSyntaxException {
         int amount = IntegerArgumentType.getInteger(context, "amount");
         for (ServerPlayerEntity player : EntityArgument.getPlayers(context, "targets")) {
-            player.getCapability(PlayerDataCapability.INSTANCE).ifPresent(data -> {
+            player.getCapability(PlayerCapability.INSTANCE).ifPresent(data -> {
                 //int intendedExtraHearts = (amount - Players.startingHealth(player)) / 2;
                 data.setExtraHearts(player, amount);
             });
