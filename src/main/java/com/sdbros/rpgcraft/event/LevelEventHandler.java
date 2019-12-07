@@ -22,7 +22,7 @@ public class LevelEventHandler {
     @SubscribeEvent
     public static void onPlayerJoinServer(PlayerEvent.PlayerLoggedInEvent event) {
         PlayerEntity player = event.getPlayer();
-        player.getCapability(PlayerCapability.INSTANCE).ifPresent(data -> {
+        player.getCapability(PlayerCapability.PLAYER_INSTANCE).ifPresent(data -> {
             RpgCraft.LOGGER.info("Updating stats for {}", player.getScoreboardName());
             data.updateStats(player);
         });
@@ -35,14 +35,14 @@ public class LevelEventHandler {
 
         // Tick mobs, which will calculate difficulty when appropriate and apply changes
         if (entity instanceof MobEntity) {
-            entity.getCapability(MobCapability.INSTANCE).ifPresent(affected -> {
+            entity.getCapability(MobCapability.MOB_INSTANCE).ifPresent(affected -> {
                 affected.tick((MobEntity) entity);
                 //affected.addAbility(Abilities.absorption.getAbility());
             });
         }
         if (entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) entity;
-            player.getCapability(PlayerCapability.INSTANCE).ifPresent(affected -> {
+            player.getCapability(PlayerCapability.PLAYER_INSTANCE).ifPresent(affected -> {
                 affected.tick((PlayerEntity) player);
             });
         }
@@ -52,7 +52,7 @@ public class LevelEventHandler {
     public static void onLivingExperienceDropEvent(LivingExperienceDropEvent event) {
         LivingEntity entity = event.getEntityLiving();
         if (entity instanceof MobEntity) {
-            entity.getCapability(MobCapability.INSTANCE).ifPresent(affected -> {
+            entity.getCapability(MobCapability.MOB_INSTANCE).ifPresent(affected -> {
                 event.setDroppedExperience(event.getOriginalExperience() * affected.getLevel());
             });
         }

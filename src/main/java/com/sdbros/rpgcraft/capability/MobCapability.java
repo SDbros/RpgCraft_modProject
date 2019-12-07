@@ -25,7 +25,7 @@ public class MobCapability {
     // The Capability field. Used for checks and references.
     // Initialized when forge registers the capability.
     @CapabilityInject(IMobCapabilityHandler.class)
-    public static Capability<IMobCapabilityHandler> INSTANCE;
+    public static Capability<IMobCapabilityHandler> MOB_INSTANCE;
     public static ResourceLocation NAME = RpgCraft.getId("mob_data");
 
 
@@ -37,7 +37,7 @@ public class MobCapability {
 
     // Simple wrapper to get the handler from an entity.
     public static IMobCapabilityHandler getHandler(ItemStack stack) {
-        return stack.getCapability(INSTANCE).map(handler -> handler).orElseThrow(() -> new RuntimeException("No Capability"));
+        return stack.getCapability(MOB_INSTANCE).map(handler -> handler).orElseThrow(() -> new RuntimeException("No Capability"));
     }
 
     public interface IMobCapabilityHandler {
@@ -127,19 +127,19 @@ public class MobCapability {
                 //RpgCraft.LOGGER.debug(LevelEventHandler.MARKER, "Processed {} -> level={}", entity, level);
             }
             for (AbilityData ability : abilityList) {
-                ability.runAbility(entity);
+                ability.runMob(entity);
             }
         }
 
         public static boolean canAttachTo(ICapabilityProvider entity) {
             return entity instanceof MobEntity
-                    && !entity.getCapability(INSTANCE).isPresent()
+                    && !entity.getCapability(MOB_INSTANCE).isPresent()
                     && Level.allowsDifficultyChanges((MobEntity) entity);
         }
 
         @Override
         public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-            return INSTANCE.orEmpty(cap, holder);
+            return MOB_INSTANCE.orEmpty(cap, holder);
         }
 
         @Override
@@ -156,7 +156,7 @@ public class MobCapability {
 
         @Override
         public String toString() {
-            return String.valueOf(INSTANCE);
+            return String.valueOf(MOB_INSTANCE);
         }
     }
 

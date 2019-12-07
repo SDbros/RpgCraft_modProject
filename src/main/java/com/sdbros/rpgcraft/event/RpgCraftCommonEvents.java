@@ -57,8 +57,8 @@ public final class RpgCraftCommonEvents {
         // Player died. Copy capabilities and apply health/difficulty changes.
         PlayerEntity original = event.getOriginal();
         PlayerEntity clone = event.getPlayer();
-        copyCapability(PlayerCapability.INSTANCE, original, clone);
-        clone.getCapability(PlayerCapability.INSTANCE).ifPresent(data -> {
+        copyCapability(PlayerCapability.PLAYER_INSTANCE, original, clone);
+        clone.getCapability(PlayerCapability.PLAYER_INSTANCE).ifPresent(data -> {
             RpgCraft.LOGGER.info("Updating stats for {}", clone.getScoreboardName());
             data.updateStats(clone);
         });

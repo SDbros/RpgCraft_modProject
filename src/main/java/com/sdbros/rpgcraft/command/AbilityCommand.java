@@ -53,13 +53,13 @@ public class AbilityCommand extends BasicCommand {
             AbilityData a = Abilities.ABILITY_REGISTRY.getValue(rl);
 
             for (Entity entity : EntityArgument.getEntities(context, "targets")) {
-                entity.getCapability(MobCapability.INSTANCE).ifPresent(affected -> {
+                entity.getCapability(MobCapability.MOB_INSTANCE).ifPresent(affected -> {
                     affected.addAbility(a.getData());
                 });
             }
 
             for (Entity entity : EntityArgument.getEntities(context, "targets")) {
-                entity.getCapability(PlayerCapability.INSTANCE).ifPresent(affected -> {
+                entity.getCapability(PlayerCapability.PLAYER_INSTANCE).ifPresent(affected -> {
                     affected.addAbility(a.getData());
                 });
             }
@@ -77,13 +77,13 @@ public class AbilityCommand extends BasicCommand {
             AbilityData a = Abilities.ABILITY_REGISTRY.getValue(rl);
 
             for (Entity entity : EntityArgument.getEntities(context, "targets")) {
-                entity.getCapability(MobCapability.INSTANCE).ifPresent(affected -> {
+                entity.getCapability(MobCapability.MOB_INSTANCE).ifPresent(affected -> {
                     affected.removeAbility(a.getData());
                 });
             }
 
             for (Entity entity : EntityArgument.getEntities(context, "targets")) {
-                entity.getCapability(PlayerCapability.INSTANCE).ifPresent(affected -> {
+                entity.getCapability(PlayerCapability.PLAYER_INSTANCE).ifPresent(affected -> {
                     affected.addAbility(a.getData());
                 });
             }

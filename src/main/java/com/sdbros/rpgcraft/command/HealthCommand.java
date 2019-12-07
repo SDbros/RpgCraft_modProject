@@ -33,7 +33,7 @@ public class HealthCommand extends BasicCommand {
     private static int setHealth(CommandContext<CommandSource> context) throws CommandSyntaxException {
         int amount = IntegerArgumentType.getInteger(context, "amount");
         for (ServerPlayerEntity player : EntityArgument.getPlayers(context, "targets")) {
-            player.getCapability(PlayerCapability.INSTANCE).ifPresent(data -> {
+            player.getCapability(PlayerCapability.PLAYER_INSTANCE).ifPresent(data -> {
                 //int intendedExtraHearts = (amount - Players.startingHealth(player)) / 2;
                 data.setExtraHearts(player, amount);
             });

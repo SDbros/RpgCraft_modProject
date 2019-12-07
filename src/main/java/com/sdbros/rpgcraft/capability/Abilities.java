@@ -26,7 +26,7 @@ public class Abilities {
 
         //todo fix index out of bound exception
         @Override
-        public void runAbility(LivingEntity entity) {
+        public void runMob(LivingEntity entity) {
             if (entity.isAlive()) {
                 List<LivingEntity> list = entity.world.getTargettableEntitiesWithinAABB(LivingEntity.class, ENTITY_PREDICATE, entity, entity.getBoundingBox().grow(20.0D, 8.0D, 20.0D));
 

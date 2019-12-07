@@ -2,13 +2,15 @@ package com.sdbros.rpgcraft.capability;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
-import static com.sdbros.rpgcraft.capability.MobCapability.INSTANCE;
+import static com.sdbros.rpgcraft.capability.MobCapability.MOB_INSTANCE;
+import static com.sdbros.rpgcraft.capability.PlayerCapability.PLAYER_INSTANCE;
 
 public class AbilityData extends ForgeRegistryEntry<AbilityData> {
 
@@ -78,10 +80,17 @@ public class AbilityData extends ForgeRegistryEntry<AbilityData> {
      * @param handler the ability handler
      * @return true if the abilityList isn't empty, otherwise false
      */
-    public static boolean hasAbilities(MobCapability.IMobCapabilityHandler handler) {
+    public static boolean mobAbilities(MobCapability.IMobCapabilityHandler handler) {
         return !handler.getAbilities().isEmpty();
     }
 
+    /**
+     * @param handler the ability handler
+     * @return true if the abilityList isn't empty, otherwise false
+     */
+    public static boolean playerAbilities(PlayerCapability.IPlayerCapabilityHandler handler) {
+        return !handler.getAbilities().isEmpty();
+    }
 
     /**
      * Applies a potion effect to the entity by default
@@ -89,12 +98,26 @@ public class AbilityData extends ForgeRegistryEntry<AbilityData> {
      *
      * @param entity the entity to run the ability on
      */
-    public void runAbility(LivingEntity entity) {
+    public void runMob(LivingEntity entity) {
         if (!entity.isAlive()) return;
-        entity.getCapability(INSTANCE).filter(AbilityData::hasAbilities).ifPresent(handler -> {
+        entity.getCapability(MOB_INSTANCE).filter(AbilityData::mobAbilities).ifPresent(handler -> {
+            RpgCraft.LOGGER.info("HERE>>>>" + handler);
                     for (AbilityData data : handler.getAbilities()) {
                         if (data.isPotion() && entity.world.getGameTime() % 100 == 0) {
                             data.applyPotionToEntity(entity, potionEffect);
+                        }
+                    }
+                }
+        );
+    }
+
+    public void runPlayer(PlayerEntity player) {
+        if (!player.isAlive()) return;
+        player.getCapability(PLAYER_INSTANCE).filter(AbilityData::playerAbilities).ifPresent(handler -> {
+                    RpgCraft.LOGGER.info("HERE>>>>" + handler);
+                    for (AbilityData data : handler.getAbilities()) {
+                        if (data.isPotion() && player.world.getGameTime() % 100 == 0) {
+                            data.applyPotionToEntity(player, potionEffect);
                         }
                     }
                 }

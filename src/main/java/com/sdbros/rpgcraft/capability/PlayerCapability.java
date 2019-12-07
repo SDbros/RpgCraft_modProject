@@ -4,7 +4,6 @@ import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.network.ClientSyncMessage;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.util.Level;
-import com.sdbros.rpgcraft.util.MobLevelHandler;
 import com.sdbros.rpgcraft.util.ModifierHandler;
 import com.sdbros.rpgcraft.util.Players;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -35,7 +34,7 @@ public class PlayerCapability {
     // The Capability field. Used for checks and references.
     // Initialized when forge registers the capability.
     @CapabilityInject(IPlayerCapabilityHandler.class)
-    public static Capability<IPlayerCapabilityHandler> INSTANCE;
+    public static Capability<IPlayerCapabilityHandler> PLAYER_INSTANCE;
     public static ResourceLocation NAME = RpgCraft.getId("player_data");
 
 
@@ -47,7 +46,7 @@ public class PlayerCapability {
 
     // Simple wrapper to get the handler from an entity.
     public static IPlayerCapabilityHandler getHandler(ItemStack stack) {
-        return stack.getCapability(INSTANCE).map(handler -> handler).orElseThrow(() -> new RuntimeException("No Capability"));
+        return stack.getCapability(PLAYER_INSTANCE).map(handler -> handler).orElseThrow(() -> new RuntimeException("No Capability"));
     }
 
     public interface IPlayerCapabilityHandler {
@@ -159,7 +158,7 @@ public class PlayerCapability {
         @Override
         public void tick(PlayerEntity player) {
             for (AbilityData ability : abilityList) {
-                ability.runAbility(player);
+                ability.runPlayer(player);
             }
 
             if (player.world.getGameTime() % 20 == 0 && player instanceof ServerPlayerEntity) {
@@ -169,12 +168,12 @@ public class PlayerCapability {
 
         public static boolean canAttachTo(ICapabilityProvider entity) {
             return entity instanceof PlayerEntity
-                    && !entity.getCapability(INSTANCE).isPresent();
+                    && !entity.getCapability(PLAYER_INSTANCE).isPresent();
         }
 
         @Override
         public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-            return INSTANCE.orEmpty(cap, holder);
+            return PLAYER_INSTANCE.orEmpty(cap, holder);
         }
 
         @Override
@@ -191,7 +190,7 @@ public class PlayerCapability {
 
         @Override
         public String toString() {
-            return String.valueOf(INSTANCE);
+            return String.valueOf(PLAYER_INSTANCE);
         }
     }
 
