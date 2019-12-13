@@ -53,7 +53,8 @@ public class FeatureManager {
     //name and value need to be the same
     public enum Feature {
         broken_tower("broken_tower"),
-        broken_building("broken_building");
+        broken_building("broken_building"),
+        magic_house("magic_house");
 
         public static Set<String> getNames() {
             Set<String> names = Sets.newHashSet();

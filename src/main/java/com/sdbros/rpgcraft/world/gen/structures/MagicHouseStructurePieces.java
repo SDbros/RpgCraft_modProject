@@ -12,7 +12,9 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.structure.*;
+import net.minecraft.world.gen.feature.structure.IStructurePieceType;
+import net.minecraft.world.gen.feature.structure.StructurePiece;
+import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
@@ -25,18 +27,14 @@ import java.util.Map;
 import java.util.Random;
 
 @ParametersAreNonnullByDefault
-public class BrokenStructurePieces {
+public class MagicHouseStructurePieces {
 
-    private static final ResourceLocation TOWER_RESOURCE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "broken_tower");
-    private static final ResourceLocation BUILDING_RESOURCE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "broken_building");
-    private static final Map<ResourceLocation, BlockPos> RESOURCE_LOCATION_BLOCK_POS = ImmutableMap.of(TOWER_RESOURCE,  BlockPos.ZERO, BUILDING_RESOURCE, new BlockPos(0, -1, 0));
+    private static final ResourceLocation MAGIC_HOUSE_RESOURCE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "magic_house");
+    private static final Map<ResourceLocation, BlockPos> RESOURCE_LOCATION_BLOCK_POS = ImmutableMap.of(MAGIC_HOUSE_RESOURCE, BlockPos.ZERO);
 
 
-    public static void init(TemplateManager templateManager, BlockPos pos, Rotation rotation, List<StructurePiece> structurePieces, Random random) {
-        if (random.nextInt(100) > 50)
-            structurePieces.add(new BrokenStructurePieces.Piece(templateManager, TOWER_RESOURCE, pos, rotation, 0, ModFeatures.BROKEN_TOWER));
-        else
-            structurePieces.add(new BrokenStructurePieces.Piece(templateManager, BUILDING_RESOURCE, pos, rotation, 0, ModFeatures.BROKEN_BUILDING));
+    public static void init(TemplateManager templateManager, BlockPos pos, Rotation rotation, List<StructurePiece> structurePieces) {
+        structurePieces.add(new Piece(templateManager, MAGIC_HOUSE_RESOURCE, pos, rotation, 0, ModFeatures.MAGIC_HOUSE));
     }
 
     public static class Piece extends TemplateStructurePiece {
@@ -46,7 +44,7 @@ public class BrokenStructurePieces {
         Piece(TemplateManager templateManager, ResourceLocation resourceLocation, BlockPos pos, Rotation rotation, int yOffset, IStructurePieceType piece) {
             super(piece, 0);
             this.resourceLocation = resourceLocation;
-            BlockPos blockpos = BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(resourceLocation);
+            BlockPos blockpos = RESOURCE_LOCATION_BLOCK_POS.get(resourceLocation);
             this.templatePosition = pos.add(blockpos.getX(), blockpos.getY() - yOffset, blockpos.getZ());
             this.rotation = rotation;
             this.func_207614_a(templateManager);
@@ -54,7 +52,7 @@ public class BrokenStructurePieces {
 
         //Rot == Rotation
         public Piece(TemplateManager templateManager, CompoundNBT compoundNBT) {
-            super(ModFeatures.BROKEN_BUILDING, compoundNBT);
+            super(ModFeatures.MAGIC_HOUSE, compoundNBT);
             this.resourceLocation = new ResourceLocation(compoundNBT.getString("Template"));
             this.rotation = Rotation.valueOf(compoundNBT.getString("Rot"));
             this.func_207614_a(templateManager);
@@ -64,7 +62,7 @@ public class BrokenStructurePieces {
             Template template = templateManager.getTemplateDefaulted(this.resourceLocation);
             PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation)
                     .setMirror(Mirror.NONE)
-                    .setCenterOffset(BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation))
+                    .setCenterOffset(RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation))
                     .addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             this.setup(template, this.templatePosition, placementsettings);
         }
@@ -88,8 +86,8 @@ public class BrokenStructurePieces {
          * the end, it adds Fences...
          */
         public boolean addComponentParts(IWorld worldIn, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation).setMirror(Mirror.NONE).setCenterOffset(BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-            BlockPos blockpos = BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation);
+            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation).setMirror(Mirror.NONE).setCenterOffset(RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
+            BlockPos blockpos = RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation);
             BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(blockpos.getX(), 0, blockpos.getZ())));
             int i;
             if (BiomeDictionary.hasType(worldIn.getBiome(blockpos1), BiomeDictionary.Type.WATER)) {
@@ -106,4 +104,5 @@ public class BrokenStructurePieces {
             return flag;
         }
     }
+
 }
