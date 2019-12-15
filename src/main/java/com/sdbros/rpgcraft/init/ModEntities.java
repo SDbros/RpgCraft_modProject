@@ -51,7 +51,7 @@ public class ModEntities {
     public static void registerEntitySpawnEggs(final RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll
                 (
-                        cluster_creeper_spawn_egg = registerEntitySpawnEgg(CLUSTER_CREEPER.getValue(), 0xffffff, 0x4e9154, "cluster_creeper_spawn_egg"),
+                        cluster_creeper_spawn_egg = registerEntitySpawnEgg(CLUSTER_CREEPER.getValue(), 0x1B8DA0, 0x152323, "cluster_creeper_spawn_egg"),
                         red_creeper_spawn_egg = registerEntitySpawnEgg(RED_CREEPER.getValue(), 0xd12e2e, 0x000000, "red_creeper_spawn_egg"),
                         zombie_variant_spawn_egg = registerEntitySpawnEgg(ZOMBIE_VARIANT.getValue(), 0x4e9154, 0x000001, "zombie_variant_spawn_egg"),
                         lumberjack_spawn_egg = registerEntitySpawnEgg(LUMBERJACK.getValue(), 0x963a33, 0xffffff, "lumberjack_spawn_egg")
