@@ -3,6 +3,7 @@ package com.sdbros.rpgcraft.event;
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.PlayerCapability;
+import com.sdbros.rpgcraft.entity.mobs.ZombieVariantEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,6 +14,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
+
+import static com.sdbros.rpgcraft.capability.Abilities.SLOW_AOE;
 
 @Mod.EventBusSubscriber(modid = RpgCraft.MOD_ID)
 public class LevelEventHandler {
@@ -37,7 +40,6 @@ public class LevelEventHandler {
         if (entity instanceof MobEntity) {
             entity.getCapability(MobCapability.MOB_INSTANCE).ifPresent(affected -> {
                 affected.tick((MobEntity) entity);
-                //affected.addAbility(Abilities.absorption.getAbility());
             });
         }
         if (entity instanceof PlayerEntity) {
