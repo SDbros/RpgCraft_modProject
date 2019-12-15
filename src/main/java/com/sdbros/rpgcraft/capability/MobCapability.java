@@ -68,6 +68,9 @@ public class MobCapability {
          */
         IMobCapabilityHandler removeAbility(AbilityData ability);
 
+        IMobCapabilityHandler clearAbilities();
+
+
         void tick(MobEntity entity);
     }
 
@@ -115,6 +118,12 @@ public class MobCapability {
             if (!this.abilityList.isEmpty()) {
                 this.abilityList.remove(ability);
             }
+            return this;
+        }
+
+        @Override
+        public IMobCapabilityHandler clearAbilities() {
+            this.abilityList.clear();
             return this;
         }
 

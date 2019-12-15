@@ -72,6 +72,8 @@ public class PlayerCapability {
          */
         IPlayerCapabilityHandler removeAbility(AbilityData ability);
 
+        IPlayerCapabilityHandler clearAbilities();
+
         int getExtraHearts();
 
         void setExtraHearts(PlayerEntity player, int amount);
@@ -136,6 +138,12 @@ public class PlayerCapability {
             if (!this.abilityList.isEmpty()) {
                 this.abilityList.remove(ability);
             }
+            return this;
+        }
+
+        @Override
+        public IPlayerCapabilityHandler clearAbilities() {
+            this.abilityList.clear();
             return this;
         }
 

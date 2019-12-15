@@ -18,7 +18,7 @@ public class HealthCommand extends BasicCommand {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("rpgcraft").requires(source ->
                 source.hasPermissionLevel(PERMISSION_LEVEL_CHEAT));
         builder
-                .then(Commands.literal("sethealth")
+                .then(Commands.literal("healthset")
                         .then(Commands.argument("targets", EntityArgument.players())
                                 .then(Commands.argument("amount", IntegerArgumentType.integer())
                                         .executes(
@@ -34,7 +34,6 @@ public class HealthCommand extends BasicCommand {
         int amount = IntegerArgumentType.getInteger(context, "amount");
         for (ServerPlayerEntity player : EntityArgument.getPlayers(context, "targets")) {
             player.getCapability(PlayerCapability.PLAYER_INSTANCE).ifPresent(data -> {
-                //int intendedExtraHearts = (amount - Players.startingHealth(player)) / 2;
                 data.setExtraHearts(player, amount);
             });
         }

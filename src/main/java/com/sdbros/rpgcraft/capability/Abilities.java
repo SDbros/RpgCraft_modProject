@@ -1,6 +1,7 @@
 
 package com.sdbros.rpgcraft.capability;
 
+import com.google.common.collect.Sets;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,10 +10,9 @@ import net.minecraft.potion.Effects;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.List;
-import java.util.Random;
+import java.util.Set;
 
 public class Abilities {
-    static Random rand;
 
     public static IForgeRegistry<AbilityData> ABILITY_REGISTRY;
 
@@ -25,6 +25,7 @@ public class Abilities {
     public static final AbilityData SLOW_AOE = new AbilityData("slow_aoe", null) {
         private final EntityPredicate ENTITY_PREDICATE = (new EntityPredicate()).setDistance(15.0D);
 
+        //todo Create separate method from runMob else potion effect are skipped
         @Override
         public void runMob(LivingEntity entity) {
             if (entity.isAlive()) {
@@ -42,5 +43,30 @@ public class Abilities {
             }
         }
     };
+
+    //Temp fix to get correct names for AbilityCommand
+    //name and value need to be the same
+    public enum Ability {
+        absorption("absorption"),
+        night_vision("night_vision"),
+        jump_boost("jump_boost"),
+        invisibility("invisibility"),
+        speed("speed"),
+        slow_aoe("slow_aoe");
+
+        public static Set<String> getNames() {
+            Set<String> names = Sets.newHashSet();
+            for (Abilities.Ability a : values()) {
+                names.add(a.name);
+            }
+            return names;
+        }
+
+        String name;
+
+        Ability(String name) {
+            this.name = name;
+        }
+    }
 }
 
