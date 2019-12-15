@@ -2,12 +2,8 @@ package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.capability.AbilityData;
-import com.sdbros.rpgcraft.capability.MobCapability;
-import com.sdbros.rpgcraft.entity.mobs.ZombieVariantEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.IForgeRegistry;

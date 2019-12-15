@@ -2,7 +2,7 @@ package com.sdbros.rpgcraft.entity.render;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.capability.MobCapability;
-import com.sdbros.rpgcraft.entity.mobs.ZombieVariantEntity;
+import com.sdbros.rpgcraft.entity.mobs.MutantZombieEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.model.ZombieVillagerModel;
@@ -14,19 +14,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.sdbros.rpgcraft.capability.Abilities.*;
 
-public class ZombieVariantRender extends MobRenderer<ZombieVariantEntity, ZombieVillagerModel<ZombieVariantEntity>> {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "textures/entity/zombie_variant_default.png");
-    private static final ResourceLocation SLOW_TEXTURE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "textures/entity/zombie_variant_slow.png");
-    private static final ResourceLocation ABSORB_TEXTURE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "textures/entity/zombie_variant_absorb.png");
+public class MutantZombieRender extends MobRenderer<MutantZombieEntity, ZombieVillagerModel<MutantZombieEntity>> {
+    private static final ResourceLocation TEXTURE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "textures/entity/mutant_zombie_default.png");
+    private static final ResourceLocation SLOW_TEXTURE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "textures/entity/mutant_zombie_slow.png");
+    private static final ResourceLocation ABSORB_TEXTURE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "textures/entity/mutant_zombie_absorb.png");
 
 
-    public ZombieVariantRender(EntityRendererManager renderManagerIn) {
+    public MutantZombieRender(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ZombieVillagerModel<>(), 0.25F);
     }
 
     @Nullable
     @Override
-    protected ResourceLocation getEntityTexture(ZombieVariantEntity entity) {
+    protected ResourceLocation getEntityTexture(MutantZombieEntity entity) {
         AtomicInteger i = new AtomicInteger(0);
         entity.getCapability(MobCapability.MOB_INSTANCE).ifPresent(affected -> {
             if (affected.getAbilities().contains(SLOW_AOE)) {
