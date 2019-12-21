@@ -45,7 +45,7 @@ public final class RpgCraftCommonEvents {
 
         if (PlayerCapabilityData.canAttachTo(entity)) {
             event.addCapability(PlayerCapability.NAME, new PlayerCapabilityData());
-            RpgCraft.LOGGER.info("PLAYER " + event.getCapabilities());
+            //RpgCraft.LOGGER.info("PLAYER " + event.getCapabilities());
         }
     }
 

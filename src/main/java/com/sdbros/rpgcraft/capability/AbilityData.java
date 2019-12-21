@@ -14,17 +14,20 @@ import static com.sdbros.rpgcraft.capability.PlayerCapability.PLAYER_INSTANCE;
 
 public class AbilityData extends ForgeRegistryEntry<AbilityData> {
 
-    /**
-     * Ability's name
-     */
     private String name;
     private Effect potionEffect;
     private boolean isPotion;
+    private int effectAmplifier = 0;
 
     public AbilityData(String name, Effect potionEffect) {
         this.name = name;
         this.setRegistryName(RpgCraft.getId(name));
         setPotionEffect(potionEffect);
+    }
+
+    public AbilityData setAmplifier(int effectAmplifier) {
+        this.effectAmplifier = effectAmplifier;
+        return this;
     }
 
     public String getName() {
@@ -53,8 +56,8 @@ public class AbilityData extends ForgeRegistryEntry<AbilityData> {
     /**
      * Applies a potion effect to the entity
      */
-    public void applyPotionToEntity(LivingEntity entity, Effect potionEffect) {
-        entity.addPotionEffect(new EffectInstance(potionEffect, 100, 0, false, true));
+    public void applyPotionToEntity(LivingEntity entity) {
+        entity.addPotionEffect(new EffectInstance(potionEffect, 300, effectAmplifier, false, true));
     }
 
 
@@ -101,11 +104,8 @@ public class AbilityData extends ForgeRegistryEntry<AbilityData> {
     public void runMob(LivingEntity entity) {
         if (!entity.isAlive()) return;
         entity.getCapability(MOB_INSTANCE).filter(AbilityData::mobAbilities).ifPresent(handler -> {
-            RpgCraft.LOGGER.info("HERE>>>>" + handler);
                     for (AbilityData data : handler.getAbilities()) {
-                        if (data.isPotion() && entity.world.getGameTime() % 100 == 0) {
-                            data.applyPotionToEntity(entity, potionEffect);
-                        }
+                        if (data.isPotion() && entity.world.getGameTime() % 90 == 0) data.applyPotionToEntity(entity);
                     }
                 }
         );
@@ -114,11 +114,8 @@ public class AbilityData extends ForgeRegistryEntry<AbilityData> {
     public void runPlayer(PlayerEntity player) {
         if (!player.isAlive()) return;
         player.getCapability(PLAYER_INSTANCE).filter(AbilityData::playerAbilities).ifPresent(handler -> {
-                    RpgCraft.LOGGER.info("HERE>>>>" + handler);
                     for (AbilityData data : handler.getAbilities()) {
-                        if (data.isPotion() && player.world.getGameTime() % 100 == 0) {
-                            data.applyPotionToEntity(player, potionEffect);
-                        }
+                        if (data.isPotion() && player.world.getGameTime() % 90 == 0) data.applyPotionToEntity(player);
                     }
                 }
         );

@@ -7,9 +7,9 @@ import com.sdbros.rpgcraft.entity.mobs.LumberjackEntity;
 import com.sdbros.rpgcraft.entity.render.ClusterCreeperRender;
 import com.sdbros.rpgcraft.entity.render.LumberjackRender;
 import com.sdbros.rpgcraft.entity.render.RedCreeperRender;
-import com.sdbros.rpgcraft.entity.render.ZombieVariantRender;
+import com.sdbros.rpgcraft.entity.render.MutantZombieRender;
 import com.sdbros.rpgcraft.entity.mobs.RedCreeperEntity;
-import com.sdbros.rpgcraft.entity.mobs.ZombieVariantEntity;
+import com.sdbros.rpgcraft.entity.mobs.MutantZombieEntity;
 import com.sdbros.rpgcraft.init.*;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.world.gen.features.FeatureManager;
@@ -103,7 +103,7 @@ class SideProxy {
             RpgCraft.LOGGER.debug("RpgCraft clientSetup");
 
             //Mobs
-            RenderingRegistry.registerEntityRenderingHandler(ZombieVariantEntity.class, ZombieVariantRender::new);
+            RenderingRegistry.registerEntityRenderingHandler(MutantZombieEntity.class, MutantZombieRender::new);
             RenderingRegistry.registerEntityRenderingHandler(RedCreeperEntity.class, RedCreeperRender::new);
             RenderingRegistry.registerEntityRenderingHandler(ClusterCreeperEntity.class, ClusterCreeperRender::new);
             RenderingRegistry.registerEntityRenderingHandler(LumberjackEntity.class, LumberjackRender::new);

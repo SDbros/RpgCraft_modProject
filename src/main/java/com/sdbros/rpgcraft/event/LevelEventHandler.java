@@ -37,7 +37,6 @@ public class LevelEventHandler {
         if (entity instanceof MobEntity) {
             entity.getCapability(MobCapability.MOB_INSTANCE).ifPresent(affected -> {
                 affected.tick((MobEntity) entity);
-                //affected.addAbility(Abilities.absorption.getAbility());
             });
         }
         if (entity instanceof PlayerEntity) {

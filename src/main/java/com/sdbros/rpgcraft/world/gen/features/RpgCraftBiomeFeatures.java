@@ -5,7 +5,6 @@ import com.sdbros.rpgcraft.init.ModEntities;
 import com.sdbros.rpgcraft.init.ModFeatures;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.feature.*;
@@ -45,8 +44,10 @@ public class RpgCraftBiomeFeatures {
     //used to add Mobs to all biomes
     private static void registerEntitySpawns() {
         for (Biome biome : ForgeRegistries.BIOMES) {
-            biome.getSpawns(ModEntities.CLUSTER_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.CLUSTER_CREEPER.getValue(), 80, 1, 1));
-            biome.getSpawns(ModEntities.ZOMBIE_VARIANT.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.ZOMBIE_VARIANT.getValue(), 50, 1, 2));
+
+            biome.getSpawns(ModEntities.CLUSTER_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.CLUSTER_CREEPER.getValue(), 1, 1, 1));
+            biome.getSpawns(ModEntities.RED_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 5, 1, 3));
+            biome.getSpawns(ModEntities.MUTANT_ZOMBIE.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.MUTANT_ZOMBIE.getValue(), 30, 1, 2));
         }
     }
 

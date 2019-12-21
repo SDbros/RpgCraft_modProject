@@ -1,4 +1,6 @@
 {
+  "item.rpgcraft.blue_gunpowder": "Blue Gunpowder",
+  "item.rpgcraft.red_gunpowder": "Red Gunpowder",
   "item.rpgcraft.copper_ingot": "Copper Ingot",
   "item.rpgcraft.copper_axe": "Copper Axe",
   "item.rpgcraft.copper_sword": "Copper Sword",
@@ -15,7 +17,7 @@
   "item.rpgcraft.cluster_creeper_spawn_egg": "Cluster Creeper Spawn Egg",
   "item.rpgcraft.red_creeper_spawn_egg": "Red Creeper Spawn Egg",
   "item.rpgcraft.lumberjack_spawn_egg": "Lumberjack Spawn Egg",
-  "item.rpgcraft.zombie_variant_spawn_egg": "Old Zombie Spawn Egg",
+  "item.rpgcraft.mutant_zombie_spawn_egg": "Mutant Zombie Spawn Egg",
   "block.rpgcraft.copper_ore": "Copper Ore",
   "block.rpgcraft.runite_ore": "Runite Ore",
   "block.rpgcraft.copper_block": "Block of Copper",
