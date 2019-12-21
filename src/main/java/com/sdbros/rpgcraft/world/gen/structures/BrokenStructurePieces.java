@@ -3,7 +3,10 @@ package com.sdbros.rpgcraft.world.gen.structures;
 import com.google.common.collect.ImmutableMap;
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.init.ModFeatures;
+import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -17,6 +20,7 @@ import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.storage.loot.LootTables;
 import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -29,7 +33,7 @@ public class BrokenStructurePieces {
 
     private static final ResourceLocation TOWER_RESOURCE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "broken_tower");
     private static final ResourceLocation BUILDING_RESOURCE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "broken_building");
-    private static final Map<ResourceLocation, BlockPos> RESOURCE_LOCATION_BLOCK_POS = ImmutableMap.of(TOWER_RESOURCE,  BlockPos.ZERO, BUILDING_RESOURCE, new BlockPos(0, -1, 0));
+    private static final Map<ResourceLocation, BlockPos> RESOURCE_LOCATION_BLOCK_POS = ImmutableMap.of(TOWER_RESOURCE, BlockPos.ZERO, BUILDING_RESOURCE, new BlockPos(0, -1, 0));
 
 
     public static void init(TemplateManager templateManager, BlockPos pos, Rotation rotation, List<StructurePiece> structurePieces, Random random) {
@@ -79,8 +83,15 @@ public class BrokenStructurePieces {
             tagCompound.putString("Rot", this.rotation.name());
         }
 
-        protected void handleDataMarker(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb) {
-            //todo add chest loot tables here
+        protected void handleDataMarker(String name, BlockPos blockPos, IWorld world, Random random, MutableBoundingBox mutableBoundingBox) {
+            if ("chest".equals(name)) {
+                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 3);
+                TileEntity tileEntity = world.getTileEntity(blockPos.down());
+                if (tileEntity instanceof ChestTileEntity) {
+                    ((ChestTileEntity) tileEntity).setLootTable(LootTables.CHESTS_IGLOO_CHEST, random.nextLong());
+                }
+
+            }
         }
 
         /**

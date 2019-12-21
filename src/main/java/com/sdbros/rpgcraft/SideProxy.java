@@ -39,9 +39,6 @@ import javax.annotation.Nullable;
 
 class SideProxy {
     SideProxy() {
-        Network.init();
-        FeatureManager.init();
-
         // Life-cycle events
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::commonSetup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
@@ -57,12 +54,14 @@ class SideProxy {
         FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(Biome.class, ModBiomes::registerBiomes);
     }
 
-
     private void commonSetup(FMLCommonSetupEvent event) {
         RpgCraft.LOGGER.info("Setup method registered.");
+        Network.init();
         MobCapability.register();
         PlayerCapability.register();
         RpgCraftBiomeFeatures.init();
+        FeatureManager.init();
+
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {

@@ -21,8 +21,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class ModBiomes {
 
     //Biomes
-    public static MagicMountains MAGICMOUNTAINS;
-    public static FloatingMagicMountains FLOATINGMAGICMOUNTAINS;
+    public static Biome MAGICMOUNTAINS;
+    public static Biome FLOATINGMAGICMOUNTAINS;
 
     //ChunkGenerator
     public static ChunkGeneratorType<GenerationSettings, UnstableChunkGenerator> generatorType = new ChunkGeneratorType<>(UnstableChunkGenerator::new, false, GenerationSettings::new);
@@ -31,17 +31,19 @@ public class ModBiomes {
     public static BiomeProviderType<SingleBiomeProviderSettings, UnstableBiomeProvider> biomeProviderType = new BiomeProviderType<>(UnstableBiomeProvider::new, SingleBiomeProviderSettings::new);
 
     public static void registerBiomes(RegistryEvent.Register<Biome> event) {
-        register(new MagicMountains(), "magic_mountains", 30, Type.FOREST);
-        register(new FloatingMagicMountains(), "floating_magic_mountains", 0, Type.END);
+        MAGICMOUNTAINS = register(new MagicMountains(), "magic_mountains", 30, Type.MOUNTAIN, Type.DENSE, Type.MAGICAL);
+        FLOATINGMAGICMOUNTAINS = register(new FloatingMagicMountains(), "floating_magic_mountains", 0, Type.MOUNTAIN, Type.DENSE, Type.MAGICAL, Type.END);
     }
 
-    private static void register(Biome biome, String name, int weight, Type... types) {
+    private static Biome register(Biome biome, String name, int weight, Type... types) {
         ResourceLocation id = RpgCraft.getId(name);
         biome.setRegistryName(id);
         ForgeRegistries.BIOMES.register(biome);
-        BiomeManager.addBiome(BiomeType.WARM, new BiomeEntry(biome, weight));
+        BiomeManager.addBiome(BiomeType.COOL, new BiomeEntry(biome, weight));
         BiomeDictionary.addTypes(biome, types);
         BiomeManager.addSpawnBiome(biome);
+
+        return biome;
     }
 
 }
