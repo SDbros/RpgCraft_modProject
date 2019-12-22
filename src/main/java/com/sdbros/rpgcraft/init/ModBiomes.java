@@ -31,7 +31,7 @@ public class ModBiomes {
     public static BiomeProviderType<SingleBiomeProviderSettings, UnstableBiomeProvider> biomeProviderType = new BiomeProviderType<>(UnstableBiomeProvider::new, SingleBiomeProviderSettings::new);
 
     public static void registerBiomes(RegistryEvent.Register<Biome> event) {
-        MAGICMOUNTAINS = register(new MagicMountains(), "magic_mountains", 30, Type.MOUNTAIN, Type.DENSE, Type.MAGICAL);
+        MAGICMOUNTAINS = register(new MagicMountains(), "magic_mountains", 512, Type.MOUNTAIN, Type.DENSE, Type.MAGICAL);
         FLOATINGMAGICMOUNTAINS = register(new FloatingMagicMountains(), "floating_magic_mountains", 0, Type.MOUNTAIN, Type.DENSE, Type.MAGICAL, Type.END);
     }
 

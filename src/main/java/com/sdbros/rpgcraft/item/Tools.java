@@ -12,7 +12,7 @@ import java.util.Locale;
 
 public enum Tools implements IItemTier {
 
-    COPPER(2, 6.0F, 250, 2, 14, Ores.COPPER.getOreItem());
+    COPPER(2, 8.0F, 175, 2, 21, Ores.COPPER.getOreItem());
 
     private final LazyLoadBase<AxeItem> axeItem;
     private final LazyLoadBase<SwordItem> swordItem;

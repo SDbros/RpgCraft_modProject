@@ -1,6 +1,7 @@
 package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
+import com.sdbros.rpgcraft.capability.ItemCapability;
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.MobCapability.*;
 import com.sdbros.rpgcraft.capability.PlayerCapability;
@@ -11,6 +12,7 @@ import com.sdbros.rpgcraft.util.Level;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.INBT;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -32,6 +34,17 @@ public final class RpgCraftCommonEvents {
         RpgCraft.LOGGER.info("Sending login packet to player {}", player);
         ClientLoginMessage msg = new ClientLoginMessage(Level.getAreaLevelMode(), (float) Level.maxValue(world));
         Network.channel.sendTo(msg, player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
+    }
+
+    @SubscribeEvent
+    public static void onAttachItemCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
+
+        ItemStack item = event.getObject();
+        if (ItemCapability.ItemCapabilityData.canAttachTo(item)) {
+            event.addCapability(ItemCapability.NAME, new ItemCapability.ItemCapabilityData());
+            RpgCraft.LOGGER.info("ItemHERE " + event.getCapabilities());
+        }
+
     }
 
     @SubscribeEvent

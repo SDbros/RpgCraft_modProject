@@ -1,5 +1,6 @@
 package com.sdbros.rpgcraft;
 
+import com.sdbros.rpgcraft.capability.ItemCapability;
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.PlayerCapability;
 import com.sdbros.rpgcraft.entity.mobs.ClusterCreeperEntity;
@@ -59,6 +60,7 @@ class SideProxy {
         Network.init();
         MobCapability.register();
         PlayerCapability.register();
+        ItemCapability.register();
         RpgCraftBiomeFeatures.init();
         FeatureManager.init();
 

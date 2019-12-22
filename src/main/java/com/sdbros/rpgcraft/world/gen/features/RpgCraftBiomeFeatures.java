@@ -5,6 +5,7 @@ import com.sdbros.rpgcraft.init.ModEntities;
 import com.sdbros.rpgcraft.init.ModFeatures;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.feature.*;
@@ -36,8 +37,8 @@ public class RpgCraftBiomeFeatures {
     //used to add Structures to all biomes
     private static void generateStructures() {
         for (Biome biome : ForgeRegistries.BIOMES) {
-            biome.addStructure(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG);
-            biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG));
+            //biome.addStructure(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG);
+            //biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG));
         }
     }
 
@@ -54,10 +55,10 @@ public class RpgCraftBiomeFeatures {
     //used to add something to specified biomes only
     private static void generateBiomeSpecifics() {
         registerBiomeSpecificSpawns(ModEntities.RED_CREEPER.getValue(), 95, 1, 3, ModBiomes.MAGICMOUNTAINS);
-        generateBiomeSpecificStructures(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, ModBiomes.MAGICMOUNTAINS, Biomes.OCEAN);
-        //generateBiomeSpecificStructures(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, ModBiomes.MAGICMOUNTAINS, Biomes.OCEAN);
-        generateBiomeSpecificFeatures(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG), ModBiomes.MAGICMOUNTAINS, Biomes.OCEAN);
-        //generateBiomeSpecificFeatures(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG), ModBiomes.MAGICMOUNTAINS, Biomes.OCEAN);
+        generateBiomeSpecificStructures(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, ModBiomes.MAGICMOUNTAINS);
+        generateBiomeSpecificStructures(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, ModBiomes.MAGICMOUNTAINS);
+        generateBiomeSpecificFeatures(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG), ModBiomes.MAGICMOUNTAINS);
+        generateBiomeSpecificFeatures(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG), ModBiomes.MAGICMOUNTAINS);
 
     }
 
