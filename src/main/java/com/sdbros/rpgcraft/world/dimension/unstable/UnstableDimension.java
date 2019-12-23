@@ -1,8 +1,7 @@
 package com.sdbros.rpgcraft.world.dimension.unstable;
 
-import com.sdbros.rpgcraft.config.RpgCraftConfig;
+import com.sdbros.rpgcraft.config.DimensionConfig;
 import com.sdbros.rpgcraft.init.ModBiomes;
-import net.minecraft.world.WorldType;
 import net.minecraft.world.dimension.Dimension;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -44,7 +43,7 @@ public class UnstableDimension extends Dimension {
     //todo fix sky box and sun/moon not showing
     @Override
     public float calculateCelestialAngle(long worldTime, float partialTicks) {
-        if (RpgCraftConfig.CONFIG.day.get()) {
+        if (DimensionConfig.day.get()) {
             int j = 6000;
             float f1 = (j + partialTicks) / 24000.0F - 0.25F;
 

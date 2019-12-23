@@ -1,7 +1,7 @@
 package com.sdbros.rpgcraft.block;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.config.RpgCraftConfig;
+import com.sdbros.rpgcraft.config.DimensionConfig;
 import com.sdbros.rpgcraft.init.ModDimensions;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -80,7 +80,7 @@ public class BlockPortal extends Block {
 
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return (worldIn.getDimension().getType().getId() == RpgCraftConfig.CONFIG.getOverworldId() || worldIn.getDimension().getType() == DimensionType.byName(RpgCraft.getId("unstable_dimension")) && super.isValidPosition(state, worldIn, pos));
+        return (worldIn.getDimension().getType().getId() == DimensionConfig.overworldId.get() || worldIn.getDimension().getType() == DimensionType.byName(RpgCraft.getId("unstable_dimension")) && super.isValidPosition(state, worldIn, pos));
     }
 
     @Override
@@ -92,7 +92,7 @@ public class BlockPortal extends Block {
     public boolean onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity playerIn, Hand hand, BlockRayTraceResult rts) {
         if (!worldIn.isRemote) {
             //FROM OVERWORLD TO MINING DIM
-            if (worldIn.getDimension().getType().getId() == RpgCraftConfig.CONFIG.getOverworldId()) {
+            if (worldIn.getDimension().getType().getId() == DimensionConfig.overworldId.get()) {
                 if (DimensionType.byName(RpgCraft.getId("unstable_dimension")) == null) {
                     DimensionManager.registerDimension(RpgCraft.getId("unstable_dimension"), ModDimensions.dimension, null, true);
                 }
@@ -125,7 +125,7 @@ public class BlockPortal extends Block {
 
             //FROM MINING DIM TO OVERWORLD
             if (worldIn.getDimension().getType() == DimensionType.byName(RpgCraft.getId("unstable_dimension"))) {
-                World overWorld = worldIn.getServer().getWorld(DimensionType.getById(RpgCraftConfig.CONFIG.getOverworldId()));
+                World overWorld = worldIn.getServer().getWorld(DimensionType.getById(DimensionConfig.overworldId.get()));
                 overWorld.getBlockState(pos);
                 BlockPos overWorldPos = overWorld.getHeight(Heightmap.Type.WORLD_SURFACE, pos);
                 boolean foundBlock = false;
@@ -144,11 +144,11 @@ public class BlockPortal extends Block {
                     }
                 }
                 if (foundBlock) {
-                    changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(RpgCraftConfig.CONFIG.getOverworldId()));
+                    changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(DimensionConfig.overworldId.get()));
                 }
                 if (!foundBlock) {
                     overWorld.setBlockState(overWorldPos.down(), BlocksRC.PORTAL_BLOCK.getDefaultState());
-                    changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(RpgCraftConfig.CONFIG.getOverworldId()));
+                    changeDim(((ServerPlayerEntity) playerIn), overWorldPos, DimensionType.getById(DimensionConfig.overworldId.get()));
                 }
             }
 

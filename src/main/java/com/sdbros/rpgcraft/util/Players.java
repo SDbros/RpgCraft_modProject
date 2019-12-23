@@ -1,5 +1,6 @@
 package com.sdbros.rpgcraft.util;
 
+import com.sdbros.rpgcraft.config.PlayerConfig;
 import net.minecraft.entity.player.PlayerEntity;
 
 
@@ -8,18 +9,19 @@ public final class Players {
         throw new IllegalAccessError("Utility class");
     }
 
-    //todo use Config
     public static int startingHealth(PlayerEntity player) {
-        return -10;
+        return PlayerConfig.startingHealth.get();
+        //return -10;
     }
 
     public static int minHealth(PlayerEntity player) {
-        return -19;
+        return PlayerConfig.minHealth.get();
+        //return -19;
     }
 
-    //todo use Config
     public static int maxHealth(PlayerEntity player) {
-        return 40;
+        return PlayerConfig.maxHealth.get();
+        //return 40;
     }
 
     public static int clampExtraHearts(PlayerEntity player, int value) {

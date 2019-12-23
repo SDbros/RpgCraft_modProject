@@ -142,8 +142,8 @@ public class MobCapability {
 
         public static boolean canAttachTo(ICapabilityProvider entity) {
             return entity instanceof MobEntity
-                    && !entity.getCapability(MOB_INSTANCE).isPresent()
-                    && Level.allowsDifficultyChanges((MobEntity) entity);
+                    && !entity.getCapability(MOB_INSTANCE).isPresent();
+                    //&& Level.allowsDifficultyChanges((MobEntity) entity);
         }
 
         @Override
