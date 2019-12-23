@@ -32,7 +32,7 @@ public final class RpgCraftCommonEvents {
         ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
         World world = player.world;
         RpgCraft.LOGGER.info("Sending login packet to player {}", player);
-        ClientLoginMessage msg = new ClientLoginMessage(Level.getAreaLevelMode(), (float) Level.maxValue(world));
+        ClientLoginMessage msg = new ClientLoginMessage(Level.getAreaLevelMode(), (float) Level.maxLevel(world));
         Network.channel.sendTo(msg, player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
     }
 

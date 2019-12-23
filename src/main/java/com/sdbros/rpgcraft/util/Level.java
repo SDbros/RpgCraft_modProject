@@ -2,11 +2,14 @@ package com.sdbros.rpgcraft.util;
 
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.MobCapability.*;
+import com.sdbros.rpgcraft.config.DimensionConfig;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import com.sdbros.rpgcraft.config.Config;
+
 
 public final class Level {
 
@@ -28,25 +31,20 @@ public final class Level {
         return AreaLevelMode.DISTANCE_FROM_SPAWN;
     }
 
-    //todo use Config
     public static int searchRadius(IWorldReader world) {
-        //final int radius = Config.get(world).difficulty.searchRadius.get();
-        //return radius <= 0 ? Integer.MAX_VALUE : radius;
-        return 50;
+        final int radius = DimensionConfig.searchRadius.get();
+        return radius <= 0 ? Integer.MAX_VALUE : radius;
     }
 
-    //todo use Config
-    public static double maxValue(IWorldReader world) {
-        //return Config.get(world).level.maxValue.get();
-        return 50;
+    public static double maxLevel(IWorldReader world) {
+        return DimensionConfig.maxLevel.get();
     }
 
-    //todo use Config
-    public static boolean allowsDifficultyChanges(MobEntity entity) {
-        return true;
-    }
+//    public static boolean allowsDifficultyChanges(MobEntity entity) {
+//        return true;
+//    }
 
-    public static int startingLevel(MobEntity mob) {
-        return 1;
-    }
+//    public static int startingLevel(MobEntity mob) {
+//        return 1;
+//    }
 }
