@@ -3,6 +3,7 @@ package com.sdbros.rpgcraft.util;
 import com.sdbros.rpgcraft.capabilities.MobCapability;
 import com.sdbros.rpgcraft.capabilities.MobCapability.*;
 import com.sdbros.rpgcraft.config.DimensionConfig;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
@@ -33,9 +34,9 @@ public final class Level {
         return DimensionConfig.maxLevel.get();
     }
 
-//    public static boolean allowsDifficultyChanges(MobEntity entity) {
-//        return true;
-//    }
+    public static boolean allowsDifficultyChanges(MobEntity entity) {
+        return true;
+    }
 
 //    public static int startingLevel(MobEntity mob) {
 //        return 1;

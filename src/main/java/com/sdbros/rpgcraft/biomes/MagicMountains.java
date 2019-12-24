@@ -38,7 +38,6 @@ public class MagicMountains extends Biome {
         //RpgCraft
         this.addStructure(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG);
         this.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, createDecoratedFeature(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG));
-
         this.addSpawn(EntityClassification.MONSTER, new SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 95, 1, 3));
 
         //MineCraft

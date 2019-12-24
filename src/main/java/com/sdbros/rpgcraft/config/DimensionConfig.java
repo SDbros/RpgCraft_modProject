@@ -21,7 +21,7 @@ public class DimensionConfig {
                 .defineInRange("max_level", 50, 0, 1000);
         searchRadius = builder
                 .comment("Distance to look for difficulty sources (players) when calculating area difficulty.")
-                .defineInRange("search_radius", 256, 64, 1024);
+                .defineInRange("search_radius", 64, 16, 512);
 
         //for work in progress dimension
         grass_enable = builder

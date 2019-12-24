@@ -52,8 +52,8 @@ public class RpgCraftBiomeFeatures {
         for (Biome biome : ForgeRegistries.BIOMES) {
 
             biome.getSpawns(ModEntities.CLUSTER_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.CLUSTER_CREEPER.getValue(), 20, 1, 1));
-            biome.getSpawns(ModEntities.RED_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 5, 1, 3));
-            biome.getSpawns(ModEntities.MUTANT_ZOMBIE.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.MUTANT_ZOMBIE.getValue(), 30, 1, 2));
+            biome.getSpawns(ModEntities.RED_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 50, 2, 4));
+            biome.getSpawns(ModEntities.MUTANT_ZOMBIE.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.MUTANT_ZOMBIE.getValue(), 50, 1, 2));
         }
     }
 

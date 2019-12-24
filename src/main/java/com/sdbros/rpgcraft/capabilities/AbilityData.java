@@ -57,7 +57,7 @@ public class AbilityData extends ForgeRegistryEntry<AbilityData> {
      * Applies a potion effect to the entity
      */
     public void applyPotionToEntity(LivingEntity entity) {
-        entity.addPotionEffect(new EffectInstance(potionEffect, 300, effectAmplifier, false, true));
+        entity.addPotionEffect(new EffectInstance(potionEffect, 300, effectAmplifier, true, true, true));
     }
 
 

@@ -48,9 +48,9 @@ public class CrazedSummonerEntity extends SpellcastingIllagerEntity implements I
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new CrazedSummonerEntity.CastingSpellGoal());
         this.goalSelector.addGoal(4, new CrazedSummonerEntity.SummonSpellGoal());
-        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, PlayerEntity.class, 8.0F, 0.6D, 1.0D));
-        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, IronGolemEntity.class, 8.0F, 0.6D, 1.0D));
-        this.goalSelector.addGoal(6, new RangedBowAttackGoal<>(this, 0.5D, 10, 25.0F));
+        this.goalSelector.addGoal(5, new RangedBowAttackGoal<>(this, 0.5D, 20, 25.0F));
+        this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, PlayerEntity.class, 2.0F, 0.6D, 1.0D));
+        this.goalSelector.addGoal(6, new AvoidEntityGoal<>(this, IronGolemEntity.class, 2.0F, 0.6D, 1.0D));
         this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 0.5D));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(9, new LookAtGoal(this, MobEntity.class, 8.0F));

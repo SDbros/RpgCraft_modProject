@@ -11,6 +11,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.AbstractIllagerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
@@ -59,11 +62,10 @@ public class MagicHouseStructurePiece {
             this.func_207614_a(templateManager);
         }
 
-        //Rot == Rotation
         public Piece(TemplateManager templateManager, CompoundNBT compoundNBT) {
             super(ModFeatures.MAGIC_HOUSE, compoundNBT);
             this.resourceLocation = new ResourceLocation(compoundNBT.getString("Template"));
-            this.rotation = Rotation.valueOf(compoundNBT.getString("Rot"));
+            this.rotation = Rotation.valueOf(compoundNBT.getString("Rotation"));
             this.func_207614_a(templateManager);
         }
 
@@ -75,16 +77,13 @@ public class MagicHouseStructurePiece {
             this.setup(template, this.templatePosition, placementsettings);
         }
 
-        /**
-         * (abstract) Helper method to read subclass data from NBT
-         * Rot == Rotation
-         */
-        protected void readAdditional(CompoundNBT tagCompound) {
+         protected void readAdditional(CompoundNBT tagCompound) {
             super.readAdditional(tagCompound);
             tagCompound.putString("Template", this.resourceLocation.toString());
-            tagCompound.putString("Rot", this.rotation.name());
+            tagCompound.putString("Rotation", this.rotation.name());
         }
 
+        //Fixme Crazed_Summoner is missing its bow
         protected void handleDataMarker(String name, BlockPos blockPos, IWorld world, Random random, MutableBoundingBox mutableBoundingBox) {
             if (name.equals("boss")) {
                 AbstractIllagerEntity abstractIllagerEntity = ModEntities.CRAZED_SUMMONER.getValue().create(world.getWorld());
@@ -92,6 +91,7 @@ public class MagicHouseStructurePiece {
                 abstractIllagerEntity.moveToBlockPosAndAngles(blockPos, 0.0F, 0.0F);
                 abstractIllagerEntity.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(abstractIllagerEntity)), SpawnReason.STRUCTURE, (ILivingEntityData) null, (CompoundNBT) null);
                 world.addEntity(abstractIllagerEntity);
+                abstractIllagerEntity.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
             }
             world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
         }
