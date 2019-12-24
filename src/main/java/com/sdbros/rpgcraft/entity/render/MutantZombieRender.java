@@ -5,6 +5,7 @@ import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.entity.mobs.MutantZombieEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
 import net.minecraft.client.renderer.entity.model.ZombieVillagerModel;
 import net.minecraft.util.ResourceLocation;
 
@@ -22,6 +23,9 @@ public class MutantZombieRender extends MobRenderer<MutantZombieEntity, ZombieVi
 
     public MutantZombieRender(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ZombieVillagerModel<>(), 0.25F);
+
+        this.addLayer(new HeldItemLayer(this));
+
     }
 
     @Nullable

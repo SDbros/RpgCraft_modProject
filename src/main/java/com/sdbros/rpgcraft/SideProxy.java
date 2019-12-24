@@ -3,14 +3,8 @@ package com.sdbros.rpgcraft;
 import com.sdbros.rpgcraft.capability.ItemCapability;
 import com.sdbros.rpgcraft.capability.MobCapability;
 import com.sdbros.rpgcraft.capability.PlayerCapability;
-import com.sdbros.rpgcraft.entity.mobs.ClusterCreeperEntity;
-import com.sdbros.rpgcraft.entity.mobs.LumberjackEntity;
-import com.sdbros.rpgcraft.entity.render.ClusterCreeperRender;
-import com.sdbros.rpgcraft.entity.render.LumberjackRender;
-import com.sdbros.rpgcraft.entity.render.RedCreeperRender;
-import com.sdbros.rpgcraft.entity.render.MutantZombieRender;
-import com.sdbros.rpgcraft.entity.mobs.RedCreeperEntity;
-import com.sdbros.rpgcraft.entity.mobs.MutantZombieEntity;
+import com.sdbros.rpgcraft.entity.mobs.*;
+import com.sdbros.rpgcraft.entity.render.*;
 import com.sdbros.rpgcraft.init.*;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.world.gen.features.FeatureManager;
@@ -109,6 +103,7 @@ class SideProxy {
             RenderingRegistry.registerEntityRenderingHandler(RedCreeperEntity.class, RedCreeperRender::new);
             RenderingRegistry.registerEntityRenderingHandler(ClusterCreeperEntity.class, ClusterCreeperRender::new);
             RenderingRegistry.registerEntityRenderingHandler(LumberjackEntity.class, LumberjackRender::new);
+            RenderingRegistry.registerEntityRenderingHandler(CrazedSummonerEntity.class, CrazedSummonerRender::new);
         }
 
         @Nullable

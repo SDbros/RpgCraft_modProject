@@ -20,7 +20,7 @@ public class Abilities {
     public static final AbilityData NIGHT_VISION = new AbilityData("night_vision", Effects.NIGHT_VISION);
     public static final AbilityData JUMP_BOOST = new AbilityData("jump_boost", Effects.JUMP_BOOST);
     public static final AbilityData INVISIBILITY = new AbilityData("invisibility", Effects.INVISIBILITY);
-    public static final AbilityData SPEED = new AbilityData("speed", Effects.SPEED);
+    public static final AbilityData SPEED_BOOST = new AbilityData("speed", Effects.SPEED);
 
     public static final AbilityData SLOW_AOE = new AbilityData("slow_aoe", null) {
         private final EntityPredicate ENTITY_PREDICATE = (new EntityPredicate()).setDistance(15.0D);

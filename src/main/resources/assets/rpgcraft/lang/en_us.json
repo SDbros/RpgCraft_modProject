@@ -18,6 +18,7 @@
   "item.rpgcraft.red_creeper_spawn_egg": "Red Creeper Spawn Egg",
   "item.rpgcraft.lumberjack_spawn_egg": "Lumberjack Spawn Egg",
   "item.rpgcraft.mutant_zombie_spawn_egg": "Mutant Zombie Spawn Egg",
+  "item.rpgcraft.crazed_summoner_spawn_egg": "Crazed Summoner Spawn Egg",
   "block.rpgcraft.copper_ore": "Copper Ore",
   "block.rpgcraft.runite_ore": "Runite Ore",
   "block.rpgcraft.copper_block": "Block of Copper",
@@ -26,7 +27,8 @@
   "block.rpgcraft.unstable_matter_block": "Unstable Matter",
   "entity.rpgcraft.cluster_creeper": "Cluster Creeper",
   "entity.rpgcraft.red_creeper": "Red Creeper",
-  "entity.rpgcraft.zombie_variant": "Zombie Variant",
+  "entity.rpgcraft.mutant_zombie": "Mutant Zombie",
+  "entity.rpgcraft.crazed_summoner": "Crazed Summoner",
   "biome.rpgcraft.magic_mountains": "Magic Mountains",
 
   "comment": "Creative Tabs",

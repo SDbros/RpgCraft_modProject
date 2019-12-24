@@ -27,7 +27,7 @@ public class AbilityEventHandler {
     @SubscribeEvent
     public static void registerAbilities(RegistryEvent.Register<AbilityData> event) {
         registerAbility(event,
-                ABSORPTION, SLOW_AOE, JUMP_BOOST, SPEED, INVISIBILITY, NIGHT_VISION
+                ABSORPTION, SLOW_AOE, JUMP_BOOST, SPEED_BOOST, INVISIBILITY, NIGHT_VISION
         );
     }
 

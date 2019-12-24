@@ -36,16 +36,16 @@ public final class RpgCraftCommonEvents {
         Network.channel.sendTo(msg, player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
     }
 
-    @SubscribeEvent
-    public static void onAttachItemCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
-
-        ItemStack item = event.getObject();
-        if (ItemCapability.ItemCapabilityData.canAttachTo(item)) {
-            event.addCapability(ItemCapability.NAME, new ItemCapability.ItemCapabilityData());
-            RpgCraft.LOGGER.info("ItemHERE " + event.getCapabilities());
-        }
-
-    }
+//    @SubscribeEvent
+//    public static void onAttachItemCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
+//
+//        ItemStack item = event.getObject();
+//        if (ItemCapability.ItemCapabilityData.canAttachTo(item)) {
+//            event.addCapability(ItemCapability.NAME, new ItemCapability.ItemCapabilityData());
+//            RpgCraft.LOGGER.info("ItemHERE " + event.getCapabilities());
+//        }
+//
+//    }
 
     @SubscribeEvent
     public static void onAttachEntityCapabilities(AttachCapabilitiesEvent<Entity> event) {

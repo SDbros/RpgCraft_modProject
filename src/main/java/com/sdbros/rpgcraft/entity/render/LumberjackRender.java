@@ -4,6 +4,7 @@ import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.entity.mobs.LumberjackEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.renderer.entity.model.ZombieModel;
@@ -16,6 +17,9 @@ public class LumberjackRender extends MobRenderer<LumberjackEntity, PlayerModel<
 
     public LumberjackRender(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new PlayerModel(0.0F, false), 0.25F);
+
+        this.addLayer(new HeldItemLayer(this));
+
     }
 
     @Nullable
