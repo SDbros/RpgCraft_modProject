@@ -15,16 +15,16 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class BrokenStructure extends ScatteredStructure<NoFeatureConfig> {
+public class BrokenTowerStructure extends ScatteredStructure<NoFeatureConfig> {
 
-    public BrokenStructure() {
+    public BrokenTowerStructure() {
         super(NoFeatureConfig::deserialize);
     }
 
     @Nonnull
     @Override
     public String getStructureName() {
-        return "rpgcraft:broken_structure";
+        return "rpgcraft:broken_tower";
     }
 
     @Override
@@ -35,12 +35,12 @@ public class BrokenStructure extends ScatteredStructure<NoFeatureConfig> {
     @Nonnull
     @Override
     public Structure.IStartFactory getStartFactory() {
-        return BrokenStructure.Start::new;
+        return BrokenTowerStructure.Start::new;
     }
 
     @Override
     protected int getSeedModifier() {
-        return 14357619;
+        return 9854984;
     }
 
     public static class Start extends StructureStart {
@@ -54,7 +54,7 @@ public class BrokenStructure extends ScatteredStructure<NoFeatureConfig> {
             int j = chunkZ * 16;
             BlockPos blockpos = new BlockPos(i, 90, j);
             Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-            BrokenStructurePieces.init(templateManagerIn, blockpos, rotation, this.components, this.rand);
+            BrokenTowerPiece.init(templateManagerIn, blockpos, rotation, this.components, this.rand);
             this.recalculateStructureSize();
         }
     }

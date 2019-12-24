@@ -12,32 +12,35 @@ import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
-public class MagicHouseStructure extends ScatteredStructure<NoFeatureConfig> {
-    public MagicHouseStructure() {
+@ParametersAreNonnullByDefault
+public class BrokenBuildingStructure extends ScatteredStructure<NoFeatureConfig> {
+
+    public BrokenBuildingStructure() {
         super(NoFeatureConfig::deserialize);
     }
 
     @Nonnull
     @Override
     public String getStructureName() {
-        return "rpgcraft:magic_house";
+        return "rpgcraft:broken_building";
     }
 
     @Override
     public int getSize() {
-        return 3;
+        return 1;
     }
 
     @Nonnull
     @Override
-    public Structure.IStartFactory getStartFactory() {
-        return MagicHouseStructure.Start::new;
+    public IStartFactory getStartFactory() {
+        return BrokenBuildingStructure.Start::new;
     }
 
     @Override
     protected int getSeedModifier() {
-        return 985549;
+        return 654654;
     }
 
     public static class Start extends StructureStart {
@@ -51,7 +54,7 @@ public class MagicHouseStructure extends ScatteredStructure<NoFeatureConfig> {
             int j = chunkZ * 16;
             BlockPos blockpos = new BlockPos(i, 90, j);
             Rotation rotation = Rotation.values()[this.rand.nextInt(Rotation.values().length)];
-            MagicHouseStructurePiece.init(templateManagerIn, blockpos, rotation, this.components);
+            BrokenBuildingPiece.init(templateManagerIn, blockpos, rotation, this.components, this.rand);
             this.recalculateStructureSize();
         }
     }

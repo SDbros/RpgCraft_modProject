@@ -2,11 +2,17 @@ package com.sdbros.rpgcraft.structures;
 
 import com.google.common.collect.ImmutableMap;
 import com.sdbros.rpgcraft.RpgCraft;
+import com.sdbros.rpgcraft.init.ModEntities;
 import com.sdbros.rpgcraft.init.ModFeatures;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.ChestBlock;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.monster.AbstractIllagerEntity;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -15,7 +21,9 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.structure.*;
+import net.minecraft.world.gen.feature.structure.IStructurePieceType;
+import net.minecraft.world.gen.feature.structure.StructurePiece;
+import net.minecraft.world.gen.feature.structure.TemplateStructurePiece;
 import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
@@ -29,18 +37,13 @@ import java.util.Map;
 import java.util.Random;
 
 @ParametersAreNonnullByDefault
-public class BrokenStructurePieces {
+public class MagicHouseStructurePiece {
 
-    private static final ResourceLocation TOWER_RESOURCE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "broken_tower");
-    private static final ResourceLocation BUILDING_RESOURCE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "broken_building");
-    private static final Map<ResourceLocation, BlockPos> RESOURCE_LOCATION_BLOCK_POS = ImmutableMap.of(TOWER_RESOURCE, BlockPos.ZERO, BUILDING_RESOURCE, new BlockPos(0, -1, 0));
+    private static final ResourceLocation MAGIC_HOUSE_RESOURCE = new ResourceLocation(RpgCraft.RESOURCE_PREFIX + "magic_house");
 
 
-    public static void init(TemplateManager templateManager, BlockPos pos, Rotation rotation, List<StructurePiece> structurePieces, Random random) {
-        if (random.nextInt(100) > 50)
-            structurePieces.add(new BrokenStructurePieces.Piece(templateManager, TOWER_RESOURCE, pos, rotation, 0, ModFeatures.BROKEN_TOWER));
-        else
-            structurePieces.add(new BrokenStructurePieces.Piece(templateManager, BUILDING_RESOURCE, pos, rotation, 0, ModFeatures.BROKEN_BUILDING));
+    public static void init(TemplateManager templateManager, BlockPos pos, Rotation rotation, List<StructurePiece> structurePieces) {
+        structurePieces.add(new Piece(templateManager, MAGIC_HOUSE_RESOURCE, pos, rotation, 0, ModFeatures.MAGIC_HOUSE));
     }
 
     public static class Piece extends TemplateStructurePiece {
@@ -50,7 +53,7 @@ public class BrokenStructurePieces {
         Piece(TemplateManager templateManager, ResourceLocation resourceLocation, BlockPos pos, Rotation rotation, int yOffset, IStructurePieceType piece) {
             super(piece, 0);
             this.resourceLocation = resourceLocation;
-            BlockPos blockpos = BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(resourceLocation);
+            BlockPos blockpos = BlockPos.ZERO;
             this.templatePosition = pos.add(blockpos.getX(), blockpos.getY() - yOffset, blockpos.getZ());
             this.rotation = rotation;
             this.func_207614_a(templateManager);
@@ -58,7 +61,7 @@ public class BrokenStructurePieces {
 
         //Rot == Rotation
         public Piece(TemplateManager templateManager, CompoundNBT compoundNBT) {
-            super(ModFeatures.BROKEN_BUILDING, compoundNBT);
+            super(ModFeatures.MAGIC_HOUSE, compoundNBT);
             this.resourceLocation = new ResourceLocation(compoundNBT.getString("Template"));
             this.rotation = Rotation.valueOf(compoundNBT.getString("Rot"));
             this.func_207614_a(templateManager);
@@ -68,7 +71,6 @@ public class BrokenStructurePieces {
             Template template = templateManager.getTemplateDefaulted(this.resourceLocation);
             PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation)
                     .setMirror(Mirror.NONE)
-                    .setCenterOffset(BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation))
                     .addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
             this.setup(template, this.templatePosition, placementsettings);
         }
@@ -84,37 +86,34 @@ public class BrokenStructurePieces {
         }
 
         protected void handleDataMarker(String name, BlockPos blockPos, IWorld world, Random random, MutableBoundingBox mutableBoundingBox) {
-            if ("chest".equals(name)) {
-                world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 3);
-                TileEntity tileEntity = world.getTileEntity(blockPos.down());
-                if (tileEntity instanceof ChestTileEntity) {
-                    ((ChestTileEntity) tileEntity).setLootTable(LootTables.CHESTS_IGLOO_CHEST, random.nextLong());
-                }
-
+            if (name.equals("boss")) {
+                AbstractIllagerEntity abstractIllagerEntity = ModEntities.CRAZED_SUMMONER.getValue().create(world.getWorld());
+                abstractIllagerEntity.enablePersistence();
+                abstractIllagerEntity.moveToBlockPosAndAngles(blockPos, 0.0F, 0.0F);
+                abstractIllagerEntity.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(abstractIllagerEntity)), SpawnReason.STRUCTURE, (ILivingEntityData) null, (CompoundNBT) null);
+                world.addEntity(abstractIllagerEntity);
             }
+            world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
         }
+
 
         /**
          * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes Mineshafts at
          * the end, it adds Fences...
          */
         public boolean addComponentParts(IWorld worldIn, Random randomIn, MutableBoundingBox structureBoundingBoxIn, ChunkPos chunkPosIn) {
-            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation).setMirror(Mirror.NONE).setCenterOffset(BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation)).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-            BlockPos blockpos = BrokenStructurePieces.RESOURCE_LOCATION_BLOCK_POS.get(this.resourceLocation);
-            BlockPos blockpos1 = this.templatePosition.add(Template.transformedBlockPos(placementsettings, new BlockPos(blockpos.getX(), 0, blockpos.getZ())));
+            PlacementSettings placementsettings = (new PlacementSettings()).setRotation(this.rotation).addProcessor(BlockIgnoreStructureProcessor.AIR_AND_STRUCTURE_BLOCK);
+            BlockPos blockpos = this.templatePosition.add(Template.transformedBlockPos(placementsettings, BlockPos.ZERO));
+
             int i;
-            if (BiomeDictionary.hasType(worldIn.getBiome(blockpos1), BiomeDictionary.Type.WATER)) {
-                i = worldIn.getHeight(Heightmap.Type.OCEAN_FLOOR_WG, blockpos1.getX(), blockpos1.getZ());
+            if (BiomeDictionary.hasType(worldIn.getBiome(chunkPosIn.asBlockPos()), BiomeDictionary.Type.WATER)) {
+                i = worldIn.getHeight(Heightmap.Type.OCEAN_FLOOR_WG, blockpos.getX(), blockpos.getZ());
             } else {
-                i = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos1.getX(), blockpos1.getZ());
+                i = worldIn.getHeight(Heightmap.Type.WORLD_SURFACE_WG, blockpos.getX(), blockpos.getZ());
             }
-            BlockPos blockpos2 = this.templatePosition;
+
             this.templatePosition = this.templatePosition.add(0, i - 90, 0);
-            boolean flag = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn, chunkPosIn);
-
-
-            this.templatePosition = blockpos2;
-            return flag;
+            return super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn, chunkPosIn);
         }
     }
 }
