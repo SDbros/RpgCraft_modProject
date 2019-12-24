@@ -38,15 +38,18 @@ public class RpgCraftBiomeFeatures {
     private static void generateStructures() {
         for (Biome biome : ForgeRegistries.BIOMES) {
             //biome.addStructure(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG);
+            biome.addStructure(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG);
+            biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.CHANCE_HEIGHTMAP, new ChanceConfig(1024)));
             //biome.addFeature(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG));
         }
     }
 
+    //Fixme not working
     //used to add Mobs to all biomes
     private static void registerEntitySpawns() {
         for (Biome biome : ForgeRegistries.BIOMES) {
 
-            biome.getSpawns(ModEntities.CLUSTER_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.CLUSTER_CREEPER.getValue(), 1, 1, 1));
+            biome.getSpawns(ModEntities.CLUSTER_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.CLUSTER_CREEPER.getValue(), 20, 1, 1));
             biome.getSpawns(ModEntities.RED_CREEPER.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.RED_CREEPER.getValue(), 5, 1, 3));
             biome.getSpawns(ModEntities.MUTANT_ZOMBIE.getValue().getClassification()).add(new Biome.SpawnListEntry(ModEntities.MUTANT_ZOMBIE.getValue(), 30, 1, 2));
         }
@@ -57,7 +60,7 @@ public class RpgCraftBiomeFeatures {
         registerBiomeSpecificSpawns(ModEntities.RED_CREEPER.getValue(), 95, 1, 3, ModBiomes.MAGICMOUNTAINS);
         generateBiomeSpecificStructures(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, ModBiomes.MAGICMOUNTAINS);
         generateBiomeSpecificStructures(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, ModBiomes.MAGICMOUNTAINS);
-        generateBiomeSpecificFeatures(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG), ModBiomes.MAGICMOUNTAINS);
+        generateBiomeSpecificFeatures(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.MAGIC_HOUSE_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.CHANCE_TOP_SOLID_HEIGHTMAP, new ChanceConfig(1024)), ModBiomes.MAGICMOUNTAINS);
         generateBiomeSpecificFeatures(GenerationStage.Decoration.SURFACE_STRUCTURES, Biome.createDecoratedFeature(ModFeatures.BROKEN_STRUCTURE, IFeatureConfig.NO_FEATURE_CONFIG, Placement.NOPE, NoPlacementConfig.NO_PLACEMENT_CONFIG), ModBiomes.MAGICMOUNTAINS);
 
     }
@@ -78,7 +81,7 @@ public class RpgCraftBiomeFeatures {
         }
     }
 
-    private static void generateBiomeSpecificFeatures(Decoration decoration ,ConfiguredFeature<?> decoratedFeature, Biome... biomes) {
+    private static void generateBiomeSpecificFeatures(Decoration decoration, ConfiguredFeature<?> decoratedFeature, Biome... biomes) {
         for (Biome biome : biomes) {
             if (biome != null) {
                 biome.addFeature(decoration, decoratedFeature);

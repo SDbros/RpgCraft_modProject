@@ -2,8 +2,17 @@ package com.sdbros.rpgcraft.world.gen.structures;
 
 import com.google.common.collect.ImmutableMap;
 import com.sdbros.rpgcraft.RpgCraft;
+import com.sdbros.rpgcraft.init.ModEntities;
 import com.sdbros.rpgcraft.init.ModFeatures;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.ChestBlock;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ILivingEntityData;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.monster.AbstractIllagerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -19,6 +28,7 @@ import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.storage.loot.LootTables;
 import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -77,9 +87,17 @@ public class MagicHouseStructurePieces {
             tagCompound.putString("Rot", this.rotation.name());
         }
 
-        protected void handleDataMarker(String function, BlockPos pos, IWorld worldIn, Random rand, MutableBoundingBox sbb) {
-            //todo add chest loot tables here
+        protected void handleDataMarker(String name, BlockPos blockPos, IWorld world, Random random, MutableBoundingBox mutableBoundingBox) {
+            if (name.equals("boss")) {
+                AbstractIllagerEntity abstractIllagerEntity = ModEntities.CRAZED_SUMMONER.getValue().create(world.getWorld());
+                abstractIllagerEntity.enablePersistence();
+                abstractIllagerEntity.moveToBlockPosAndAngles(blockPos, 0.0F, 0.0F);
+                abstractIllagerEntity.onInitialSpawn(world, world.getDifficultyForLocation(new BlockPos(abstractIllagerEntity)), SpawnReason.STRUCTURE, (ILivingEntityData) null, (CompoundNBT) null);
+                world.addEntity(abstractIllagerEntity);
+            }
+            world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 2);
         }
+
 
         /**
          * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes Mineshafts at
