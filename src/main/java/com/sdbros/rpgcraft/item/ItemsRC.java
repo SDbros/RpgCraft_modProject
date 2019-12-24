@@ -17,6 +17,7 @@ public class ItemsRC {
     public static  final UnstableMatterItem UNSTABLE_MATTER = register("unstable_matter_item", new UnstableMatterItem((new Item.Properties()).group(RpgCraft.ITEM_GROUP)));
     public static  final Item RED_GUNPOWDER = register("red_gunpowder", new Item((new Item.Properties()).group(RpgCraft.ITEM_GROUP)));
     public static  final Item BLUE_GUNPOWDER = register("blue_gunpowder", new Item((new Item.Properties()).group(RpgCraft.ITEM_GROUP)));
+    public static  final Item PURPLE_GOO = register("purple_goo", new Item((new Item.Properties()).group(RpgCraft.ITEM_GROUP)));
     public static  final Item ACTIVATED_RUNITE_INGOT = register("activated_runite_ingot", new Item((new Item.Properties()).group(RpgCraft.ITEM_GROUP)));
 
 

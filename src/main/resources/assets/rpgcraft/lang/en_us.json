@@ -1,6 +1,8 @@
 {
   "item.rpgcraft.blue_gunpowder": "Blue Gunpowder",
   "item.rpgcraft.red_gunpowder": "Red Gunpowder",
+  "item.rpgcraft.purple_goo": "Purple Goo",
+  "item.rpgcraft.runite_ingot": "Runite Chucks",
   "item.rpgcraft.copper_ingot": "Copper Ingot",
   "item.rpgcraft.copper_axe": "Copper Axe",
   "item.rpgcraft.copper_sword": "Copper Sword",
@@ -11,7 +13,10 @@
   "item.rpgcraft.runite_chestplate": "Runite ChestPlate",
   "item.rpgcraft.runite_leggings": "Runite Leggings",
   "item.rpgcraft.runite_boots": "Runite Boots",
-  "item.rpgcraft.runite_ingot": "Runite Chucks",
+  "item.rpgcraft.summoner_helmet": "Summoner Helmet",
+  "item.rpgcraft.summoner_chestplate": "Summoner ChestPlate",
+  "item.rpgcraft.summoner_leggings": "Summoner Leggings",
+  "item.rpgcraft.summoner_boots": "Summoner Boots",
   "item.rpgcraft.activated_runite_ingot": "Activated Runite Chucks",
   "item.rpgcraft.unstable_matter_item": "Unstable Matter",
   "item.rpgcraft.cluster_creeper_spawn_egg": "Cluster Creeper Spawn Egg",
@@ -30,7 +35,6 @@
   "entity.rpgcraft.mutant_zombie": "Mutant Zombie",
   "entity.rpgcraft.crazed_summoner": "Crazed Summoner",
   "biome.rpgcraft.magic_mountains": "Magic Mountains",
-
   "comment": "Creative Tabs",
   "itemGroup.rpgcraft": "RpgCraft"
 }

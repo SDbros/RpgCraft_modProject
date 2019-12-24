@@ -48,10 +48,10 @@ public class CrazedSummonerEntity extends SpellcastingIllagerEntity implements I
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new CrazedSummonerEntity.CastingSpellGoal());
         this.goalSelector.addGoal(4, new CrazedSummonerEntity.SummonSpellGoal());
-        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, PlayerEntity.class, 6.0F, 0.6D, 1.0D));
-        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, IronGolemEntity.class, 6.0F, 0.5D, 0.7D));
-        this.goalSelector.addGoal(6, new RangedBowAttackGoal<>(this, 0.5D, 15, 15.0F));
-        this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 0.6D));
+        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, PlayerEntity.class, 8.0F, 0.6D, 1.0D));
+        this.goalSelector.addGoal(5, new AvoidEntityGoal<>(this, IronGolemEntity.class, 8.0F, 0.6D, 1.0D));
+        this.goalSelector.addGoal(6, new RangedBowAttackGoal<>(this, 0.5D, 10, 25.0F));
+        this.goalSelector.addGoal(7, new RandomWalkingGoal(this, 0.5D));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(9, new LookAtGoal(this, MobEntity.class, 8.0F));
         this.targetSelector.addGoal(2, (new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true)).setUnseenMemoryTicks(300));
@@ -61,8 +61,8 @@ public class CrazedSummonerEntity extends SpellcastingIllagerEntity implements I
 
     protected void registerAttributes() {
         super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(18.0D);
+        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
+        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(25.0D);
         this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
     }
 

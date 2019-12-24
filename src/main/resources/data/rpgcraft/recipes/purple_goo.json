@@ -1,0 +1,18 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+	{
+	  "item": "rpgcraft:red_gunpowder"
+	},
+	{
+	  "item": "rpgcraft:blue_gunpowder"
+	},
+	{
+	  "item": "minecraft:potion",
+	  "data": 2
+	}
+  ],
+  "result": {
+	"item": "rpgcraft:purple_goo"
+  }
+}

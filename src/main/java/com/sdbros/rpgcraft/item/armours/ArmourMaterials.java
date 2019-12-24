@@ -2,6 +2,7 @@ package com.sdbros.rpgcraft.item.armours;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.block.Ores;
+import com.sdbros.rpgcraft.item.ItemsRC;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
@@ -17,7 +18,9 @@ import java.util.Locale;
 public enum ArmourMaterials implements IArmorMaterial {
 
 
-    RUNITE(8, new int[]{1, 2, 3, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0F, Ores.RUNITE.getOreItem());
+    RUNITE(8, new int[]{1, 2, 3, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0F, Ores.RUNITE.getOreItem()),
+    SUMMONER(23, new int[]{2, 6, 7, 2}, 9, SoundEvents.ITEM_ARMOR_EQUIP_GENERIC, 0F, ItemsRC.PURPLE_GOO);
+
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[]{13, 15, 16, 11};
     private final int maxDamageFactor;
