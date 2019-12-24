@@ -5,8 +5,6 @@ import com.sdbros.rpgcraft.capabilities.MobCapability;
 import com.sdbros.rpgcraft.capabilities.MobCapability.*;
 import com.sdbros.rpgcraft.capabilities.PlayerCapability;
 import com.sdbros.rpgcraft.capabilities.PlayerCapability.PlayerCapabilityData;
-import com.sdbros.rpgcraft.network.ClientLoginMessage;
-import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.util.Level;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,16 +21,6 @@ import net.minecraftforge.fml.network.NetworkDirection;
 
 @Mod.EventBusSubscriber(modid = RpgCraft.MOD_ID)
 public final class RpgCraftCommonEvents {
-
-    @SubscribeEvent
-    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        if (!(event.getPlayer() instanceof ServerPlayerEntity)) return;
-        ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
-        World world = player.world;
-        RpgCraft.LOGGER.info("Sending login packet to player {}", player);
-        ClientLoginMessage msg = new ClientLoginMessage(Level.getAreaLevelMode(), (float) Level.maxLevel(world));
-        Network.channel.sendTo(msg, player.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
-    }
 
 //    @SubscribeEvent
 //    public static void onAttachItemCapabilities(AttachCapabilitiesEvent<ItemStack> event) {

@@ -1,6 +1,8 @@
-package com.sdbros.rpgcraft.entity.mobs;
+package com.sdbros.rpgcraft.entity.boss;
 
 import com.sdbros.rpgcraft.capabilities.MobCapability;
+import com.sdbros.rpgcraft.entity.ClusterCreeperEntity;
+import com.sdbros.rpgcraft.entity.MutantZombieEntity;
 import com.sdbros.rpgcraft.init.ModEntities;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;

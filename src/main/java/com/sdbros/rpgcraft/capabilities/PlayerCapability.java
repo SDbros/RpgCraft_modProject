@@ -1,8 +1,6 @@
 package com.sdbros.rpgcraft.capabilities;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.network.ClientSyncMessage;
-import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.util.Level;
 import com.sdbros.rpgcraft.util.ModifierHandler;
 import com.sdbros.rpgcraft.util.Players;
@@ -89,17 +87,6 @@ public class PlayerCapability {
         void updateStats(PlayerEntity player);
 
         void tick(PlayerEntity player);
-
-        static void sendUpdatePacketTo(PlayerEntity player) {
-            World world = player.world;
-            BlockPos pos = player.getPosition();
-            ClientSyncMessage msg = new ClientSyncMessage(
-                    (float) Level.areaLevel(world, pos),
-                    player.experienceLevel
-            );
-            ServerPlayerEntity playerMP = (ServerPlayerEntity) player;
-            Network.channel.sendTo(msg, playerMP.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
-        }
     }
 
     public static class PlayerCapabilityData extends ForgeRegistryEntry<PlayerCapabilityData> implements IPlayerCapabilityHandler, ICapabilitySerializable<CompoundNBT> {
@@ -167,10 +154,6 @@ public class PlayerCapability {
         public void tick(PlayerEntity player) {
             for (AbilityData ability : abilityList) {
                 ability.runPlayer(player);
-            }
-
-            if (player.world.getGameTime() % 20 == 0 && player instanceof ServerPlayerEntity) {
-                IPlayerCapabilityHandler.sendUpdatePacketTo(player);
             }
         }
 

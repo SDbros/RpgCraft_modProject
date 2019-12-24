@@ -7,9 +7,7 @@ import com.sdbros.rpgcraft.client.renderer.entity.*;
 import com.sdbros.rpgcraft.entity.*;
 import com.sdbros.rpgcraft.entity.boss.CrazedSummonerEntity;
 import com.sdbros.rpgcraft.init.*;
-import com.sdbros.rpgcraft.network.Network;
-import com.sdbros.rpgcraft.world.features.FeatureManager;
-import com.sdbros.rpgcraft.world.features.RpgCraftBiomeFeatures;
+import com.sdbros.rpgcraft.world.features.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
@@ -52,7 +50,6 @@ class SideProxy {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         RpgCraft.LOGGER.info("Setup method registered.");
-        Network.init();
         MobCapability.register();
         PlayerCapability.register();
         ItemCapability.register();
