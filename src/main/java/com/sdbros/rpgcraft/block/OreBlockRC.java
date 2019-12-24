@@ -22,10 +22,4 @@ public class OreBlockRC extends OreBlock {
     public int getExpDrop(BlockState state, IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
         return silktouch == 0 ? MathHelper.nextInt(RANDOM, 1, 5) : 0;
     }
-
-    //todo check if needed
-    @Override
-    public int getHarvestLevel(BlockState state) {
-        return 2;
-    }
 }

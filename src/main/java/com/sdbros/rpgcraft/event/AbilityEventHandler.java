@@ -1,7 +1,7 @@
 package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.capability.AbilityData;
+import com.sdbros.rpgcraft.capabilities.AbilityData;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -10,7 +10,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import static com.sdbros.rpgcraft.RpgCraft.MOD_ID;
-import static com.sdbros.rpgcraft.capability.Abilities.*;
+import static com.sdbros.rpgcraft.capabilities.Abilities.*;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.MOD;
 
 @Mod.EventBusSubscriber(bus = MOD, modid = MOD_ID)

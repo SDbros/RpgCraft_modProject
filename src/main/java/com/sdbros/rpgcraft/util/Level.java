@@ -1,21 +1,14 @@
 package com.sdbros.rpgcraft.util;
 
-import com.sdbros.rpgcraft.capability.MobCapability;
-import com.sdbros.rpgcraft.capability.MobCapability.*;
+import com.sdbros.rpgcraft.capabilities.MobCapability;
+import com.sdbros.rpgcraft.capabilities.MobCapability.*;
 import com.sdbros.rpgcraft.config.DimensionConfig;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import com.sdbros.rpgcraft.config.Config;
-
 
 public final class Level {
-
-    private Level() {
-        throw new IllegalAccessError("Utility class");
-    }
 
     public static IMobCapabilityHandler source(ICapabilityProvider source) {
         return source.getCapability(MobCapability.MOB_INSTANCE)

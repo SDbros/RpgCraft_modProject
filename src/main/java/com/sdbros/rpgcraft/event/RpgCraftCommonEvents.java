@@ -1,18 +1,16 @@
 package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.capability.ItemCapability;
-import com.sdbros.rpgcraft.capability.MobCapability;
-import com.sdbros.rpgcraft.capability.MobCapability.*;
-import com.sdbros.rpgcraft.capability.PlayerCapability;
-import com.sdbros.rpgcraft.capability.PlayerCapability.PlayerCapabilityData;
+import com.sdbros.rpgcraft.capabilities.MobCapability;
+import com.sdbros.rpgcraft.capabilities.MobCapability.*;
+import com.sdbros.rpgcraft.capabilities.PlayerCapability;
+import com.sdbros.rpgcraft.capabilities.PlayerCapability.PlayerCapabilityData;
 import com.sdbros.rpgcraft.network.ClientLoginMessage;
 import com.sdbros.rpgcraft.network.Network;
 import com.sdbros.rpgcraft.util.Level;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.INBT;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;

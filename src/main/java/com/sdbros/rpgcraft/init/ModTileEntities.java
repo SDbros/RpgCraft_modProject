@@ -2,7 +2,7 @@ package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.block.BlocksRC;
-import com.sdbros.rpgcraft.block.radioTower.RadioTowerTileEntity;
+import com.sdbros.rpgcraft.tileentity.RadioTowerTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;

@@ -1,10 +1,10 @@
 package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.world.gen.structures.BrokenStructurePieces;
-import com.sdbros.rpgcraft.world.gen.structures.BrokenStructure;
-import com.sdbros.rpgcraft.world.gen.structures.MagicHouseStructure;
-import com.sdbros.rpgcraft.world.gen.structures.MagicHouseStructurePieces;
+import com.sdbros.rpgcraft.structures.BrokenStructurePieces;
+import com.sdbros.rpgcraft.structures.BrokenStructure;
+import com.sdbros.rpgcraft.structures.MagicHouseStructure;
+import com.sdbros.rpgcraft.structures.MagicHouseStructurePieces;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
