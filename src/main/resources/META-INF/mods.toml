@@ -1,28 +1,21 @@
-
 modLoader="javafml"
-loaderVersion="[28,)"
+loaderVersion="[24,)"
 issueTrackerURL="https://github.com/SDbros/RpgCraft_modProject/issues"
-displayURL="http://example.com/"
-authors="SDbros"
-logoFile="rpgcraft.png"
-credits="Thanks for this mod goes to me"
+displayURL="https://minecraft.curseforge.com/projects/biomes-o-plenty"
+logoFile="rpg_logo.png"
 
 [[mods]]
     modId="rpgcraft"
-    version="${file.jarVersion}"
+    version="${version}"
     displayName="RpgCraft"
+	authors="SDbros"
     description='''
-    RpgCraft is a work in progress mod that will add rpg like elements to minecraft.
+    Adds Rpg like elements to Minecraft, very much in early alpha atm.
     '''
+
 [[dependencies.rpgcraft]]
     modId="forge"
     mandatory=true
-    versionRange="[28,)"
-    ordering="NONE"
-    side="BOTH"
-[[dependencies.rpgcraft]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.14.4]"
+    versionRange="[24,)"
     ordering="NONE"
     side="BOTH"

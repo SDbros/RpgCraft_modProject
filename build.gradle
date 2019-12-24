@@ -1,5 +1,6 @@
 buildscript {
     repositories {
+        mavenLocal()
         maven { url = 'https://files.minecraftforge.net/maven' }
         jcenter()
         mavenCentral()
@@ -10,205 +11,155 @@ buildscript {
 }
 
 plugins {
-    id 'io.franzbecker.gradle-lombok' version '2.0'
-    id 'maven'
-    id 'maven-publish'
-    id "com.jfrog.bintray" version "1.8.4"
+    id "com.matthewprenger.cursegradle" version "1.2.0"
 }
 
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven'
 
-repositories {
-    flatDir {
-        name "fileRepo"
-        dirs "repo"
+//group = "com.github.glitchfiend.biomesoplenty"
+archivesBaseName = "RpgCraft"
+
+def getGitHash = {
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'rev-parse', '--short', 'HEAD'
+        standardOutput = stdout
     }
-    mavenLocal()
-    jcenter()
+    return stdout.toString().trim()
 }
 
-javadoc {
-    failOnError = false
-}
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    options.compilerArgs = ['-Xlint:deprecation']
-}
-
-def versionInfo = getVersion('VERSION', getModFile())
-System.out.println(versionInfo)
-version = "${versionInfo['version']}"
-def build_num = getBuildNumber()
-
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+version = "${minecraft_version}-${mod_version}.${System.getenv().BUILD_NUMBER}"
 
 minecraft {
-    mappings channel: project.mcp_channel.toString(), version: project.mcp_mappings.toString()
+    mappings channel: 'snapshot', version: mappings_version
 
     runs {
         client = {
-            // recommended logging data for a userdev environment
-            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
-            // recommended logging level for the console
-            properties 'forge.logging.console.level': 'debug'
-            workingDirectory project.file('run').canonicalPath
+            workingDirectory = project.file("run").canonicalPath
             source sourceSets.main
         }
         server = {
-            // recommended logging data for a userdev environment
-            properties 'forge.logging.markers': 'SCAN,REGISTRIES,REGISTRYDUMP'
-            // recommended logging level for the console
-            properties 'forge.logging.console.level': 'debug'
-            workingDirectory project.file('run').canonicalPath
+            workingDirectory = project.file("run").canonicalPath
             source sourceSets.main
         }
     }
 }
 
-repositories {
-    jcenter()
-    mavenLocal()
-    maven { url 'https://maven.mcmoddev.com' }
-    maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
+processResources {
+    from(sourceSets.main.resources.srcDirs) {
+        include 'META-INF/mods.toml'
+        expand 'version': project.version
     }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
-    }
-}
-
-
-dependencies {
-    minecraft "net.minecraftforge:forge:${project.forge_version}"
-//    // JEI
-//    // compile against the JEI API but do not include it at runtime
-//    compileOnly fg.deobf("mezz.jei:jei-1.14.4:${project.jei_version}:api")
-//    // at runtime, use the full JEI jar
-//    runtimeOnly fg.deobf("mezz.jei:jei-1.14.4:${project.jei_version}")
 }
 
 jar {
-    appendix = "${project.mc_version}"
-    manifest {
-        attributes([
-                "Specification-Title"     : project.mod_id,
-                "Specification-Vendor"    : "SDbros",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : "${version}",
-                "Implementation-Vendor"   : "SDbros",
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
+    classifier = 'universal'
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:' + minecraft_version + '-' + forge_version
 }
 
 task sourcesJar(type: Jar) {
-    appendix = "${project.mc_version}"
-    classifier = 'sources'
     from sourceSets.main.allJava
+    from(sourceSets.main.output) {
+        include 'LICENSE.txt'
+    }
+
+    classifier = 'sources'
 }
 
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    appendix = "${project.mc_version}"
-    classifier = 'javadoc'
-    from javadoc.getDestinationDir()
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
 }
+
+def changelog_file = rootProject.file("build/RpgCraft-${version}-changelog.txt")
+
+curseforge {
+    if (project.hasProperty('curseApiKey')) {
+        apiKey = project.getProperty('curseApiKey')
+        project {
+            id = '220318'
+
+            if (changelog_file.exists()) {
+                changelog = changelog_file
+            }
+
+            releaseType = 'alpha'
+
+            mainArtifact(jar) {
+                displayName = "RpgCraft ${version}"
+            }
+            addArtifact sourcesJar
+            addArtifact deobfJar
+            addArtifact apiJar
+        }
+    }
+}
+
 
 artifacts {
-    if (project.hasProperty('doSourceJar')) {
-        archives sourceJar
+    if (changelog_file.exists()) {
+        archives changelog_file
     }
-    if (project.hasProperty('doJavadocJar')) {
-        archives javadocJar
-    }
+    archives sourcesJar
+    archives deobfJar
 }
 
-publishing {
-    publications {
-        publication(MavenPublication) {
-            groupId project.group
-            artifactId project.repoName
-            version "${versionInfo['version_short']}".toString()
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            if (project.hasProperty('forgeMavenPassword')) {
+                repository(url: "https://files.minecraftforge.net/maven/manage/upload") {
+                    authentication(userName: project.getProperty('forgeMavenUsername'), password: project.getProperty('forgeMavenPassword'))
+                }
+            } else {
+                // local repo folder. Might wanna juset use  gradle install   if you wanans end it to maven-local
+                repository(url: 'file://localhost/' + project.file('repo').getAbsolutePath())
+            }
 
-            from components.java
+            pom {
+                groupId = project.group
+                version = project.version
+                artifactId = project.archivesBaseName
+                project {
+                    name project.archivesBaseName
+                    packaging 'jar'
+                    description 'RpgCraft'
+                    url 'https://github.com/SDbros/RpgCraft_modProject'
 
-            artifact sourcesJar
-            artifact javadocJar
-        }
-    }
-}
-// Version stuff
+                    scm {
+                        url 'https://github.com/SDbros/RpgCraft_modProject'
+                        connection 'scm:git:git://github.com/SDbros/RpgCraft_modProject.git'
+                        developerConnection 'scm:git:git@github.com:SDbros/RpgCraft_modProject.git'
+                    }
 
-static def makeVersionMap(maj, min, rev, bn, githash) {
-    def out = [:]
-    out['build.major.number'] = maj.toString()
-    out['build.minor.number'] = min.toString()
-    out['build.revision.number'] = rev.toString()
-    out['build.githash'] = githash
-    out['build.number'] = bn.toString()
-    out['version_short'] = "${maj}.${min}.${rev}".toString()
-    out['version'] = "${maj}.${min}.${rev}+${bn}".toString()
-    return out
-}
+                    issueManagement {
+                        system 'github'
+                        url 'https://github.com/SDbros/RpgCraft_modProject/issues'
+                    }
 
-// Modified old version getter
-def getVersion(String type, String mod_file) {
-    String maj = '0'
-    String min = '0'
-    String rev = '0'
-    String bn = getBuildNumber()
+                    licenses {
+                        license {
+                            name 'Creative Commons Attribution-NonCommercial-NoDerivs 4.0 International Public License'
+                            url 'http://creativecommons.org/licenses/by-nc-nd/4.0/'
+                            distribution 'repo'
+                        }
+                    }
 
-    File file = file(mod_file)
-    def prefix = ~/^(?:public|protected|private) static final String $type = ".*$/
-    file.eachLine { String s ->
-        s = s.trim()
-        if (s ==~ prefix || prefix.matcher(s).matches()) {
-            String[] bits = s.split("=")
-            String interesting = bits[1].trim()
-            interesting = interesting.substring(1, interesting.length() - 2)
-            String[] pts = interesting.trim().split("\\.")
-
-            maj = pts[0] ?: '0'
-            min = pts[1] ?: '0'
-            rev = pts[2] ?: '0'
-        }
-    }
-
-    return makeVersionMap(maj, min, rev, bn, 'unknown')
-}
-
-// Used by old getVersion
-String getModFile() {
-    String path = ''
-    FileTree tree = fileTree(dir: 'src/main/java')
-    tree.include '**/*.java'
-    tree.visit { element ->
-        if (element.file.isFile()) {
-            element.file.eachLine { String s ->
-                s = s.trim()
-                if (s.startsWith('@Mod(')) {
-                    path = "src/main/java/$element.relativePath"
+                    developers {
+                        developer {
+                            id 'SDbros'
+                            name 'SDbros'
+                            roles { role 'developer' }
+                        }
+                    }
                 }
             }
         }
     }
-    return path
-}
-
-// Build number tracking
-
-String getBuildNumber() {
-    def versionFile = file('version.properties')
-    if (versionFile.canRead()) {
-        Properties versionProps = new Properties()
-        versionProps.load(new FileInputStream(versionFile))
-        return versionProps['build_num'].toString()
-    }
-    return "1"
 }

@@ -16,7 +16,7 @@ public class UnstableChunkGenerator extends NoiseChunkGenerator<GenerationSettin
     }
 
     @Override
-    protected void func_222548_a(double[] p_222548_1_, int p_222548_2_, int p_222548_3_) {
+    protected void fillNoiseColumn(double[] p_222548_1_, int p_222548_2_, int p_222548_3_) {
         double d0 = 1368.824D;
         double d1 = 684.412D;
         double d2 = 17.110300000000002D;
@@ -27,7 +27,7 @@ public class UnstableChunkGenerator extends NoiseChunkGenerator<GenerationSettin
     }
 
     @Override
-    protected double[] func_222549_a(int p_222549_1_, int p_222549_2_) {
+    protected double[] getBiomeNoiseColumn(int p_222549_1_, int p_222549_2_) {
         return new double[]{(double)this.biomeProvider.func_222365_c(p_222549_1_, p_222549_2_), 0.0D};
     }
 
