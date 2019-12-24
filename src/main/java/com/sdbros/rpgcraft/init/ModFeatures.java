@@ -1,10 +1,7 @@
 package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.world.gen.structures.BrokenStructurePieces;
-import com.sdbros.rpgcraft.world.gen.structures.BrokenStructure;
-import com.sdbros.rpgcraft.world.gen.structures.MagicHouseStructure;
-import com.sdbros.rpgcraft.world.gen.structures.MagicHouseStructurePieces;
+import com.sdbros.rpgcraft.structures.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.IFeatureConfig;
@@ -23,12 +20,13 @@ public final class ModFeatures {
     public static final Map<String, Feature> FEATURES_TO_REGISTER = new LinkedHashMap<>();
 
     //structures
-    public static final Structure<NoFeatureConfig> BROKEN_STRUCTURE = register("broken_structure", new BrokenStructure());
+    public static final Structure<NoFeatureConfig> BROKEN_TOWER_STRUCTURE = register("broken_tower", new BrokenTowerStructure());
+    public static final Structure<NoFeatureConfig> BROKEN_BUILDING_STRUCTURE = register("broken_building", new BrokenBuildingStructure());
     public static final Structure<NoFeatureConfig> MAGIC_HOUSE_STRUCTURE = register("magic_house_structure", new MagicHouseStructure());
 
-    public static final IStructurePieceType BROKEN_TOWER = IStructurePieceType.register(BrokenStructurePieces.Piece::new, "BRTO");
-    public static final IStructurePieceType BROKEN_BUILDING = IStructurePieceType.register(BrokenStructurePieces.Piece::new, "BRBU");
-    public static final IStructurePieceType MAGIC_HOUSE = IStructurePieceType.register(MagicHouseStructurePieces.Piece::new, "MAHO");
+    public static final IStructurePieceType BROKEN_TOWER = IStructurePieceType.register(BrokenTowerPiece.Piece::new, "BRTO");
+    public static final IStructurePieceType BROKEN_BUILDING = IStructurePieceType.register(BrokenBuildingPiece.Piece::new, "BRBU");
+    public static final IStructurePieceType MAGIC_HOUSE = IStructurePieceType.register(MagicHouseStructurePiece.Piece::new, "MAHO");
 
 
     private ModFeatures(){}

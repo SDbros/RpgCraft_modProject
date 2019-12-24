@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X X",
+    "X#X",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "rpgcraft:purple_goo"
+    },
+    "#": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "result": {
+    "item": "rpgcraft:summoner_chestplate"
+  }
+}

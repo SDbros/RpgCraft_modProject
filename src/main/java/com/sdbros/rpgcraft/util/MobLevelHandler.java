@@ -1,14 +1,10 @@
 package com.sdbros.rpgcraft.util;
 
-import com.sdbros.rpgcraft.capability.MobCapability;
+import com.sdbros.rpgcraft.capabilities.MobCapability;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.monster.IMob;
-
-
-import java.util.Random;
 
 public final class MobLevelHandler {
 

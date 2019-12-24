@@ -1,7 +1,8 @@
 package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.entity.mobs.*;
+import com.sdbros.rpgcraft.entity.*;
+import com.sdbros.rpgcraft.entity.boss.CrazedSummonerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;

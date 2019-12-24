@@ -1,22 +1,13 @@
 package com.sdbros.rpgcraft.init;
 
-import com.mojang.datafixers.types.Type;
 import com.sdbros.rpgcraft.RpgCraft;
 import com.sdbros.rpgcraft.block.BlocksRC;
 import com.sdbros.rpgcraft.block.Ores;
-import com.sdbros.rpgcraft.block.radioTower.RadioTowerTileEntity;
 import net.minecraft.block.*;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.BlockItem;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.LazyLoadBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.ForgeRegistries;
 
 

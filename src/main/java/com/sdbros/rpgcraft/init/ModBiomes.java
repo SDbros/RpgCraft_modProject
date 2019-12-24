@@ -1,10 +1,10 @@
 package com.sdbros.rpgcraft.init;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.world.gen.biomes.FloatingMagicMountains;
+import com.sdbros.rpgcraft.biomes.FloatingMagicMountains;
 import com.sdbros.rpgcraft.world.dimension.unstable.UnstableBiomeProvider;
 import com.sdbros.rpgcraft.world.dimension.unstable.UnstableChunkGenerator;
-import com.sdbros.rpgcraft.world.gen.biomes.MagicMountains;
+import com.sdbros.rpgcraft.biomes.MagicMountains;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProviderType;

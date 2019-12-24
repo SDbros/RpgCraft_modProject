@@ -1,8 +1,8 @@
 package com.sdbros.rpgcraft.event;
 
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.capability.MobCapability;
-import com.sdbros.rpgcraft.capability.PlayerCapability;
+import com.sdbros.rpgcraft.capabilities.MobCapability;
+import com.sdbros.rpgcraft.capabilities.PlayerCapability;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;

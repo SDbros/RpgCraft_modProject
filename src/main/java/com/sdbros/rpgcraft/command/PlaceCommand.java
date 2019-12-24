@@ -3,7 +3,7 @@ package com.sdbros.rpgcraft.command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.sdbros.rpgcraft.world.gen.features.FeatureManager;
+import com.sdbros.rpgcraft.world.features.FeatureManager;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
@@ -13,11 +13,11 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 
-public class PlaceCommand extends BasicCommand {
+public class PlaceCommand {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("rpgcraft").requires(source ->
-                source.hasPermissionLevel(PERMISSION_LEVEL_ADMIN));
+                source.hasPermissionLevel(3));
         builder
                 .then(Commands.literal("place")
                         .then(Commands.argument("feature", StringArgumentType.word())

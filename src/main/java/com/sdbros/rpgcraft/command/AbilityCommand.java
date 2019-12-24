@@ -7,10 +7,10 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.sdbros.rpgcraft.RpgCraft;
-import com.sdbros.rpgcraft.capability.Abilities;
-import com.sdbros.rpgcraft.capability.AbilityData;
-import com.sdbros.rpgcraft.capability.MobCapability;
-import com.sdbros.rpgcraft.capability.PlayerCapability;
+import com.sdbros.rpgcraft.capabilities.Abilities;
+import com.sdbros.rpgcraft.capabilities.AbilityData;
+import com.sdbros.rpgcraft.capabilities.MobCapability;
+import com.sdbros.rpgcraft.capabilities.PlayerCapability;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.ISuggestionProvider;
@@ -18,15 +18,13 @@ import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nonnull;
-
-import static com.sdbros.rpgcraft.capability.Abilities.ABILITY_REGISTRY;
+import static com.sdbros.rpgcraft.capabilities.Abilities.ABILITY_REGISTRY;
 
 
-public class AbilityCommand extends BasicCommand {
+public class AbilityCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralArgumentBuilder<CommandSource> builder = Commands.literal("rpgcraft").requires(source ->
-                source.hasPermissionLevel(PERMISSION_LEVEL_CHEAT));
+                source.hasPermissionLevel(2));
         builder
                 .then(Commands.literal("ability")
                         .then(Commands.literal("add")

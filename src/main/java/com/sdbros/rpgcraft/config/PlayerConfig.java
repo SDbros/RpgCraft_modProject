@@ -15,10 +15,10 @@ public class PlayerConfig {
 
         startingHealth = builder
                 .comment("The amount of half hearts a player starts with")
-                .defineInRange("startingHealth", -10, -19, 60);
+                .defineInRange("startingHealth", 10, 1, 60);
         minHealth = builder
                 .comment("The minimum amount of  half hearts a player can have")
-                .defineInRange("minHealth", -10, -19, 60);
+                .defineInRange("minHealth", 2, 0, 60);
         maxHealth = builder
                 .comment("The maximum amount of half hearts a player can have")
                 .defineInRange("maxHealth", 20, 2, 60);

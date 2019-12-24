@@ -6,6 +6,7 @@ import com.sdbros.rpgcraft.item.armours.ArmourMaterials;
 import com.sdbros.rpgcraft.item.ItemsRC;
 import com.sdbros.rpgcraft.item.Tools;
 import com.sdbros.rpgcraft.item.armours.RuniteArmour;
+import com.sdbros.rpgcraft.item.armours.SummonerArmour;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -38,7 +39,12 @@ public final class ModItems {
                         RuniteArmour.runite_helmet = new RuniteArmour(ArmourMaterials.RUNITE, EquipmentSlotType.HEAD, new Item.Properties().group(RpgCraft.ITEM_GROUP)).setRegistryName(RpgCraft.RESOURCE_PREFIX + "runite_helmet"),
                         RuniteArmour.runite_chestplate = new RuniteArmour(ArmourMaterials.RUNITE, EquipmentSlotType.CHEST, new Item.Properties().group(RpgCraft.ITEM_GROUP)).setRegistryName(RpgCraft.RESOURCE_PREFIX + "runite_chestplate"),
                         RuniteArmour.runite_leggings = new RuniteArmour(ArmourMaterials.RUNITE, EquipmentSlotType.LEGS, new Item.Properties().group(RpgCraft.ITEM_GROUP)).setRegistryName(RpgCraft.RESOURCE_PREFIX + "runite_leggings"),
-                        RuniteArmour.runite_boots = new RuniteArmour(ArmourMaterials.RUNITE, EquipmentSlotType.FEET, new Item.Properties().group(RpgCraft.ITEM_GROUP)).setRegistryName(RpgCraft.RESOURCE_PREFIX + "runite_boots")
+                        RuniteArmour.runite_boots = new RuniteArmour(ArmourMaterials.RUNITE, EquipmentSlotType.FEET, new Item.Properties().group(RpgCraft.ITEM_GROUP)).setRegistryName(RpgCraft.RESOURCE_PREFIX + "runite_boots"),
+
+                        SummonerArmour.summoner_helmet = new SummonerArmour(ArmourMaterials.SUMMONER, EquipmentSlotType.HEAD, new Item.Properties().group(RpgCraft.ITEM_GROUP)).setRegistryName(RpgCraft.RESOURCE_PREFIX + "summoner_helmet"),
+                        SummonerArmour.summoner_chestplate = new SummonerArmour(ArmourMaterials.SUMMONER, EquipmentSlotType.CHEST, new Item.Properties().group(RpgCraft.ITEM_GROUP)).setRegistryName(RpgCraft.RESOURCE_PREFIX + "summoner_chestplate"),
+                        SummonerArmour.summoner_leggings = new SummonerArmour(ArmourMaterials.SUMMONER, EquipmentSlotType.LEGS, new Item.Properties().group(RpgCraft.ITEM_GROUP)).setRegistryName(RpgCraft.RESOURCE_PREFIX + "summoner_leggings"),
+                        SummonerArmour.summoner_boots = new SummonerArmour(ArmourMaterials.SUMMONER, EquipmentSlotType.FEET, new Item.Properties().group(RpgCraft.ITEM_GROUP)).setRegistryName(RpgCraft.RESOURCE_PREFIX + "summoner_boots")
                 );
 
         // Items

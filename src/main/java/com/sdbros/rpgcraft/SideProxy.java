@@ -1,14 +1,13 @@
 package com.sdbros.rpgcraft;
 
-import com.sdbros.rpgcraft.capability.ItemCapability;
-import com.sdbros.rpgcraft.capability.MobCapability;
-import com.sdbros.rpgcraft.capability.PlayerCapability;
-import com.sdbros.rpgcraft.entity.mobs.*;
-import com.sdbros.rpgcraft.entity.render.*;
+import com.sdbros.rpgcraft.capabilities.ItemCapability;
+import com.sdbros.rpgcraft.capabilities.MobCapability;
+import com.sdbros.rpgcraft.capabilities.PlayerCapability;
+import com.sdbros.rpgcraft.client.renderer.entity.*;
+import com.sdbros.rpgcraft.entity.*;
+import com.sdbros.rpgcraft.entity.boss.CrazedSummonerEntity;
 import com.sdbros.rpgcraft.init.*;
-import com.sdbros.rpgcraft.network.Network;
-import com.sdbros.rpgcraft.world.gen.features.FeatureManager;
-import com.sdbros.rpgcraft.world.gen.features.RpgCraftBiomeFeatures;
+import com.sdbros.rpgcraft.world.features.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityType;
@@ -51,7 +50,6 @@ class SideProxy {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         RpgCraft.LOGGER.info("Setup method registered.");
-        Network.init();
         MobCapability.register();
         PlayerCapability.register();
         ItemCapability.register();
