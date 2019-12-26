@@ -22,7 +22,7 @@ public class ModEntities {
     public static final LazyLoadBase<EntityType<MutantZombieEntity>> MUTANT_ZOMBIE = makeType("mutant_zombie", MutantZombieEntity::new);
     public static final LazyLoadBase<EntityType<LumberjackEntity>> LUMBERJACK = makeType("lumberjack", LumberjackEntity::new);
     public static final LazyLoadBase<EntityType<CrazedSummonerEntity>> CRAZED_SUMMONER = makeType("crazed_summoner", CrazedSummonerEntity::new);
-
+    public static final LazyLoadBase<EntityType<CloudSlimeEntity>> CLOUD_SLIME = makeType("cloud_slime", CloudSlimeEntity::new);
 
     //eggs
     static Item cluster_creeper_spawn_egg;
@@ -30,6 +30,7 @@ public class ModEntities {
     static Item mutant_zombie_variant_spawn_egg;
     static Item lumberjack_spawn_egg;
     static Item crazed_summoner_spawn_egg;
+    static Item cloud_slime_spawn_egg;
 
     public static void registerEntityTypes(RegistryEvent.Register<EntityType<?>> event) {
         //register types
@@ -38,11 +39,13 @@ public class ModEntities {
         registerEntity("mutant_zombie", MUTANT_ZOMBIE.getValue());
         registerEntity("lumberjack", LUMBERJACK.getValue());
         registerEntity("crazed_summoner", CRAZED_SUMMONER.getValue());
+        registerEntity("cloud_slime", CLOUD_SLIME.getValue());
 
         //register placement
         EntitySpawnPlacementRegistry.register(CLUSTER_CREEPER.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, ClusterCreeperEntity::canSpawnAt);
         EntitySpawnPlacementRegistry.register(RED_CREEPER.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, RedCreeperEntity::canSpawnAt);
         EntitySpawnPlacementRegistry.register(MUTANT_ZOMBIE.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING, MutantZombieEntity::canSpawnAt);
+        EntitySpawnPlacementRegistry.register(CLOUD_SLIME.getValue(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, CloudSlimeEntity::canSpawnAt);
     }
 
     private static <T extends Entity> LazyLoadBase<EntityType<T>> makeType(String name, EntityType.IFactory<T> factory) {
@@ -56,7 +59,8 @@ public class ModEntities {
                         red_creeper_spawn_egg = registerEntitySpawnEgg(RED_CREEPER.getValue(), 0xd12e2e, 0x000000, "red_creeper_spawn_egg"),
                         mutant_zombie_variant_spawn_egg = registerEntitySpawnEgg(MUTANT_ZOMBIE.getValue(), 0x4e9154, 0x000001, "mutant_zombie_spawn_egg"),
                         lumberjack_spawn_egg = registerEntitySpawnEgg(LUMBERJACK.getValue(), 0x963a33, 0xffffff, "lumberjack_spawn_egg"),
-                        crazed_summoner_spawn_egg = registerEntitySpawnEgg(CRAZED_SUMMONER.getValue(), 0x1B8DA0, 0x4e9154, "crazed_summoner_spawn_egg")
+                        crazed_summoner_spawn_egg = registerEntitySpawnEgg(CRAZED_SUMMONER.getValue(), 0x1B8DA0, 0x4e9154, "crazed_summoner_spawn_egg"),
+                        cloud_slime_spawn_egg = registerEntitySpawnEgg(CLOUD_SLIME.getValue(), 0xd9ecff, 0x326da8, "cloud_slime_spawn_egg")
                 );
     }
 

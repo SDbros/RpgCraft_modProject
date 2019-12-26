@@ -102,6 +102,7 @@ class SideProxy {
             RenderingRegistry.registerEntityRenderingHandler(ClusterCreeperEntity.class, ClusterCreeperRender::new);
             RenderingRegistry.registerEntityRenderingHandler(LumberjackEntity.class, LumberjackRender::new);
             RenderingRegistry.registerEntityRenderingHandler(CrazedSummonerEntity.class, CrazedSummonerRender::new);
+            RenderingRegistry.registerEntityRenderingHandler(CloudSlimeEntity.class, CloudSlimeRender::new);
         }
 
         @Nullable
