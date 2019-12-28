@@ -3,7 +3,9 @@ package com.sdbros.rpgcraft;
 import com.sdbros.rpgcraft.capabilities.ItemCapability;
 import com.sdbros.rpgcraft.capabilities.MobCapability;
 import com.sdbros.rpgcraft.capabilities.PlayerCapability;
+import com.sdbros.rpgcraft.client.gui.HealthBarRender;
 import com.sdbros.rpgcraft.client.renderer.entity.*;
+import com.sdbros.rpgcraft.config.NeatBarConfig;
 import com.sdbros.rpgcraft.entity.*;
 import com.sdbros.rpgcraft.entity.boss.CrazedSummonerEntity;
 import com.sdbros.rpgcraft.init.*;
@@ -50,6 +52,7 @@ class SideProxy {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         RpgCraft.LOGGER.info("Setup method registered.");
+        NeatBarConfig.init();
         MobCapability.register();
         PlayerCapability.register();
         ItemCapability.register();
@@ -95,6 +98,11 @@ class SideProxy {
 
         private void clientSetup(FMLClientSetupEvent event) {
             RpgCraft.LOGGER.debug("RpgCraft clientSetup");
+            NeatBarConfig.load();
+
+
+            MinecraftForge.EVENT_BUS.register(new HealthBarRender());
+
 
             //Mobs
             RenderingRegistry.registerEntityRenderingHandler(MutantZombieEntity.class, MutantZombieRender::new);

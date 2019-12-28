@@ -37,6 +37,7 @@ public class LevelEventHandler {
         if (entity instanceof MobEntity) {
             entity.getCapability(MobCapability.MOB_INSTANCE).ifPresent(affected -> {
                 affected.tick((MobEntity) entity);
+                //System.out.println(affected.getLevel());
             });
         }
         if (entity instanceof PlayerEntity) {
